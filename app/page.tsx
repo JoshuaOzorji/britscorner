@@ -1,3 +1,11 @@
-export default function Home() {
-	return <div>page</div>;
-}
+import IndexPage from "./components/postLists";
+
+const page = () => {
+	return (
+		<div>
+			<IndexPage />
+		</div>
+	);
+};
+
+export default page;
