@@ -27,14 +27,14 @@ export default async function IndexPage() {
 	console.log(posts);
 
 	return (
-		<main className='flex bg-gray-100 min-h-screen flex-col p-24 gap-12'>
-			<h1 className='text-4xl font-bold tracking-tighter'>
+		<main className='flex flex-col min-h-screen gap-12 p-24 bg-gray-100'>
+			<h1 className='text-6xl font-medium tracking-tighter font-poppins'>
 				All Posts
 			</h1>
-			<ul className='grid grid-cols-1 gap-12 lg:grid-cols-2'>
+			<ul className='grid grid-cols-1 gap-12 lg:grid-cols-2 font-inconsolata'>
 				{posts.map((post) => (
 					<li
-						className='bg-white p-4 rounded-lg'
+						className='p-4 bg-white rounded-lg'
 						key={post._id}>
 						<Link
 							className='hover:underline'
