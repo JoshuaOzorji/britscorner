@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Poppins, Gothic_A1, Ruda } from "next/font/google";
+import {
+	Poppins,
+	Gothic_A1,
+	Inconsolata,
+	Josefin_Sans,
+} from "next/font/google";
 
 const poppins = Poppins({
 	subsets: ["latin"],
@@ -16,11 +21,18 @@ const gothic = Gothic_A1({
 	weight: "400",
 });
 
-const ruda = Ruda({
+const inconsolata = Inconsolata({
 	subsets: ["latin"],
-	variable: "--font-ruda",
+	variable: "--font-inconsolata",
 	display: "swap",
-	weight: ["400", "500", "600", "700", "800", "900"],
+	weight: ["400", "500", "600", "700"],
+});
+
+const josefin = Josefin_Sans({
+	subsets: ["latin"],
+	variable: "--font-josefin",
+	display: "swap",
+	weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -36,7 +48,7 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={`${poppins.variable} ${gothic.variable} ${ruda.variable}  antialiased`}>
+				className={`${poppins.variable} ${gothic.variable} ${inconsolata.variable} ${josefin.variable} antialiased`}>
 				{children}
 			</body>
 		</html>

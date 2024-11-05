@@ -21,17 +21,17 @@ interface Post {
 	body: any[];
 }
 
-export default async function IndexPage() {
+export default async function HomePage() {
 	const posts: Post[] = await client.fetch(POSTS_QUERY, {}, options);
 
 	console.log(posts);
 
 	return (
 		<main className='flex flex-col min-h-screen gap-12 p-24 bg-gray-100'>
-			<h1 className='text-6xl font-medium tracking-tighter font-poppins'>
+			<h1 className='text-6xl font-bold tracking-tighter font-poppins'>
 				All Posts
 			</h1>
-			<ul className='grid grid-cols-1 gap-12 lg:grid-cols-2 font-inconsolata'>
+			<ul className='grid grid-cols-1 gap-12 lg:grid-cols-2 font-josefin'>
 				{posts.map((post) => (
 					<li
 						className='p-4 bg-white rounded-lg'

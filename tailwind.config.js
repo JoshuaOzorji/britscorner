@@ -19,7 +19,13 @@ module.exports = {
 			},
 
 			fontFamily: {
-				ruda: ["var(--font-ruda)", "sans-serif"],
+				inconsolata: [
+					"var(--font-inconsolata)",
+					"sans-serif",
+				],
+				gothic: ["var(--font-gothic)", "sans-serif"],
+				poppins: ["var(--font-poppins)", "sans-serif"],
+				josefin: ["var(--font-josefin)", "sans-serif"],
 			},
 
 			borderRadius: {
