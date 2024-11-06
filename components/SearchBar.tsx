@@ -1,13 +1,12 @@
 import {
-	Dialog,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-	DialogClose,
-} from "@/components/ui/dialog";
-import { TfiClose } from "react-icons/tfi";
+	Sheet,
+	SheetContent,
+	SheetHeader,
+	SheetTitle,
+	SheetClose,
+} from "@/components/ui/sheet";
 import { CiSearch } from "react-icons/ci";
-
+import { TfiClose } from "react-icons/tfi";
 interface SearchBarProps {
 	isOpen: boolean;
 	onClose: () => void;
@@ -15,31 +14,32 @@ interface SearchBarProps {
 
 const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 	return (
-		<Dialog open={isOpen} onOpenChange={onClose}>
-			<DialogContent className='top-0 left-0 max-w-full mx-auto translate-x-0 translate-y-0 rounded-none font-inconsolata'>
-				<DialogHeader className='w-[90%] mx-auto'>
-					<DialogTitle className='flex items-center justify-between gap-4'>
+		<Sheet open={isOpen} onOpenChange={onClose}>
+			<SheetContent
+				side='top'
+				className='p-3 font-inconsolata md:p-4'>
+				<SheetHeader className='w-[94%] md:w-[90%] mx-auto p'>
+					<SheetTitle className='flex items-center justify-between gap-4 w-[100%] md:w-[80%] mx-auto px-1 '>
 						<div className='relative w-full'>
 							<button>
 								<CiSearch className='absolute w-6 h-6 text-gray-500 transform -translate-y-1/2 right-3 top-1/2' />
 							</button>
+
 							<input
 								type='text'
 								name=''
 								placeholder='Search...'
-								className='w-full p-2 border focus:outline-none'
+								className='w-full p-2 border-2 border-black focus:outline-none'
 							/>
 						</div>
 
-						<DialogClose asChild>
-							<button>
-								<TfiClose className='h-7 w-7' />
-							</button>
-						</DialogClose>
-					</DialogTitle>
-				</DialogHeader>
-			</DialogContent>
-		</Dialog>
+						<SheetClose>
+							<TfiClose className='cursor-pointer h-7 w-7' />
+						</SheetClose>
+					</SheetTitle>
+				</SheetHeader>
+			</SheetContent>
+		</Sheet>
 	);
 };
 
