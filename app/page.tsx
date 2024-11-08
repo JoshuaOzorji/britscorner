@@ -1,11 +1,12 @@
+import HeroMain from "@/components/hero/HeroMain";
 import Header from "../components/Header";
-import IndexPage from "../components/postLists";
 
 const page = () => {
 	return (
 		<div>
 			<Header />
-			<IndexPage />
+			{/* <IndexPage /> */}
+			<HeroMain />
 		</div>
 	);
 };

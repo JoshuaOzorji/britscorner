@@ -23,7 +23,7 @@ interface MobileNavProps {
 
 const MobileNav = ({ onToggleSearch }: MobileNavProps) => {
 	return (
-		<div className='flex items-center justify-between p-2 font-inconsolata'>
+		<div className='flex items-center justify-between p-2 font-inconsolata border-b'>
 			{/* MENU LINK */}
 			<Sheet>
 				<SheetTrigger>
