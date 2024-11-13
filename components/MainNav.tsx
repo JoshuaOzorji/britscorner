@@ -13,14 +13,14 @@ interface MainNavProps {
 
 const MainNav = ({ onToggleSearch }: MainNavProps) => {
 	return (
-		<nav className='border-b'>
-			<div className='flex items-center justify-between w-[90%] mx-auto p-4 '>
+		<nav className='border-b font-inconsolata'>
+			<div className='flex items-center justify-between w-[90%] mx-auto p-4'>
 				<Link href='/'>
 					<Image src={logo} alt='logo' />
 				</Link>
 
 				<div className='flex items-center gap-5'>
-					<ul className='flex gap-4 text-xl font-inconsolata'>
+					<ul className='flex gap-4 text-xl'>
 						{navItems.map((item, index) => (
 							<li key={index}>
 								{item}

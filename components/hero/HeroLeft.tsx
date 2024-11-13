@@ -3,6 +3,7 @@ import { client } from "@/sanity/lib/client";
 import { Post } from "@/types";
 import { defineQuery } from "next-sanity";
 import urlFor from "@/sanity/lib/urlFor";
+import { MdPlayArrow } from "react-icons/md";
 
 const options = { next: { revalidate: 60 } };
 const featuredPostsQuery = defineQuery(`
@@ -38,12 +39,11 @@ const HeroLeft = async () => {
 	}
 
 	return (
-		<div className='font-poppins'>
+		<div className='px-4 py-1 border-r font-poppins'>
 			{featuredPosts.map((post, index) => (
 				<div
 					key={post.slug?.current}
-					className={`flex flex-col ${index === 0 ? "first-item-class" : "other-item-class"} ${index !== featuredPosts.length - 1 ? "border-b border-gray-300 pb-4 mb-4" : ""}`}>
-					{/* Render image only for the first item */}
+					className={`flex flex-col ${index === 0 ? "first-item-class" : "other-item-class"} ${index !== featuredPosts.length - 1 ? "border-b mb-2 pb-2" : ""}`}>
 					{index === 0 &&
 						post.mainImage?.asset?.url && (
 							<Image
@@ -56,32 +56,40 @@ const HeroLeft = async () => {
 										.alt ||
 									"Post image"
 								}
-								className='h-[28vh] sm:h-[26vh] md:h-[30vh] object-cover object-center rounded-lg'
+								className='h-[28vh] sm:h-[20vh] md:h-[20vh] object-cover object-center rounded-lg'
 								width={300}
 								height={300}
 							/>
 						)}
-					<div>
-						<div>
-							{post.categories.map(
-								(category) => (
-									<span
-										key={
-											category.title
-										}
-										className='uppercase text-xs font-bold'>
-										{
-											category.title
-										}
-									</span>
-								),
-							)}
+
+					<div className='py-1'>
+						<div className='flex items-center gap-1'>
+							<MdPlayArrow className='w-3 h-3' />
+							<div className='flex space-x-1'>
+								{post.categories.map(
+									(
+										category,
+									) => (
+										<span
+											key={
+												category.title
+											}
+											className='uppercase text-[10px] font-bold text-gray-500'>
+											<span className='flex'>
+												{
+													category.title
+												}
+											</span>
+										</span>
+									),
+								)}
+							</div>
 						</div>
 
-						<h2 className='text-xl font-bold capitalize'>
+						<h2 className='text-[18px] font-bold capitalize tracking-tight leading-[23px]'>
 							{post.title}
 						</h2>
-						<div className='text-sm'>
+						<div className='author-date'>
 							<p>
 								by{" "}
 								<span className='underline'>

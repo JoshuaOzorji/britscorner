@@ -37,7 +37,7 @@ const MobileNav = ({ onToggleSearch }: MobileNavProps) => {
 						</SheetClose>
 						<SheetTitle></SheetTitle>
 						<SheetDescription className=''>
-							<ul className='flex flex-col gap-4 text-2xl sm:text-4xl font-inconsolata'>
+							<ul className='flex flex-col gap-4 text-2xl sm:text-4xl'>
 								{navItems.map(
 									(
 										item,

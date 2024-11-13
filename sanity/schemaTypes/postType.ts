@@ -51,6 +51,18 @@ export const postType = defineType({
 			name: "publishedAt",
 			type: "datetime",
 		}),
+
+		defineField({
+			name: "description",
+			type: "text",
+			title: "description",
+			description: "A brief summary of the post content",
+			validation: (Rule) =>
+				Rule.max(180).warning(
+					"Short description should be under 200 characters",
+				),
+		}),
+
 		defineField({
 			name: "body",
 			type: "blockContent",

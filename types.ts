@@ -11,5 +11,6 @@ export interface Post {
 	};
 	categories: { title: string }[];
 	publishedAt: string;
+	shortDescription: string;
 	body: unknown;
 }
