@@ -5,7 +5,7 @@ const page = () => {
 	return (
 		<div>
 			<Header />
-			<div className='mx-10 my-6'>
+			<div className='mx-4 my-2 md:my-6 md:mx-10'>
 				<HeroMain />
 			</div>
 		</div>
