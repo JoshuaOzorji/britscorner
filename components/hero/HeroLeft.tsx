@@ -4,6 +4,7 @@ import { Post } from "@/types";
 import { defineQuery } from "next-sanity";
 import urlFor from "@/sanity/lib/urlFor";
 import { MdPlayArrow } from "react-icons/md";
+import ClientSideRoute from "../ClientSideRoute";
 
 const options = { next: { revalidate: 60 } };
 const featuredPostsQuery = defineQuery(`
@@ -39,10 +40,11 @@ const HeroLeft = async () => {
 	}
 
 	return (
-		<div className='px-4 py-1 border-r font-poppins'>
+		<div className='px-4 py-4 border-t md:border-t-0 md:border-r font-poppins'>
 			{featuredPosts.map((post, index) => (
-				<div
-					key={post.slug?.current}
+				<ClientSideRoute
+					key={post._id}
+					href={`/post/${post.slug?.current}`}
 					className={`flex flex-col ${index === 0 ? "first-item-class" : "other-item-class"} ${index !== featuredPosts.length - 1 ? "border-b mb-2 pb-2" : ""}`}>
 					{index === 0 &&
 						post.mainImage?.asset?.url && (
@@ -108,7 +110,7 @@ const HeroLeft = async () => {
 							</p>
 						</div>
 					</div>
-				</div>
+				</ClientSideRoute>
 			))}
 		</div>
 	);

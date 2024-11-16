@@ -3,8 +3,10 @@ import { client } from "@/sanity/lib/client";
 import { Post } from "@/types";
 import { defineQuery } from "next-sanity";
 import { MdPlayArrow } from "react-icons/md";
+import ClientSideRoute from "../ClientSideRoute";
 
 const options = { next: { revalidate: 60 } };
+
 const featuredPostsQuery = defineQuery(`
   *[_type == "post" && "AI" in categories[]->title] | order(publishedAt desc) [0..2]{
     title,
@@ -42,10 +44,11 @@ const HeroMid = async () => {
 		<div className='flex flex-wrap gap-x-4 font-poppins'>
 			{featuredPosts.map((post, index) =>
 				index === 0 ? (
-					<div
-						key={post.slug?.current}
-						className='w-full mb-4'>
-						<div className='flex flex-col items-center w-full gap-4 pb-4 border-b'>
+					<ClientSideRoute
+						className='flex flex-col items-center w-full gap-4 pb-4 border-b'
+						href={`/post/${post.slug?.current}`}
+						key={post._id}>
+						<div className=''>
 							{post.mainImage?.asset
 								?.url && (
 								<Image
@@ -70,7 +73,7 @@ const HeroMid = async () => {
 									className='object-cover object-center w-full rounded-lg'
 								/>
 							)}
-							<section className='flex flex-col items-center gap-1 text-left md:text-center'>
+							<section className='flex flex-col items-center gap-1 px-4 text-left md:text-center'>
 								<div className='flex items-center gap-1 md:p-1'>
 									<MdPlayArrow className='w-3 h-3' />
 									<div className='flex space-x-1'>
@@ -104,6 +107,7 @@ const HeroMid = async () => {
 								<div className='author-date'>
 									<p>
 										by{" "}
+										<span className='underline'></span>
 										{
 											post
 												.author
@@ -118,12 +122,13 @@ const HeroMid = async () => {
 								</div>
 							</section>
 						</div>
-					</div>
+					</ClientSideRoute>
 				) : (
-					<section
-						key={post.slug?.current}
-						className='flex-1'>
-						<div className='flex flex-col'>
+					<ClientSideRoute
+						key={post._id}
+						href={`/post/${post.slug?.current}`}
+						className='w-full px-4 my-2 md:w-auto md:flex-1 md:mb-0 md:px-0 md:my-0'>
+						<div className='flex flex-row gap-2 md:gap-4 md:my-4'>
 							{post.mainImage?.asset
 								?.url && (
 								<Image
@@ -145,13 +150,13 @@ const HeroMid = async () => {
 									height={
 										120
 									}
-									className='object-cover object-center w-full rounded-lg h-[20vh]'
+									className='object-cover object-center rounded-lg h-[20vh] w-[100px]'
 								/>
 							)}
-							<section className='flex flex-col justify-between pt-4'>
-								<div className='flex items-center gap-1 p-1'>
+							<section className='flex flex-col py-1 md:gap-'>
+								<div className='flex items-center gap-1'>
 									<MdPlayArrow className='w-3 h-3' />
-									<div className='flex space-x-1'>
+									<div className='flex flex-wrap space-x-1'>
 										{post.categories.map(
 											(
 												category,
@@ -169,24 +174,22 @@ const HeroMid = async () => {
 										)}
 									</div>
 								</div>
-								<h2 className='my-1 text-base font-bold'>
+								<h2 className='text-base font-bold capitalize tracking-tight leading-[20px] my-2 md:my-1'>
 									{
 										post.title
 									}
 								</h2>
-								<p className='text-sm font-gothic'>
-									{
-										post.shortDescription
-									}
-								</p>
+
 								<div className='author-date'>
 									<p>
 										by{" "}
-										{
-											post
-												.author
-												?.name
-										}
+										<span className='underline'>
+											{
+												post
+													.author
+													?.name
+											}
+										</span>
 									</p>
 									<p>
 										{new Date(
@@ -196,7 +199,7 @@ const HeroMid = async () => {
 								</div>
 							</section>
 						</div>
-					</section>
+					</ClientSideRoute>
 				),
 			)}
 		</div>

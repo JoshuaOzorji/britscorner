@@ -3,6 +3,7 @@ import { client } from "@/sanity/lib/client";
 import { Post } from "@/types";
 import { defineQuery } from "next-sanity";
 import { MdPlayArrow } from "react-icons/md";
+import ClientSideRoute from "../ClientSideRoute";
 
 const options = { next: { revalidate: 60 } };
 const latestPostsQuery = defineQuery(`
@@ -38,11 +39,14 @@ const HeroRight = async () => {
 	}
 
 	return (
-		<div className='px-4 py-1 border-l font-poppins'>
-			<h2 className='font-bold'>LATEST POSTS</h2>
+		<div className='px-4 py-1 border-t md:border-t-0 md:border-l font-poppins'>
+			<h2 className='font-bold font-inconsolata'>
+				LATEST POSTS
+			</h2>
 			{latestPosts.map((post, index) => (
-				<div
-					key={post.slug?.current}
+				<ClientSideRoute
+					key={post._id}
+					href={`/post/${post.slug?.current}`}
 					className={`flex ${
 						index === 0
 							? "flex-col"
@@ -91,7 +95,7 @@ const HeroRight = async () => {
 											key={
 												category.title
 											}
-											className='text-gray-500 uppercase text-[10px] font-bold '>
+											className='text-gray-500 uppercase text-[10px] font-bold'>
 											{
 												category.title
 											}
@@ -101,7 +105,7 @@ const HeroRight = async () => {
 							</div>
 						</div>
 
-						<h2 className='text-base text-[16px] font-bold capitalize tracking-tight leading-[20px]'>
+						<h2 className='text-base font-bold capitalize tracking-tight leading-[20px] my-2 md:my-1'>
 							{post.title}
 						</h2>
 						<div className='author-date'>
@@ -122,7 +126,7 @@ const HeroRight = async () => {
 							</p>
 						</div>
 					</div>
-				</div>
+				</ClientSideRoute>
 			))}
 		</div>
 	);

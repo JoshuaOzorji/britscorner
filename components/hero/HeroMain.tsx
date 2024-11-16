@@ -4,7 +4,7 @@ import HeroRight from "./HeroRight";
 
 const HeroMain = () => {
 	return (
-		<div className='flex flex-col gap-4 md:flex-row'>
+		<div className='flex flex-col gap-4 md:flex-row border-b'>
 			<div className='order-1 md:order-2 md:w-[50%]'>
 				<HeroMid />
 			</div>
