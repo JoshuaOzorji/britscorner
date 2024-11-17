@@ -6,6 +6,7 @@ import {
 	Inconsolata,
 	Josefin_Sans,
 } from "next/font/google";
+import BaseLayout from "@/components/BaseLayout";
 
 const poppins = Poppins({
 	subsets: ["latin"],
@@ -49,7 +50,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body
 				className={`${poppins.variable} ${gothic.variable} ${inconsolata.variable} ${josefin.variable} antialiased`}>
-				{children}
+				<BaseLayout>{children}</BaseLayout>
 			</body>
 		</html>
 	);

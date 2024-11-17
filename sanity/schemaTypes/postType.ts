@@ -53,13 +53,13 @@ export const postType = defineType({
 		}),
 
 		defineField({
-			name: "description",
+			name: "shortDescription",
 			type: "text",
-			title: "description",
+			title: "shortDescription",
 			description: "A brief summary of the post content",
 			validation: (Rule) =>
-				Rule.max(180).warning(
-					"Short description should be under 200 characters",
+				Rule.max(300).warning(
+					"Short description should be under 300 characters",
 				),
 		}),
 
