@@ -36,9 +36,9 @@ const PostPage = async ({ params }: PostPageProps) => {
 	if (!post) {
 		return <p>Post not found</p>;
 	}
-	console.log(post);
+
 	return (
-		<article className=''>
+		<article className='prose'>
 			{/* Post Image */}
 			{post.mainImage?.asset?.url && (
 				<Image
@@ -52,7 +52,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 
 			<section className='w-full md:w-[65%]'>
 				{/* Post Title */}
-				<h1 className='mt-4 text-4xl font-bold'>
+				<h1 className='mt-4 text-4xl font-extrabold font-poppins'>
 					{post.title}
 				</h1>
 
@@ -74,19 +74,19 @@ const PostPage = async ({ params }: PostPageProps) => {
 					{post.categories.map((category) => (
 						<span
 							key={category.title}
-							className='px-3 py-1 text-sm text-gray-700 bg-gray-200 rounded-full'>
+							className='px-3 py-1 text-sm text-gray-700 bg-gray-200 rounded-full font-'>
 							{category.title}
 						</span>
 					))}
 				</div>
 
 				{/* Post Description */}
-				<p className='mt-4 text-gray-700 italic font-bold'>
+				<p className='mt-4 font-bold text-gray-700 font-inconsolata'>
 					{post.shortDescription}
 				</p>
 
 				{/* Post Body */}
-				<div className='mt-6 prose'>
+				<div className='mt-6 font-poppins'>
 					{post.body && (
 						<PortableText
 							value={post.body}
