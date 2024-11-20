@@ -3,6 +3,7 @@ import { Post } from "@/types";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import { customSerializers } from "@/lib/customSerializers";
+import Link from "next/link";
 
 interface PostPageProps {
 	params: { slug: string };
@@ -14,7 +15,8 @@ const PostPage = async ({ params }: PostPageProps) => {
       title,
       slug,
       author->{
-        name
+        name,
+				slug
       },
       mainImage{
         asset->{
@@ -55,10 +57,20 @@ const PostPage = async ({ params }: PostPageProps) => {
 				<h1 className='mt-4 text-4xl font-extrabold font-poppins'>
 					{post.title}
 				</h1>
-
-				{/* Post Author */}
 				<p className='mt-2 text-lg text-gray-600'>
-					by {post.author?.name}
+					by{" "}
+					{post.author?.name &&
+						post.author?.slug?.current && (
+							<Link
+								href={`/author/${post.author.slug.current}`}
+								className='text-blue-600 hover:underline'>
+								{
+									post
+										.author
+										.name
+								}
+							</Link>
+						)}
 				</p>
 
 				{/* Post Published Date */}

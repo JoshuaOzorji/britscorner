@@ -4,7 +4,7 @@ export interface Post {
 	_id: string;
 	title: string;
 	slug: { current: string };
-	author?: { name: string };
+	author?: { name: string; slug: { current: string } };
 	mainImage?: {
 		asset: {
 			_ref: string;
