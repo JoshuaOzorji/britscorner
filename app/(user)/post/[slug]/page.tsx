@@ -12,25 +12,28 @@ interface PostPageProps {
 const PostPage = async ({ params }: PostPageProps) => {
 	const post: Post | null = await client.fetch(
 		`*[_type == "post" && slug.current == $slug][0]{
-      title,
-      slug,
-      author->{
-        name,
-				slug
-      },
-      mainImage{
-        asset->{
-          url
-        },
-        alt
-      },
-      categories[]->{
-        title
-      },
-      publishedAt,
-      shortDescription,
-      body
-    }`,
+				title,
+				slug,
+				author->{
+					name,
+					slug
+				},
+				mainImage{
+					asset->{
+						url
+					},
+					alt
+				},
+				categories[]->{
+					title
+				},
+				tags[]->{
+					name
+				},
+				publishedAt,
+				shortDescription,
+				body
+			}`,
 		{ slug: params.slug },
 	);
 
@@ -108,6 +111,19 @@ const PostPage = async ({ params }: PostPageProps) => {
 						/>
 					)}
 				</div>
+
+				{/* Post Tags */}
+				{post.tags && post.tags.length > 0 && (
+					<div className='flex gap-2 mt-10'>
+						{post.tags.map((tag) => (
+							<span
+								key={tag.name}
+								className='px-3 py-1 text-sm text-white bg-slate-700 rounded-full'>
+								{tag.name}
+							</span>
+						))}
+					</div>
+				)}
 			</section>
 		</article>
 	);

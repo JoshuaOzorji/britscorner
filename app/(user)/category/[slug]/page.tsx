@@ -1,4 +1,5 @@
 import { client } from "@/sanity/lib/client";
+import { Category } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,14 +9,14 @@ interface CategoryPageProps {
 
 const CategoryPage = async ({ params }: CategoryPageProps) => {
 	// Fetch category data and related posts
-	const category = await client.fetch(
+	const category: Category = await client.fetch(
 		`
     *[_type == "category" && slug.current == $slug][0]{
         title,
         description,
         "posts": *[_type == "post" && references(^._id)]{
             title,
-            slug,
+            "slug": slug.current,
             mainImage{
                 asset->{
                     url
@@ -56,7 +57,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
 					{category.posts.map((post) => (
 						<div
-							key={post.slug}
+							key={post._id}
 							className='border p-4 rounded-lg shadow'>
 							{post.mainImage?.asset
 								?.url && (
@@ -96,11 +97,9 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 								}
 							</p>
 							<Link
-								href={`/posts/${post.slug}`}>
-								<a className='mt-4 text-blue-600 hover:underline'>
-									Read
-									More
-								</a>
+								href={`/posts/${post.slug}`}
+								className='mt-4 text-blue-600 hover:underline'>
+								Read More
 							</Link>
 						</div>
 					))}

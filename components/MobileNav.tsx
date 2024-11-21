@@ -15,6 +15,7 @@ import logo from "@/public/logo.png";
 import { CiSearch } from "react-icons/ci";
 import { navItems } from "@/lib/data";
 import { TfiClose } from "react-icons/tfi";
+import { useState } from "react";
 
 interface MobileNavProps {
 	isSearchOpen: boolean;
@@ -22,10 +23,16 @@ interface MobileNavProps {
 }
 
 const MobileNav = ({ onToggleSearch }: MobileNavProps) => {
+	const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+	const closeSheet = () => {
+		setIsSheetOpen(false);
+	};
+
 	return (
 		<div className='flex items-center justify-between p-2 font-inconsolata border-b'>
 			{/* MENU LINK */}
-			<Sheet>
+			<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
 				<SheetTrigger>
 					<CiMenuBurger className='w-6 h-6' />
 				</SheetTrigger>
@@ -47,11 +54,15 @@ const MobileNav = ({ onToggleSearch }: MobileNavProps) => {
 											key={
 												index
 											}>
-											<button>
+											<Link
+												href={`/category/${item.toLowerCase()}`}
+												onClick={
+													closeSheet
+												}>
 												{
 													item
 												}
-											</button>
+											</Link>
 										</li>
 									),
 								)}

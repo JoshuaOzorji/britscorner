@@ -2,13 +2,14 @@ import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
+import { Author } from "@/types";
 
 interface AuthorPageProps {
 	params: { slug: string };
 }
 
 const AuthorPage = async ({ params }: AuthorPageProps) => {
-	const author = await client.fetch(
+	const author: Author | null = await client.fetch(
 		`
       *[_type == "author" && slug.current == $slug][0]{
         name,
@@ -72,7 +73,7 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
 					{author.posts.map((post) => (
 						<div
-							key={post.slug}
+							key={post._id}
 							className='border p-4 rounded-lg shadow'>
 							{post.mainImage?.asset
 								?.url && (

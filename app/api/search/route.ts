@@ -1,3 +1,4 @@
+// app/api/search/route.ts
 import { NextResponse } from "next/server";
 import { client } from "@/sanity/lib/client";
 
@@ -15,36 +16,21 @@ export async function GET(request: Request) {
 	try {
 		const results = await client.fetch(
 			`
-        *[
-          _type == "post" &&
-          (title match $query || 
-          tags[].name match $query || 
-          author->name match $query)
-        ]{
+        *[_type == "post" && title match $query || body match $query]{
           _id,
           title,
           slug,
-          author->{
-            name,
-            slug
-          },
           mainImage {
             asset->{
               url
             },
             alt
           },
-          categories[]->{
-            title
-          },
-          tags[]->{
-            name
-          },
           publishedAt,
           shortDescription
         }
       `,
-			{ query: `${query}*` }, // Wildcard search
+			{ query: `${query}*` }, // Using wildcard search
 		);
 
 		return NextResponse.json(results);

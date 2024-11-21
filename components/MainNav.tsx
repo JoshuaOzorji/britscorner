@@ -23,9 +23,10 @@ const MainNav = ({ onToggleSearch }: MainNavProps) => {
 					<ul className='flex gap-4 text-xl'>
 						{navItems.map((item, index) => (
 							<li key={index}>
-								<button>
+								<Link
+									href={`/category/${item.toLowerCase()}`}>
 									{item}
-								</button>
+								</Link>
 							</li>
 						))}
 					</ul>
