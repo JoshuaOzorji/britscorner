@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { client } from "@/sanity/lib/client";
+import { QueryParams } from "sanity";
 
 export async function GET(request: Request) {
 	const { searchParams } = new URL(request.url);
@@ -44,11 +45,13 @@ export async function GET(request: Request) {
           shortDescription
         }
       `,
-			{ query: `${query}*` }, // Wildcard search
+			{ query: `${query}*` } as QueryParams,
 		);
 
 		return NextResponse.json(results);
 	} catch (error) {
+		// Handle unused `error` warning
+		console.error("Error fetching search results:", error);
 		return NextResponse.json(
 			{ message: "Error fetching search results." },
 			{ status: 500 },
