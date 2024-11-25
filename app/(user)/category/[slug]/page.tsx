@@ -97,7 +97,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 								}
 							</p>
 							<Link
-								href={`/posts/${post.slug}`}
+								href={`/post/${post.slug?.current}`}
 								className='mt-4 text-blue-600 hover:underline'>
 								Read More
 							</Link>

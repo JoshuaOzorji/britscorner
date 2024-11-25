@@ -1,7 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import Link from "next/link";
-import { PortableText } from "@portabletext/react";
 import { Author } from "@/types";
 
 interface AuthorPageProps {
@@ -57,11 +56,7 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
 					<h1 className='text-2xl font-bold'>
 						{author.name}
 					</h1>
-					{author.bio && (
-						<PortableText
-							value={author.bio}
-						/>
-					)}
+					{author.bio && <p>{author.bio}</p>}
 				</div>
 			</div>
 

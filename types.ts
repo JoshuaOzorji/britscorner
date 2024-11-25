@@ -1,60 +1,39 @@
-import { NextResponse } from "next/server";
-import { client } from "@/sanity/lib/client";
-import { QueryParams } from "sanity";
+import { PortableTextBlock } from "@portabletext/types";
 
-export async function GET(request: Request) {
-	const { searchParams } = new URL(request.url);
-	const query = searchParams.get("query");
+export interface Post {
+	_id: string;
+	title: string;
+	slug: { current: string };
+	author?: { name: string; slug: { current: string } };
+	mainImage?: {
+		asset: {
+			_ref: string;
+			url: string;
+		};
+		alt: string;
+	};
+	categories: { _id: string; title: string }[];
+	publishedAt: string;
+	shortDescription: string;
+	body: PortableTextBlock[];
+	tags?: { _id: string; name: string; slug: { current: string } }[];
+}
 
-	if (!query) {
-		return NextResponse.json(
-			{ message: "No search query provided." },
-			{ status: 400 },
-		);
-	}
+export interface Category {
+	_id: string;
+	title: string;
+	description?: string;
+	posts: Post[];
+}
 
-	try {
-		const results = await client.fetch(
-			`
-        *[
-          _type == "post" &&
-          (title match $query || 
-          tags[].name match $query || 
-          author->name match $query)
-        ]{
-          _id,
-          title,
-          slug,
-          author->{
-            name,
-            slug
-          },
-          mainImage {
-            asset->{
-              url
-            },
-            alt
-          },
-          categories[]->{
-            title
-          },
-          tags[]->{
-            name
-          },
-          publishedAt,
-          shortDescription
-        }
-      `,
-			{ query: `${query}*` } as QueryParams,
-		);
-
-		return NextResponse.json(results);
-	} catch (error) {
-		// Handle unused `error` warning
-		console.error("Error fetching search results:", error);
-		return NextResponse.json(
-			{ message: "Error fetching search results." },
-			{ status: 500 },
-		);
-	}
+export interface Author {
+	_id: string;
+	name: string;
+	bio?: string;
+	image?: {
+		asset: {
+			url: string;
+		};
+	};
+	posts: Post[];
 }
