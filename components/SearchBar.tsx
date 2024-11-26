@@ -84,6 +84,17 @@ const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 												.value,
 										)
 									}
+									onKeyDown={(
+										e,
+									) => {
+										if (
+											e.key ===
+											"Enter"
+										) {
+											e.preventDefault();
+											handleSearch();
+										}
+									}}
 									placeholder='Search...'
 									className='w-full p-2 px-6 border-2 border-black focus:outline-none'
 								/>

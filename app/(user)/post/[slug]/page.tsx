@@ -157,12 +157,20 @@ const PostPage = async ({ params }: PostPageProps) => {
 				</section>
 			</article>
 
-			<div className='py-16'>
+			<aside>
 				<RelatedPosts
-					categories={categoryIds}
+					tags={
+						post.tags
+							? post.tags.map(
+									(tag) =>
+										tag.name,
+								)
+							: []
+					} // Ensure tags is always a string[]
+					categories={categoryIds} // Pass category IDs
 					currentPostId={post._id}
 				/>
-			</div>
+			</aside>
 		</main>
 	);
 };
