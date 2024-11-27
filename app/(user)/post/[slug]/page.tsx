@@ -5,10 +5,13 @@ import { PortableText } from "@portabletext/react";
 import { customSerializers } from "@/lib/customSerializers";
 import Link from "next/link";
 import RelatedPosts from "@/components/RelatedPosts";
+import ShareLink from "@/components/ShareLink";
 
 interface PostPageProps {
 	params: { slug: string };
 }
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 const PostPage = async ({ params }: PostPageProps) => {
 	const post: Post | null = await client.fetch(
@@ -45,13 +48,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 		return <p>Post not found</p>;
 	}
 
-	console.log("Fetched Post Data:", post);
-	console.log("Fetched Post Tags data:", post.tags);
-	console.log("Fetched Post Categories data:", post.categories);
-
 	const categoryIds = post.categories.map((category) => category._id);
-
-	console.log("Category IDs for Related Posts:", categoryIds);
 
 	return (
 		<main>
@@ -138,14 +135,14 @@ const PostPage = async ({ params }: PostPageProps) => {
 
 					{/* Post Tags */}
 					{post.tags && post.tags.length > 0 && (
-						<div className='flex gap-2 mt-10 flex-wrap'>
+						<div className='flex flex-wrap gap-2 mt-10'>
 							{post.tags.map(
 								(tag) => (
 									<span
 										key={
 											tag.name
 										}
-										className='px-3 py-1 text-sm text-white bg-slate-700 rounded-full'>
+										className='px-3 py-1 text-sm text-white rounded-full bg-slate-700'>
 										{
 											tag.name
 										}
@@ -166,11 +163,18 @@ const PostPage = async ({ params }: PostPageProps) => {
 										tag.name,
 								)
 							: []
-					} // Ensure tags is always a string[]
-					categories={categoryIds} // Pass category IDs
+					}
+					categories={categoryIds}
 					currentPostId={post._id}
 				/>
 			</aside>
+
+			<div>
+				<ShareLink
+					postUrl={`${baseUrl}/post/${post.slug.current}`}
+					postTitle={post.title}
+				/>
+			</div>
 		</main>
 	);
 };

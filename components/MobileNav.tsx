@@ -30,7 +30,7 @@ const MobileNav = ({ onToggleSearch }: MobileNavProps) => {
 	};
 
 	return (
-		<div className='flex items-center justify-between p-2 font-inconsolata border-b'>
+		<div className='flex items-center justify-between p-2 font-inconsolata border-b shadow-md'>
 			{/* MENU LINK */}
 			<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
 				<SheetTrigger>

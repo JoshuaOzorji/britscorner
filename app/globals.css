@@ -6,6 +6,10 @@
 	@apply transition-all delay-100;
 }
 
+.social {
+	@apply w-7 h-7;
+}
+
 .scrollBar {
 	@apply overflow-y-auto
   [&::-webkit-scrollbar]:w-2

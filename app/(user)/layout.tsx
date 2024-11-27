@@ -7,6 +7,7 @@ import {
 	Josefin_Sans,
 } from "next/font/google";
 import BaseLayout from "@/components/BaseLayout";
+import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
 	subsets: ["latin"],
@@ -50,7 +51,13 @@ export default function RootLayout({
 		<html lang='en'>
 			<body
 				className={`${poppins.variable} ${gothic.variable} ${inconsolata.variable} ${josefin.variable} antialiased`}>
-				<BaseLayout>{children}</BaseLayout>
+				<BaseLayout>
+					{children}
+					<Toaster
+						position='bottom-center'
+						reverseOrder={false}
+					/>
+				</BaseLayout>
 			</body>
 		</html>
 	);

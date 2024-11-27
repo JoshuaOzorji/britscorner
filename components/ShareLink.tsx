@@ -1,50 +1,69 @@
-import Link from "next/link";
-import {
-	AiOutlineTwitter,
-	AiFillFacebook,
-	AiFillLinkedin,
-} from "react-icons/ai";
+"use client";
+
+import { AiOutlineTwitter, AiFillFacebook } from "react-icons/ai";
 import { FaWhatsapp } from "react-icons/fa";
+import { FaRegCopy } from "react-icons/fa6";
+import toast from "react-hot-toast";
 
-const ShareLink = () => {
+const ShareLink = ({
+	postUrl,
+	postTitle,
+}: {
+	postUrl: string;
+	postTitle: string;
+}) => {
+	// Social share URLs
+	const twitterShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(postTitle)}`;
+	const facebookShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`;
+	const whatsappShare = `https://wa.me/?text=${encodeURIComponent(postTitle + " " + postUrl)}`;
+
+	// Copy link handler
+	const copyLink = async () => {
+		try {
+			await navigator.clipboard.writeText(postUrl);
+			toast.success("Link copied to clipboard!");
+		} catch (error) {
+			console.error("Failed to copy link:", error);
+			toast.error("Failed to copy link.");
+		}
+	};
+
 	return (
-		<main>
-			<div className='flex flex-row bg-primary gap-2 p-2'>
-				<Link
-					href={`http://www.facebook.com/sharer.php?u=${encodeURIComponent(
-						post.slug.current,
-					)}&p[title]=${encodeURIComponent(post.title)}`}>
-					<span className='text-accent2 hover:text-accent cursor-pointer'>
-						<AiFillFacebook className='w-8 h-8' />
-					</span>
-				</Link>
+		<div className='flex items-center gap-4 mt-4'>
+			{/* Twitter */}
+			<a
+				href={twitterShare}
+				target='_blank'
+				rel='noopener noreferrer'
+				className='text-blue-500 hover:underline '>
+				<AiOutlineTwitter className='social' />
+			</a>
 
-				<Link
-					href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-						post.slug.current,
-					)}&text=${encodeURIComponent(post.title)}`}>
-					<span className='text-accent2 hover:text-accent cursor-pointer'>
-						<AiOutlineTwitter className='w-8 h-8' />
-					</span>
-				</Link>
-				<Link
-					href={`https://api.whatsapp.com/send?text=${encodeURIComponent(
-						post.title,
-					)}%20${encodeURIComponent(post.slug.current)}`}>
-					<span className='text-accent2 hover:text-accent cursor-pointer'>
-						<FaWhatsapp className='w-8 h-8' />
-					</span>
-				</Link>
-				<Link
-					href={`https://www.linkedin.com/shareArticle?url=${encodeURIComponent(
-						post.slug.current,
-					)}&title=${encodeURIComponent(post.title)}`}>
-					<span className='text-accent2 hover:text-accent cursor-pointer'>
-						<AiFillLinkedin className='w-8 h-8' />
-					</span>
-				</Link>
-			</div>
-		</main>
+			{/* Facebook */}
+			<a
+				href={facebookShare}
+				target='_blank'
+				rel='noopener noreferrer'
+				className='text-blue-700 hover:underline'>
+				<AiFillFacebook className='social' />
+			</a>
+
+			{/* WhatsApp */}
+			<a
+				href={whatsappShare}
+				target='_blank'
+				rel='noopener noreferrer'
+				className='text-green-500 hover:underline'>
+				<FaWhatsapp className='social' />
+			</a>
+
+			{/* Copy Link */}
+			<button
+				onClick={copyLink}
+				className='p-1 rounded hover:bg-gray-200'>
+				<FaRegCopy className='w-5 h-5' />
+			</button>
+		</div>
 	);
 };
 
