@@ -65,10 +65,10 @@ const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 		<Sheet open={isOpen} onOpenChange={onClose}>
 			<SheetContent
 				side='top'
-				className='p-3 font-inconsolata md:p-4 max-h-screen overflow-y-auto'>
+				className='max-h-screen p-3 overflow-y-auto font-inconsolata md:p-4'>
 				<SheetHeader className='w-[94%] md:w-[90%] mx-auto'>
 					<SheetTitle className='flex flex-col items-center justify-center gap-4 w-[100%] md:w-[80%] mx-auto'>
-						<div className='relative w-full flex items-center gap-2 md:gap-4'>
+						<div className='relative flex items-center w-full gap-2 md:gap-4'>
 							<div className='relative w-full'>
 								<input
 									type='text'
@@ -96,7 +96,7 @@ const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 										}
 									}}
 									placeholder='Search...'
-									className='w-full p-2 px-6 border-2 border-black focus:outline-none'
+									className='w-full p-2 px-6 border-2 border-pry focus:outline-none'
 								/>
 								<button
 									onClick={
@@ -105,7 +105,7 @@ const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 									disabled={
 										loading
 									}
-									className='absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-900 hover:bg-slate-300 bg-gray-900/10 rounded-lg animate'>
+									className='absolute text-gray-900 transform -translate-y-1/2 rounded-lg right-2 top-1/2 hover:bg-slate-300 bg-gray-900/10 animate'>
 									<CiSearch className='w-8 h-8 space-x-6' />
 								</button>
 							</div>
@@ -114,7 +114,7 @@ const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 							</SheetClose>
 						</div>
 
-						<div className='mt-4 w-full text-base md:text-lg px-2'>
+						<div className='w-full px-2 mt-4 text-base md:text-lg'>
 							{loading && (
 								<p>
 									Loading...
@@ -163,7 +163,7 @@ const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 							{relatedResults.length >
 								0 && (
 								<div>
-									<p className='font-bold text-black text-lg md:text-2xl uppercase pb-3'>
+									<p className='pb-3 text-lg font-bold text-black uppercase md:text-2xl'>
 										No
 										exact
 										matches

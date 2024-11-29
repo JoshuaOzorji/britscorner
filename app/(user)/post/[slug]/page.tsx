@@ -6,6 +6,7 @@ import { customSerializers } from "@/lib/customSerializers";
 import Link from "next/link";
 import RelatedPosts from "@/components/RelatedPosts";
 import ShareLink from "@/components/ShareLink";
+import BreadCrumb from "@/components/BreadCrumb";
 
 interface PostPageProps {
 	params: { slug: string };
@@ -31,7 +32,8 @@ const PostPage = async ({ params }: PostPageProps) => {
 				},
 				categories[]->{
 					_id, 
-					title
+					title,
+					"slug": slug.current
 				},
 				tags[]->{
 					name
@@ -52,72 +54,99 @@ const PostPage = async ({ params }: PostPageProps) => {
 
 	return (
 		<main>
+			<BreadCrumb
+				categories={post.categories.map((category) => ({
+					title: category.title,
+					slug: category.slug,
+				}))}
+				postTitle={post.title}
+			/>
 			<article className='prose'>
-				{/* Post Image */}
-				{post.mainImage?.asset?.url && (
-					<Image
-						src={post.mainImage.asset.url}
-						alt={
-							post.mainImage.alt ||
-							"Post image"
-						}
-						className='w-full rounded-lg object-cover object-center md:h-[70vh]'
-						width={800}
-						height={400}
-					/>
-				)}
-
-				<section className='w-full md:w-[65%]'>
-					{/* Post Title */}
-					<h1 className='mt-4 text-4xl font-extrabold font-poppins'>
-						{post.title}
-					</h1>
-					<p className='mt-2 text-lg text-gray-600'>
-						by{" "}
-						{post.author?.name &&
-							post.author?.slug
-								?.current && (
-								<Link
-									href={`/author/${post.author.slug.current}`}
-									className='text-blue-600 hover:underline'>
-									{
-										post
-											.author
-											.name
-									}
-								</Link>
-							)}
-					</p>
-
-					{/* Post Published Date */}
-					<p className='mt-2 text-sm text-gray-500'>
-						Published on{" "}
-						{new Date(
-							post.publishedAt,
-						).toDateString()}
-					</p>
-
+				<div className='my-5'>
 					{/* Post Categories */}
-					<div className='flex gap-2 mt-4'>
+					<div className='flex justify-center gap-2 mt-4 font-josefin'>
 						{post.categories.map(
 							(category) => (
-								<span
+								<Link
 									key={
 										category.title
 									}
-									className='px-3 py-1 text-sm text-gray-700 bg-gray-200 rounded-full font-'>
+									href={`/category/${category.slug}`}
+									className='px-3 py-1 text-sm border rounded-full bg-pry animate text-acc hover:bg-acc hover:text-sec hover:border-sec'>
 									{
 										category.title
 									}
-								</span>
+								</Link>
 							),
 						)}
 					</div>
 
-					{/* Post Description */}
-					<p className='mt-4 font-bold text-gray-700 font-inconsolata'>
+					<h1 className='mt-4 text-4xl font-extrabold text-center capitalize md:text-5xl font-poppins '>
+						{post.title}
+					</h1>
+
+					<p className='mt-4 text-sm text-center text-gray-700 font-josefin mx-auto md:w-[60%] border border-pry p-4'>
 						{post.shortDescription}
 					</p>
+
+					<div className='flex justify-center '>
+						<ShareLink
+							postUrl={`${baseUrl}/post/${post.slug.current}`}
+							postTitle={post.title}
+						/>
+					</div>
+
+					<div className='text-base font-josefin'>
+						<p className='mt-2 text-gray-600 '>
+							By{" "}
+							{post.author?.name &&
+								post.author
+									?.slug
+									?.current && (
+									<Link
+										href={`/author/${post.author.slug.current}`}
+										className='text-pry hover:underline'>
+										{
+											post
+												.author
+												.name
+										}
+									</Link>
+								)}
+						</p>
+
+						{/* Post Published Date */}
+						<p className='text-sec'>
+							Updated On:{" "}
+							{new Date(
+								post.publishedAt,
+							).toDateString()}
+						</p>
+					</div>
+				</div>
+
+				<div>
+					{post.mainImage?.asset?.url && (
+						<Image
+							src={
+								post.mainImage
+									.asset
+									.url
+							}
+							alt={
+								post.mainImage
+									.alt ||
+								"Post image"
+							}
+							className='w-full rounded-lg object-cover object-center md:h-[65vh]'
+							width={800}
+							height={400}
+						/>
+					)}
+				</div>
+
+				<section className='w-full mx-auto md:w-[60%]'>
+					{/* Post Title */}
 
 					{/* Post Body */}
 					<div className='mt-6 font-poppins'>
@@ -135,14 +164,17 @@ const PostPage = async ({ params }: PostPageProps) => {
 
 					{/* Post Tags */}
 					{post.tags && post.tags.length > 0 && (
-						<div className='flex flex-wrap gap-2 mt-10'>
+						<div className='flex flex-wrap items-center gap-2 mt-10 font-josefin'>
+							<p className='px-2 py-[2px] rounded-md bg-sec text-acc'>
+								#
+							</p>
 							{post.tags.map(
 								(tag) => (
 									<span
 										key={
 											tag.name
 										}
-										className='px-3 py-1 text-sm text-white rounded-full bg-slate-700'>
+										className='text-base underline text-pry'>
 										{
 											tag.name
 										}
@@ -151,6 +183,13 @@ const PostPage = async ({ params }: PostPageProps) => {
 							)}
 						</div>
 					)}
+
+					<div className='flex justify-center '>
+						<ShareLink
+							postUrl={`${baseUrl}/post/${post.slug.current}`}
+							postTitle={post.title}
+						/>
+					</div>
 				</section>
 			</article>
 
@@ -168,13 +207,6 @@ const PostPage = async ({ params }: PostPageProps) => {
 					currentPostId={post._id}
 				/>
 			</aside>
-
-			<div>
-				<ShareLink
-					postUrl={`${baseUrl}/post/${post.slug.current}`}
-					postTitle={post.title}
-				/>
-			</div>
 		</main>
 	);
 };

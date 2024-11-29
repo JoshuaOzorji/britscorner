@@ -1,9 +1,10 @@
 "use client";
 
-import { AiOutlineTwitter, AiFillFacebook } from "react-icons/ai";
+import { AiFillFacebook } from "react-icons/ai";
 import { FaWhatsapp } from "react-icons/fa";
-import { FaRegCopy } from "react-icons/fa6";
+import { TbCopy } from "react-icons/tb";
 import toast from "react-hot-toast";
+import { FaXTwitter } from "react-icons/fa6";
 
 const ShareLink = ({
 	postUrl,
@@ -29,14 +30,14 @@ const ShareLink = ({
 	};
 
 	return (
-		<div className='flex items-center gap-4 mt-4'>
+		<div className='flex items-center gap-4 mt-4 text-gray-600 font-josefin'>
 			{/* Twitter */}
 			<a
 				href={twitterShare}
 				target='_blank'
 				rel='noopener noreferrer'
-				className='text-blue-500 hover:underline '>
-				<AiOutlineTwitter className='social' />
+				className=' hover:underline'>
+				<FaXTwitter className='social' />
 			</a>
 
 			{/* Facebook */}
@@ -44,7 +45,7 @@ const ShareLink = ({
 				href={facebookShare}
 				target='_blank'
 				rel='noopener noreferrer'
-				className='text-blue-700 hover:underline'>
+				className=' hover:underline'>
 				<AiFillFacebook className='social' />
 			</a>
 
@@ -53,15 +54,16 @@ const ShareLink = ({
 				href={whatsappShare}
 				target='_blank'
 				rel='noopener noreferrer'
-				className='text-green-500 hover:underline'>
+				className=' hover:underline'>
 				<FaWhatsapp className='social' />
 			</a>
 
 			{/* Copy Link */}
 			<button
 				onClick={copyLink}
-				className='p-1 rounded hover:bg-gray-200'>
-				<FaRegCopy className='w-5 h-5' />
+				className='flex items-center gap-2 px-2 py-1 border rounded hover:bg-acc animate'>
+				<p className='text-sm'>Copy Link</p>
+				<TbCopy className='w-6 h-6' />
 			</button>
 		</div>
 	);

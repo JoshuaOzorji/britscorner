@@ -1,3 +1,4 @@
+import BreadCrumb from "@/components/BreadCrumb";
 import { client } from "@/sanity/lib/client";
 import { Category } from "@/types";
 import Image from "next/image";
@@ -15,6 +16,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
         title,
         description,
         "posts": *[_type == "post" && references(^._id)]{
+						_id,
             title,
             "slug": slug.current,
             mainImage{
@@ -37,6 +39,14 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 
 	return (
 		<main className='container mx-auto px-4 py-8'>
+			<BreadCrumb
+				categories={[
+					{
+						title: category.title,
+						slug: params.slug,
+					},
+				]}
+			/>
 			{/* Category Information */}
 			<div className='mb-8'>
 				<h1 className='text-3xl font-bold'>

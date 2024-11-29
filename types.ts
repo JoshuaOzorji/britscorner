@@ -12,7 +12,7 @@ export interface Post {
 		};
 		alt: string;
 	};
-	categories: { _id: string; title: string }[];
+	categories: { _id: string; title: string; slug: string }[];
 	publishedAt: string;
 	shortDescription: string;
 	body: PortableTextBlock[];

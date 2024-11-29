@@ -13,7 +13,7 @@ interface MainNavProps {
 
 const MainNav = ({ onToggleSearch }: MainNavProps) => {
 	return (
-		<nav className='border-b font-inconsolata font-bold shadow-md'>
+		<nav className='font-semibold border-b font-josefin'>
 			<div className='flex items-center justify-between w-[90%] mx-auto p-4 '>
 				<Link href='/'>
 					<Image src={logo} alt='logo' />
