@@ -19,5 +19,11 @@ export const tagType = defineType({
 				source: "name",
 			},
 		}),
+		defineField({
+			name: "description",
+			type: "text",
+			title: "Tag Description",
+			description: "A brief description for this tag",
+		}),
 	],
 });

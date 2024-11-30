@@ -82,15 +82,15 @@ const RelatedPosts = ({
 	}
 
 	return (
-		<div>
-			<h2 className='text-2xl font-bold mb-4'>
+		<div className='mt-4'>
+			<h2 className='mb-4 text-2xl font-bold'>
 				Related Posts
 			</h2>
-			<ul className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+			<ul className='grid grid-cols-1 gap-6 md:grid-cols-2'>
 				{relatedPosts.map((post) => (
 					<li
 						key={post._id}
-						className='bg-gray-100 p-4 rounded-lg shadow-md'>
+						className='p-4 bg-gray-100 rounded-lg shadow-md'>
 						{post.mainImage?.asset?.url && (
 							<Image
 								src={
@@ -105,7 +105,7 @@ const RelatedPosts = ({
 										.alt ||
 									"Post Image"
 								}
-								className='w-full h-48 object-cover rounded-md mb-4'
+								className='object-cover w-full h-48 mb-4 rounded-md'
 								layout='responsive'
 								width={300}
 								height={200}
@@ -191,14 +191,14 @@ export default RelatedPosts;
 
 // 	return (
 // 		<div>
-// 			<h2 className='text-2xl font-bold mb-4'>
+// 			<h2 className='mb-4 text-2xl font-bold'>
 // 				Related Posts
 // 			</h2>
-// 			<ul className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+// 			<ul className='grid grid-cols-1 gap-6 md:grid-cols-2'>
 // 				{relatedPosts.map((post: Post) => (
 // 					<li
 // 						key={post._id}
-// 						className='bg-gray-100 p-4 rounded-lg shadow-md'>
+// 						className='p-4 bg-gray-100 rounded-lg shadow-md'>
 // 						{post.mainImage?.asset?.url && (
 // 							<Image
 // 								src={
@@ -213,7 +213,7 @@ export default RelatedPosts;
 // 										.alt ||
 // 									"Post Image"
 // 								}
-// 								className='w-full h-48 object-cover rounded-md mb-4'
+// 								className='object-cover w-full h-48 mb-4 rounded-md'
 // 								width={300}
 // 								height={300}
 // 							/>

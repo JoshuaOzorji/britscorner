@@ -7,7 +7,7 @@ interface BreadCrumbProps {
 
 const BreadCrumb = ({ categories, postTitle }: BreadCrumbProps) => {
 	return (
-		<nav className='my-5 text-sm font-medium text-gray-600 font-josefin'>
+		<nav className='my-5 text-sm font-medium text-sec font-josefin'>
 			<ul className='flex flex-wrap items-center gap-2'>
 				{/* Home */}
 				<li>

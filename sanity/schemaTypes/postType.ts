@@ -54,13 +54,24 @@ export const postType = defineType({
 
 		defineField({
 			name: "shortDescription",
-			type: "text",
-			title: "shortDescription",
-			description: "A brief summary of the post content",
+			type: "array",
+			title: "Short Description",
+			description:
+				"A brief summary of the post content in bullet points (max 300 characters total).",
+			of: [{ type: "string" }],
 			validation: (Rule) =>
-				Rule.max(300).warning(
-					"Short description should be under 300 characters",
-				),
+				Rule.custom((bullets) => {
+					if (!bullets) return true;
+
+					const totalLength =
+						bullets.join("").length;
+
+					if (totalLength > 400) {
+						return `The total length of the short description exceeds 400 characters. Currently ${totalLength} characters.`;
+					}
+
+					return true;
+				}),
 		}),
 
 		defineField({

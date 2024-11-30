@@ -10,12 +10,6 @@
 	@apply w-7 h-7 hover:text-pry animate;
 }
 
-@layer utilities {
-	.drop-cap:first-letter {
-		@apply text-5xl font-bold float-left mr-2 leading-none text-pry;
-	}
-}
-
 .scrollBar {
 	@apply overflow-y-auto
   [&::-webkit-scrollbar]:w-2

@@ -53,7 +53,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 	const categoryIds = post.categories.map((category) => category._id);
 
 	return (
-		<main>
+		<main className='text-sec'>
 			<BreadCrumb
 				categories={post.categories.map((category) => ({
 					title: category.title,
@@ -72,7 +72,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 										category.title
 									}
 									href={`/category/${category.slug}`}
-									className='px-3 py-1 text-sm border rounded-full bg-pry animate text-acc hover:bg-acc hover:text-sec hover:border-sec'>
+									className='px-3 py-1 text-xs border rounded-full md:text-sm bg-pry animate text-acc hover:bg-acc hover:text-sec hover:border-sec'>
 									{
 										category.title
 									}
@@ -81,13 +81,42 @@ const PostPage = async ({ params }: PostPageProps) => {
 						)}
 					</div>
 
-					<h1 className='mt-4 text-4xl font-extrabold text-center capitalize md:text-5xl font-poppins '>
+					<h1 className='mt-4 text-3xl font-extrabold leading-5 text-left text-gray-800 capitalize md:text-center md:text-5xl font-poppins'>
 						{post.title}
 					</h1>
 
-					<p className='mt-4 text-sm text-center text-gray-700 font-josefin mx-auto md:w-[60%] border border-pry p-4'>
-						{post.shortDescription}
-					</p>
+					<div
+						className={`mt-4 text-sm text-gray-700 font-josefin mx-auto md:w-[60%] p-4 ${
+							post.shortDescription &&
+							post.shortDescription
+								.length > 0
+								? "border border-pry"
+								: ""
+						}`}>
+						{post.shortDescription &&
+						post.shortDescription.length >
+							0 ? (
+							<ul className='pl-5 space-y-2 list-disc'>
+								{post.shortDescription.map(
+									(
+										item,
+										index,
+									) => (
+										<li
+											key={
+												index
+											}>
+											{
+												item
+											}
+										</li>
+									),
+								)}
+							</ul>
+						) : (
+							<p></p>
+						)}
+					</div>
 
 					<div className='flex justify-center '>
 						<ShareLink
@@ -97,7 +126,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 					</div>
 
 					<div className='text-base font-josefin'>
-						<p className='mt-2 text-gray-600 '>
+						<p className='mt-2'>
 							By{" "}
 							{post.author?.name &&
 								post.author
@@ -116,7 +145,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 						</p>
 
 						{/* Post Published Date */}
-						<p className='text-sec'>
+						<p>
 							Updated On:{" "}
 							{new Date(
 								post.publishedAt,
@@ -149,7 +178,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 					{/* Post Title */}
 
 					{/* Post Body */}
-					<div className='mt-6 font-poppins'>
+					<div className='mt-6 font-poppins '>
 						{post.body && (
 							<PortableText
 								value={
@@ -165,32 +194,33 @@ const PostPage = async ({ params }: PostPageProps) => {
 					{/* Post Tags */}
 					{post.tags && post.tags.length > 0 && (
 						<div className='flex flex-wrap items-center gap-2 mt-10 font-josefin'>
-							<p className='px-2 py-[2px] rounded-md bg-sec text-acc'>
-								#
-							</p>
+							{/* <p className='px-2 py-[2px] rounded-md bg-sec text-acc'></p> */}
 							{post.tags.map(
 								(tag) => (
 									<span
 										key={
 											tag.name
-										}
-										className='text-base underline text-pry'>
-										{
-											tag.name
-										}
+										}>
+										<Link
+											href={`/tag/${tag.slug}`}
+											className='text-base underline capitalize text-pry'>
+											{
+												tag.name
+											}
+										</Link>
 									</span>
 								),
 							)}
 						</div>
 					)}
-
-					<div className='flex justify-center '>
-						<ShareLink
-							postUrl={`${baseUrl}/post/${post.slug.current}`}
-							postTitle={post.title}
-						/>
-					</div>
 				</section>
+
+				<div className='flex justify-center '>
+					<ShareLink
+						postUrl={`${baseUrl}/post/${post.slug.current}`}
+						postTitle={post.title}
+					/>
+				</div>
 			</article>
 
 			<aside>

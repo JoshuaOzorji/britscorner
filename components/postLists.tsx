@@ -24,8 +24,6 @@ interface Post {
 export default async function HomePage() {
 	const posts: Post[] = await client.fetch(POSTS_QUERY, {}, options);
 
-	console.log(posts);
-
 	return (
 		<main className='flex flex-col min-h-screen gap-12 p-24 bg-gray-100'>
 			<h1 className='text-6xl font-bold tracking-tighter font-poppins'>

@@ -14,7 +14,7 @@ export interface Post {
 	};
 	categories: { _id: string; title: string; slug: string }[];
 	publishedAt: string;
-	shortDescription: string;
+	shortDescription: string[];
 	body: PortableTextBlock[];
 	tags?: { _id: string; name: string; slug: { current: string } }[];
 }
@@ -35,5 +35,15 @@ export interface Author {
 			url: string;
 		};
 	};
+	posts: Post[];
+}
+
+export interface Tag {
+	_id: string;
+	name: string;
+	slug: {
+		current: string;
+	};
+	description?: string;
 	posts: Post[];
 }
