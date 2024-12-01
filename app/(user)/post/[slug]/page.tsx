@@ -36,7 +36,8 @@ const PostPage = async ({ params }: PostPageProps) => {
 					"slug": slug.current
 				},
 				tags[]->{
-					name
+				name,
+				"slug": slug.current
 				},
 				publishedAt,
 				shortDescription,
@@ -51,6 +52,8 @@ const PostPage = async ({ params }: PostPageProps) => {
 	}
 
 	const categoryIds = post.categories.map((category) => category._id);
+
+	console.log("Tags data:", post.tags);
 
 	return (
 		<main className='text-sec'>
@@ -81,7 +84,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 						)}
 					</div>
 
-					<h1 className='mt-4 text-3xl font-extrabold leading-5 text-left text-gray-800 capitalize md:text-center md:text-5xl font-poppins'>
+					<h1 className='mt-4 text-3xl font-extrabold text-left text-gray-800 capitalize md:text-center md:text-5xl font-poppins'>
 						{post.title}
 					</h1>
 
@@ -118,7 +121,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 						)}
 					</div>
 
-					<div className='flex justify-center '>
+					<div className='justify-center hidden md:flex'>
 						<ShareLink
 							postUrl={`${baseUrl}/post/${post.slug.current}`}
 							postTitle={post.title}
@@ -201,13 +204,21 @@ const PostPage = async ({ params }: PostPageProps) => {
 										key={
 											tag.name
 										}>
-										<Link
-											href={`/tag/${tag.slug}`}
-											className='text-base underline capitalize text-pry'>
-											{
-												tag.name
-											}
-										</Link>
+										{tag.slug ? (
+											<Link
+												href={`/tag/${tag.slug}`}
+												className='text-base underline capitalize text-pry'>
+												{
+													tag.name
+												}
+											</Link>
+										) : (
+											<span className='text-base capitalize text-pry'>
+												{
+													tag.name
+												}
+											</span>
+										)}
 									</span>
 								),
 							)}

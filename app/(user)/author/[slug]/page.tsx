@@ -1,7 +1,7 @@
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
-import Link from "next/link";
 import { Author } from "@/types";
+import { PostCard } from "@/components/PostCard";
 
 interface AuthorPageProps {
 	params: { slug: string };
@@ -39,15 +39,17 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
 		return <p>Author not found</p>;
 	}
 
+	console.log(author);
+
 	return (
-		<main className='container mx-auto px-4 py-8'>
+		<main className='container px-4 py-8 mx-auto'>
 			{/* Author Information */}
 			<div className='flex items-center gap-4'>
 				{author.image?.asset?.url && (
 					<Image
 						src={author.image.asset.url}
 						alt={author.name}
-						className='w-24 h-24 rounded-full object-cover'
+						className='object-cover w-24 h-24 rounded-full'
 						width={96}
 						height={96}
 					/>
@@ -56,63 +58,21 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
 					<h1 className='text-2xl font-bold'>
 						{author.name}
 					</h1>
-					{author.bio && <p>{author.bio}</p>}
+					<p>{author.bio}</p>
 				</div>
 			</div>
 
 			{/* Author's Posts */}
 			<div className='mt-8'>
-				<h2 className='text-xl font-bold mb-4'>
+				<h2 className='mb-4 text-xl font-bold'>
 					Posts by {author.name}
 				</h2>
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-					{author.posts.map((post) => (
-						<div
+				<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+					{author.posts?.map((post) => (
+						<PostCard
 							key={post._id}
-							className='border p-4 rounded-lg shadow'>
-							{post.mainImage?.asset
-								?.url && (
-								<Image
-									src={
-										post
-											.mainImage
-											.asset
-											.url
-									}
-									alt={
-										post
-											.mainImage
-											.alt ||
-										"Post image"
-									}
-									className='w-full h-48 object-cover rounded-lg'
-									width={
-										300
-									}
-									height={
-										200
-									}
-								/>
-							)}
-							<h3 className='text-lg font-semibold mt-2'>
-								{post.title}
-							</h3>
-							<p className='text-sm text-gray-500 mt-1'>
-								{new Date(
-									post.publishedAt,
-								).toDateString()}
-							</p>
-							<p className='mt-2 text-gray-700'>
-								{
-									post.shortDescription
-								}
-							</p>
-							<Link
-								href={`/posts/${post.slug.current}`}
-								className='mt-4 text-blue-600 hover:underline'>
-								Read More
-							</Link>
-						</div>
+							post={post}
+						/>
 					))}
 				</div>
 			</div>
