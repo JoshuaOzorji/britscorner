@@ -10,6 +10,14 @@
 	@apply w-7 h-7 hover:text-pry animate;
 }
 
+.post-author {
+	@apply underline decoration-inherit hover:decoration-pry hover:text-pry;
+}
+
+.post-category {
+	@apply uppercase text-[10px] font-bold text-pry;
+}
+
 .scrollBar {
 	@apply overflow-y-auto
   [&::-webkit-scrollbar]:w-2
@@ -22,7 +30,7 @@
 }
 
 .author-date {
-	@apply text-[12px] text-gray-500 flex flex-wrap gap-y-0 gap-x-2;
+	@apply text-[12px] text-gray-500 flex flex-wrap gap-y-0 gap-x-3;
 }
 
 @layer base {

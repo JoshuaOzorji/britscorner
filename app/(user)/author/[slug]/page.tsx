@@ -28,7 +28,8 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
             alt
           },
           publishedAt,
-          shortDescription
+          shortDescription,
+					categories[]->{title,	"slug": slug.current},
         }
       }
     `,
@@ -38,8 +39,6 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
 	if (!author) {
 		return <p>Author not found</p>;
 	}
-
-	console.log(author);
 
 	return (
 		<main className='container px-4 py-8 mx-auto'>
@@ -63,10 +62,11 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
 			</div>
 
 			{/* Author's Posts */}
-			<div className='mt-8'>
+			<div>
 				<h2 className='mb-4 text-xl font-bold'>
 					Posts by {author.name}
 				</h2>
+				<h4>{author.posts?.length || 0} posts</h4>
 				<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
 					{author.posts?.map((post) => (
 						<PostCard

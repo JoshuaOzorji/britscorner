@@ -129,7 +129,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 					</div>
 
 					<div className='text-base font-josefin'>
-						<p className='mt-2'>
+						<p>
 							By{" "}
 							{post.author?.name &&
 								post.author
@@ -197,7 +197,6 @@ const PostPage = async ({ params }: PostPageProps) => {
 					{/* Post Tags */}
 					{post.tags && post.tags.length > 0 && (
 						<div className='flex flex-wrap items-center gap-2 mt-10 font-josefin'>
-							{/* <p className='px-2 py-[2px] rounded-md bg-sec text-acc'></p> */}
 							{post.tags.map(
 								(tag) => (
 									<span

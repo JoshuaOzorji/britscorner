@@ -5,6 +5,8 @@ import { defineQuery } from "next-sanity";
 import urlFor from "@/sanity/lib/urlFor";
 import { MdPlayArrow } from "react-icons/md";
 import ClientSideRoute from "../ClientSideRoute";
+import CategoryLinks from "../CategoryLinks";
+import Link from "next/link";
 
 const options = { next: { revalidate: 60 } };
 const featuredPostsQuery = defineQuery(`
@@ -12,8 +14,9 @@ const featuredPostsQuery = defineQuery(`
     title,
     slug,
     author->{
-      name
-    },
+				name,
+				slug
+				},
     mainImage{
       asset->{
         url
@@ -21,7 +24,8 @@ const featuredPostsQuery = defineQuery(`
       alt
     },
 		categories[]->{
-      title
+      title,
+			"slug": slug.current
     },
     publishedAt,
     body
@@ -45,7 +49,7 @@ const HeroLeft = async () => {
 				<ClientSideRoute
 					key={post._id}
 					href={`/post/${post.slug?.current}`}
-					className={`flex flex-col ${index === 0 ? "first-item-class" : "other-item-class"} ${index !== featuredPosts.length - 1 ? "border-b mb-2 pb-2" : ""}`}>
+					className={`flex flex-col group ${index === 0 ? "first-item-class" : "other-item-class"} ${index !== featuredPosts.length - 1 ? "border-b mb-2 pb-2" : ""}`}>
 					{index === 0 &&
 						post.mainImage?.asset?.url && (
 							<Image
@@ -58,7 +62,7 @@ const HeroLeft = async () => {
 										.alt ||
 									"Post image"
 								}
-								className='h-[28vh] sm:h-[20vh] md:h-[20vh] object-cover object-center rounded-lg'
+								className='h-[28vh] sm:h-[20vh] md:h-[20vh] object-cover object-center rounded-lg w-full group-hover:opacity-75'
 								width={300}
 								height={300}
 							/>
@@ -67,40 +71,35 @@ const HeroLeft = async () => {
 					<div className='py-1'>
 						<div className='flex items-center gap-1'>
 							<MdPlayArrow className='w-3 h-3' />
-							<div className='flex space-x-1'>
-								{post.categories.map(
-									(
-										category,
-									) => (
-										<span
-											key={
-												category.title
-											}
-											className='uppercase text-[10px] font-bold text-gray-500'>
-											<span className='flex'>
-												{
-													category.title
-												}
-											</span>
-										</span>
-									),
-								)}
-							</div>
+							<CategoryLinks
+								categories={
+									post.categories
+								}
+							/>
 						</div>
 
-						<h2 className='text-[18px] font-bold capitalize tracking-tight leading-[23px]'>
+						<h2 className='text-[18px] font-bold capitalize tracking-tight leading-[23px] group-hover:underline'>
 							{post.title}
 						</h2>
 						<div className='author-date'>
 							<p>
 								by{" "}
-								<span className='underline'>
-									{
-										post
-											.author
-											?.name
-									}
-								</span>
+								{post.author
+									?.name &&
+									post
+										.author
+										?.slug
+										?.current && (
+										<Link
+											href={`/author/${post.author.slug.current}`}
+											className='text-sec underline hover:text-pry'>
+											{
+												post
+													.author
+													.name
+											}
+										</Link>
+									)}
 							</p>
 
 							<p>

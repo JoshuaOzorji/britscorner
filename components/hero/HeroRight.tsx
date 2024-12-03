@@ -4,15 +4,18 @@ import { Post } from "@/types";
 import { defineQuery } from "next-sanity";
 import { MdPlayArrow } from "react-icons/md";
 import ClientSideRoute from "../ClientSideRoute";
+import CategoryLinks from "../CategoryLinks";
+import Link from "next/link";
 
 const options = { next: { revalidate: 60 } };
 const latestPostsQuery = defineQuery(`
   *[_type == "post"] | order(publishedAt desc)[0...3]{
     title,
     slug,
-    author->{
-      name
-    },
+		author->{
+				name,
+				slug
+				},
     mainImage{
       asset->{
         url
@@ -20,7 +23,8 @@ const latestPostsQuery = defineQuery(`
       alt
     },
 		categories[]->{
-      title
+      title,
+			"slug": slug.current
     },
     publishedAt,
     body
@@ -86,38 +90,35 @@ const HeroRight = async () => {
 						<div className='flex items-center gap-1'>
 							<MdPlayArrow className='w-3 h-3' />
 
-							<div className='flex space-x-1'>
-								{post.categories.map(
-									(
-										category,
-									) => (
-										<span
-											key={
-												category.title
-											}
-											className='text-gray-500 uppercase text-[10px] font-bold'>
-											{
-												category.title
-											}
-										</span>
-									),
-								)}
-							</div>
+							<CategoryLinks
+								categories={
+									post.categories
+								}
+							/>
 						</div>
 
 						<h2 className='text-base font-bold capitalize tracking-tight leading-[20px] my-2 md:my-1'>
 							{post.title}
 						</h2>
 						<div className='author-date'>
-							<p className='text-gray-600 '>
+							<p>
 								by{" "}
-								<span className='underline'>
-									{
-										post
-											.author
-											?.name
-									}
-								</span>
+								{post.author
+									?.name &&
+									post
+										.author
+										?.slug
+										?.current && (
+										<Link
+											href={`/author/${post.author.slug.current}`}
+											className='text-sec underline hover:text-pry'>
+											{
+												post
+													.author
+													.name
+											}
+										</Link>
+									)}
 							</p>
 							<p className='text-gray-500'>
 								{new Date(

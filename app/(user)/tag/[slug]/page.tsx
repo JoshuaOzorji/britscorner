@@ -36,13 +36,13 @@ const TagPage = async ({ params }: TagPageProps) => {
 	console.log("params:", params);
 
 	return (
-		<main className='container px-4 py-8 mx-auto'>
+		<main className='mx-auto'>
 			<BreadCrumb
 				categories={[
 					{ title: tag.name, slug: params.slug },
 				]}
 			/>
-			<div className='mb-8'>
+			<div className=''>
 				<h1 className='text-3xl font-bold'>
 					{tag.name}
 				</h1>
@@ -56,7 +56,7 @@ const TagPage = async ({ params }: TagPageProps) => {
 				<h2 className='mb-4 text-xl font-bold'>
 					Posts tagged with {tag.name}
 				</h2>
-				<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+				<div className='flex flex-wrap sm:grid sm:grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-4'>
 					{tag.posts.map((post: Post) => (
 						<PostCard
 							key={post._id}
