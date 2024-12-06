@@ -2,9 +2,8 @@
 
 import { client } from "@/sanity/lib/client";
 import { Post } from "@/types";
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import { PostCard } from "./PostCard";
 
 interface RelatedPostsProps {
 	tags: string[];
@@ -30,21 +29,25 @@ const RelatedPosts = ({
 					return;
 				}
 
-				// Combined query to check for posts based on tags or categories
 				const query = `
           *[_type == "post" && _id != $currentPostId && 
             (count(tags[]->name in $tags) > 0 || references($categories))] 
           | order(publishedAt desc) [0...4]{
             _id,
-            title,
-            slug,
+        		title,
+        		"slug": slug.current,
             mainImage{
               asset->{
                 url
               },
               alt
             },
-            publishedAt
+            publishedAt,
+						author->{
+							name,
+							"slug": slug.current
+						},
+					categories[]->{title,	"slug": slug.current},
           }`;
 
 				const posts = await client.fetch(query, {
@@ -83,46 +86,13 @@ const RelatedPosts = ({
 
 	return (
 		<div className='mt-4'>
-			<h2 className='mb-4 text-2xl font-bold'>
+			<h2 className='mb-4 text-2xl font-bold text-black font-poppins'>
 				Related Posts
 			</h2>
-			<ul className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+			<ul className='flex flex-wrap gap-6 sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4'>
 				{relatedPosts.map((post) => (
-					<li
-						key={post._id}
-						className='p-4 bg-gray-100 rounded-lg shadow-md'>
-						{post.mainImage?.asset?.url && (
-							<Image
-								src={
-									post
-										.mainImage
-										.asset
-										.url
-								}
-								alt={
-									post
-										.mainImage
-										.alt ||
-									"Post Image"
-								}
-								className='object-cover w-full h-48 mb-4 rounded-md'
-								layout='responsive'
-								width={300}
-								height={200}
-							/>
-						)}
-						<h3 className='text-lg font-semibold'>
-							<Link
-								href={`/post/${post.slug.current}`}>
-								{post.title}
-							</Link>
-						</h3>
-						<p className='text-sm text-gray-500'>
-							Published on{" "}
-							{new Date(
-								post.publishedAt,
-							).toLocaleDateString()}
-						</p>
+					<li key={post._id}>
+						<PostCard post={post} />
 					</li>
 				))}
 			</ul>
@@ -131,110 +101,3 @@ const RelatedPosts = ({
 };
 
 export default RelatedPosts;
-
-// import { client } from "@/sanity/lib/client";
-// import { Post } from "@/types";
-// import Image from "next/image";
-// import Link from "next/link";
-
-// interface RelatedPostsProps {
-// 	tags: string[];
-// 	categories: string[];
-// 	currentPostId: string;
-// }
-
-// const RelatedPosts = async ({
-// 	tags,
-// 	categories,
-// 	currentPostId,
-// }: RelatedPostsProps) => {
-// 	let relatedPosts = await client.fetch(
-// 		`*[_type == "post" && count(tags[]->name in $tags) > 0 && _id != $currentPostId]
-//         | order(publishedAt desc) [0...4]{
-// 			_id,
-// 			title,
-// 			slug,
-// 			mainImage{
-// 				asset->{
-// 					url
-// 				},
-// 				alt
-// 			},
-// 			publishedAt
-// 		}`,
-// 		{ tags, currentPostId },
-// 	);
-
-// 	// If no posts are found based on tags, fallback to categories
-// 	if (!relatedPosts.length) {
-// 		relatedPosts = await client.fetch(
-// 			`*[_type == "post" && references($categories) && _id != $currentPostId]
-//             | order(publishedAt desc) [0...4]{
-// 				_id,
-// 				title,
-// 				slug,
-// 				mainImage{
-// 					asset->{
-// 						url
-// 					},
-// 					alt
-// 				},
-// 				publishedAt
-// 			}`,
-// 			{ categories, currentPostId },
-// 		);
-// 	}
-
-// 	if (!relatedPosts.length) {
-// 		return <p>No related posts found.</p>;
-// 	}
-
-// 	return (
-// 		<div>
-// 			<h2 className='mb-4 text-2xl font-bold'>
-// 				Related Posts
-// 			</h2>
-// 			<ul className='grid grid-cols-1 gap-6 md:grid-cols-2'>
-// 				{relatedPosts.map((post: Post) => (
-// 					<li
-// 						key={post._id}
-// 						className='p-4 bg-gray-100 rounded-lg shadow-md'>
-// 						{post.mainImage?.asset?.url && (
-// 							<Image
-// 								src={
-// 									post
-// 										.mainImage
-// 										.asset
-// 										.url
-// 								}
-// 								alt={
-// 									post
-// 										.mainImage
-// 										.alt ||
-// 									"Post Image"
-// 								}
-// 								className='object-cover w-full h-48 mb-4 rounded-md'
-// 								width={300}
-// 								height={300}
-// 							/>
-// 						)}
-// 						<h3 className='text-lg font-semibold'>
-// 							<Link
-// 								href={`/post/${post.slug.current}`}>
-// 								{post.title}
-// 							</Link>
-// 						</h3>
-// 						<p className='text-sm text-gray-500'>
-// 							Published on{" "}
-// 							{new Date(
-// 								post.publishedAt,
-// 							).toDateString()}
-// 						</p>
-// 					</li>
-// 				))}
-// 			</ul>
-// 		</div>
-// 	);
-// };
-
-// export default RelatedPosts;

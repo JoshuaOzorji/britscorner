@@ -17,7 +17,10 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 				_id,
 				title,
 				"slug": slug.current,
-				author->{name}, 
+				author->{
+					name, 
+					"slug": slug.current
+				},
 				mainImage{
 					asset->{
 						url
@@ -48,12 +51,12 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 				]}
 			/>
 			{/* Category Information */}
-			<div className='mb-8'>
+			<div className='py-4 border-b'>
 				<h1 className='text-4xl font-bold font-poppins'>
-					{category.title}
+					{category.title} Category
 				</h1>
 
-				<span className='flex items-center text-sec gap-2 py-2'>
+				<span className='flex items-center gap-2 py-2 text-sec'>
 					<h4 className='text-xl font-josefin '>
 						{category.posts.length} posts
 					</h4>
@@ -64,10 +67,10 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 
 			{/* Category's Posts */}
 			<div className='mt-4'>
-				<h2 className='text-xl font-bold mb-4 font-poppins'>
+				<h2 className='mb-4 text-xl font-bold font-poppins'>
 					Posts in {category.title}
 				</h2>
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+				<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
 					{category.posts.map((post) => (
 						<PostCard
 							key={post._id}

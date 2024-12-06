@@ -2,6 +2,8 @@ import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import { Author } from "@/types";
 import { PostCard } from "@/components/PostCard";
+import BreadCrumb from "@/components/BreadCrumb";
+import { IoLocationOutline } from "react-icons/io5";
 
 interface AuthorPageProps {
 	params: { slug: string };
@@ -20,7 +22,11 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
         },
         "posts": *[_type == "post" && references(^._id)]{
           title,
-          slug,
+          "slug": slug.current,
+					author->{
+					name, 
+					"slug": slug.current
+				},
           mainImage{
             asset->{
               url
@@ -29,7 +35,10 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
           },
           publishedAt,
           shortDescription,
-					categories[]->{title,	"slug": slug.current},
+					categories[]->{
+					title,	
+					"slug": slug.current
+					},
         }
       }
     `,
@@ -41,33 +50,58 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
 	}
 
 	return (
-		<main className='container px-4 py-8 mx-auto'>
+		<main className='px-4 '>
+			<BreadCrumb
+				categories={[
+					{
+						title: author.name,
+						slug: params.slug,
+					},
+				]}
+			/>
 			{/* Author Information */}
-			<div className='flex items-center gap-4'>
-				{author.image?.asset?.url && (
-					<Image
-						src={author.image.asset.url}
-						alt={author.name}
-						className='object-cover w-24 h-24 rounded-full'
-						width={96}
-						height={96}
-					/>
-				)}
-				<div>
-					<h1 className='text-2xl font-bold'>
-						{author.name}
-					</h1>
-					<p>{author.bio}</p>
+			<div className='pb-4 border-b'>
+				<div className='flex items-center gap-4 py-4'>
+					{author.image?.asset?.url && (
+						<Image
+							src={
+								author.image
+									.asset
+									.url
+							}
+							alt={author.name}
+							className='object-cover w-16 h-16 rounded-full md:w-20 md:h-20'
+							width={96}
+							height={96}
+						/>
+					)}
+					<div className=''>
+						<h1 className='text-2xl font-bold font-poppins'>
+							{author.name}
+						</h1>
+						<p className='font-josefin text-sec'>
+							{author.bio}
+						</p>
+					</div>
 				</div>
+
+				<span className='flex items-center gap-2 py-2 text-sec'>
+					<h4 className='text-xl font-josefin '>
+						{author.posts?.length || 0}{" "}
+						posts
+					</h4>
+
+					<IoLocationOutline className='w-5 h-5' />
+				</span>
 			</div>
 
 			{/* Author's Posts */}
-			<div>
-				<h2 className='mb-4 text-xl font-bold'>
+			<div className='mt-4'>
+				<h2 className='mb-4 text-xl font-bold font-poppins'>
 					Posts by {author.name}
 				</h2>
-				<h4>{author.posts?.length || 0} posts</h4>
-				<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+
+				<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
 					{author.posts?.map((post) => (
 						<PostCard
 							key={post._id}

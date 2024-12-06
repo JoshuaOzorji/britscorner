@@ -30,7 +30,7 @@ const ShareLink = ({
 	};
 
 	return (
-		<div className='flex items-center gap-4 mt-4 text-gray-600 font-josefin'>
+		<div className='flex items-center gap-4 py-2 text-gray-600 font-josefin'>
 			{/* Twitter */}
 			<a
 				href={twitterShare}

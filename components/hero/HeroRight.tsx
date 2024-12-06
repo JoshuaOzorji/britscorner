@@ -51,7 +51,7 @@ const HeroRight = async () => {
 				<ClientSideRoute
 					key={post._id}
 					href={`/post/${post.slug?.current}`}
-					className={`flex ${
+					className={`flex group ${
 						index === 0
 							? "flex-col"
 							: "flex-row items-start"
@@ -78,9 +78,9 @@ const HeroRight = async () => {
 									? 300
 									: 150
 							}
-							className={`${
+							className={`group-hover:opacity-75 ${
 								index === 0
-									? "h-[20vh] w-full"
+									? "h-[15vh] lg:h-[20vh] w-full"
 									: "h-[20vh] w-[100px]"
 							} object-cover object-center rounded-lg`}
 						/>
@@ -97,7 +97,7 @@ const HeroRight = async () => {
 							/>
 						</div>
 
-						<h2 className='text-base font-bold capitalize tracking-tight leading-[20px] my-2 md:my-1'>
+						<h2 className='text-base font-bold capitalize tracking-tight leading-[20px] my-2 md:my-1 group-hover:underline'>
 							{post.title}
 						</h2>
 						<div className='author-date'>

@@ -206,7 +206,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 										{tag.slug ? (
 											<Link
 												href={`/tag/${tag.slug}`}
-												className='text-base underline capitalize text-pry'>
+												className='text-base underline capitalize text-pry hover:text-sec decoration-inherit'>
 												{
 													tag.name
 												}
@@ -225,7 +225,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 					)}
 				</section>
 
-				<div className='flex justify-center '>
+				<div className='flex justify-center my-8 border-y'>
 					<ShareLink
 						postUrl={`${baseUrl}/post/${post.slug.current}`}
 						postTitle={post.title}

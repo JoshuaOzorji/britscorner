@@ -49,7 +49,7 @@ const HeroMid = async () => {
 			{featuredPosts.map((post, index) =>
 				index === 0 ? (
 					<ClientSideRoute
-						className='flex flex-col items-center w-full gap-4 pb-4 border-b'
+						className='flex flex-col items-center w-full gap-4 pb-4 border-b group'
 						href={`/post/${post.slug?.current}`}
 						key={post._id}>
 						<div className=''>
@@ -74,7 +74,7 @@ const HeroMid = async () => {
 									height={
 										300
 									}
-									className='object-cover object-center w-full rounded-lg'
+									className='object-cover object-center w-full rounded-lg group-hover:opacity-75'
 								/>
 							)}
 							<section className='flex flex-col items-center gap-1 px-4 text-left md:text-center'>
@@ -86,7 +86,7 @@ const HeroMid = async () => {
 										}
 									/>
 								</div>
-								<h2 className='my-1 text-base font-bold leading-5 md:text-3xl'>
+								<h2 className='my-1 text-base font-bold leading-5 md:text-3xl group-hover:underline'>
 									{
 										post.title
 									}
@@ -130,7 +130,7 @@ const HeroMid = async () => {
 					<ClientSideRoute
 						key={post._id}
 						href={`/post/${post.slug?.current}`}
-						className='w-full px-4 my-2 lg:w-auto lg:flex-1 lg:mb-0 lg:px-0 lg:my-0'>
+						className='w-full px-4 my-2 lg:w-auto lg:flex-1 lg:mb-0 lg:px-0 lg:my-0 group'>
 						<div className='flex flex-row gap-2 lg:gap-4 lg:my-4'>
 							{post.mainImage?.asset
 								?.url && (
@@ -153,7 +153,7 @@ const HeroMid = async () => {
 									height={
 										120
 									}
-									className='object-cover object-center rounded-lg h-[20vh] w-[100px]'
+									className='object-cover object-center rounded-lg h-[20vh] w-[100px] group-hover:opacity-75'
 								/>
 							)}
 							<section className='flex flex-col py-1 md:gap-'>
@@ -165,7 +165,7 @@ const HeroMid = async () => {
 										}
 									/>
 								</div>
-								<h2 className='text-base font-bold capitalize tracking-tight leading-[20px] my-2 md:my-1'>
+								<h2 className='text-base font-bold capitalize tracking-tight leading-[20px] my-2 md:my-1 group-hover:underline'>
 									{
 										post.title
 									}
