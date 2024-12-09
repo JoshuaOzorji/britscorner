@@ -10,7 +10,7 @@ export const PostCard = ({ post }: { post: Post }) => (
 			<Image
 				src={post.mainImage.asset.url}
 				alt={post.mainImage.alt || "Post image"}
-				className='object-cover w-full h-[14vh] md:h-[20vh] rounded-lg group-hover:opacity-75'
+				className='object-cover w-full h-[20vh] rounded-lg group-hover:opacity-75'
 				width={300}
 				height={200}
 			/>
@@ -24,7 +24,7 @@ export const PostCard = ({ post }: { post: Post }) => (
 			</div>
 			<Link
 				href={`/post/${post.slug}`}
-				className='text-sm font-semibold md:text-base font-poppins group-hover:underline decoration-inherit animate'>
+				className='text-sm font-semibold tracking-tight md:text-base font-poppins group-hover:underline decoration-inherit animate'>
 				{post.title}
 			</Link>
 

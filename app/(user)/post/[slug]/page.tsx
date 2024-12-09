@@ -67,7 +67,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 			<article className='prose'>
 				<div className='my-5'>
 					{/* Post Categories */}
-					<div className='flex justify-center gap-2 mt-4 font-josefin'>
+					<div className='flex justify-center gap-2 my-4 font-josefin'>
 						{post.categories.map(
 							(category) => (
 								<Link
@@ -84,12 +84,12 @@ const PostPage = async ({ params }: PostPageProps) => {
 						)}
 					</div>
 
-					<h1 className='mt-4 text-3xl font-extrabold text-left text-gray-800 capitalize md:text-center md:text-5xl font-poppins'>
+					<h1 className='py-2 text-3xl font-extrabold text-left text-gray-800 capitalize md:text-center md:text-5xl font-poppins'>
 						{post.title}
 					</h1>
 
 					<div
-						className={`mt-4 text-sm text-gray-700 font-josefin mx-auto md:w-[60%] p-4 ${
+						className={`text-sm text-gray-700 font-josefin mx-auto md:w-[60%] p-2 my-3 ${
 							post.shortDescription &&
 							post.shortDescription
 								.length > 0
@@ -128,7 +128,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 						/>
 					</div>
 
-					<div className='text-base font-josefin'>
+					<div className='my-2 text-base font-josefin'>
 						<p>
 							By{" "}
 							{post.author?.name &&

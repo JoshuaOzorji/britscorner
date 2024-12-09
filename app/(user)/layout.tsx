@@ -27,7 +27,8 @@ const inconsolata = Inconsolata({
 	subsets: ["latin"],
 	variable: "--font-inconsolata",
 	display: "swap",
-	weight: ["400", "500", "600", "700"],
+	// weight: ["400", "500", "600", "700"],
+	adjustFontFallback: false,
 });
 
 const josefin = Josefin_Sans({
