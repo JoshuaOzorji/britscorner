@@ -1,12 +1,14 @@
 import Header from "@/components/Header";
+import Footer from "./Footer";
 
 const BaseLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<main>
+		<main className='flex flex-col min-h-screen'>
 			<Header />
-			<div className='mx-4 my-2 md:my-6 md:mx-10'>
+			<div className='flex-1 mx-4 my-2 md:my-6 md:mx-10'>
 				{children}
 			</div>
+			<Footer />
 		</main>
 	);
 };

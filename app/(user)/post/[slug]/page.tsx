@@ -53,8 +53,6 @@ const PostPage = async ({ params }: PostPageProps) => {
 
 	const categoryIds = post.categories.map((category) => category._id);
 
-	console.log("Tags data:", post.tags);
-
 	return (
 		<main className='text-sec'>
 			<BreadCrumb

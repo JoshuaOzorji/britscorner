@@ -1,5 +1,39 @@
+"use client";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
 const Footer = () => {
-	return <div></div>;
+	const [currentYear, setCurrentYear] = useState(
+		new Date().getFullYear(),
+	);
+
+	useEffect(() => {
+		setCurrentYear(new Date().getFullYear());
+	}, []);
+
+	return (
+		<main className='pt-2 pb-1 border-t font-josefin text-sec'>
+			<div className='w-[94%] mx-auto text-center'>
+				<p className='text-sm font-semibold md:text-base'>
+					&copy;{currentYear}{" "}
+					<Link href='/'>BlitsCorner</Link>
+				</p>
+
+				<div className='flex items-center justify-center gap-4 text-xs md:text-sm'>
+					<Link
+						href='/privacy'
+						className='hover:underline hover:text-pry'>
+						Privacy Policy
+					</Link>
+					<Link
+						href='/about'
+						className='hover:underline hover:text-pry'>
+						About us
+					</Link>
+				</div>
+			</div>
+		</main>
+	);
 };
 
 export default Footer;
