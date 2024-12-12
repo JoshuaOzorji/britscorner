@@ -2,7 +2,6 @@ import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import { Author } from "@/types";
 import { PostCard } from "@/components/PostCard";
-import BreadCrumb from "@/components/BreadCrumb";
 import { IoLocationOutline } from "react-icons/io5";
 
 interface AuthorPageProps {
@@ -51,14 +50,6 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
 
 	return (
 		<main className='px-4 '>
-			<BreadCrumb
-				categories={[
-					{
-						title: author.name,
-						slug: params.slug,
-					},
-				]}
-			/>
 			{/* Author Information */}
 			<div className='pb-4 border-b'>
 				<div className='flex items-center gap-4 py-4'>

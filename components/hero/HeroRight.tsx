@@ -44,7 +44,7 @@ const HeroRight = async () => {
 
 	return (
 		<div className='px-4 py-1 border-t md:border-t-0 md:border-l font-poppins'>
-			<h2 className='font-bold font-inconsolata'>
+			<h2 className='font-bold font-josefin text-sm'>
 				LATEST POSTS
 			</h2>
 			{latestPosts.map((post, index) => (

@@ -86,12 +86,12 @@ const HeroMid = async () => {
 										}
 									/>
 								</div>
-								<h2 className='my-1 text-base font-bold leading-5 md:text-3xl group-hover:underline'>
+								<h2 className='text-base font-bold leading-5 md:text-3xl group-hover:underline'>
 									{
 										post.title
 									}
 								</h2>
-								<p className='text-[13px] md:text-sm font-gothic'>
+								<p className='text-[13px] md:text-sm font-poppins'>
 									{
 										post.shortDescription
 									}

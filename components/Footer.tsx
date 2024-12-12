@@ -21,12 +21,13 @@ const Footer = () => {
 
 				<div className='flex items-center justify-center gap-4 text-xs md:text-sm'>
 					<Link
-						href='/privacy'
+						href='/privacy-policy'
 						className='hover:underline hover:text-pry'>
 						Privacy Policy
 					</Link>
+
 					<Link
-						href='/about'
+						href='/about-us'
 						className='hover:underline hover:text-pry'>
 						About us
 					</Link>

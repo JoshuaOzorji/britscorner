@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+.privacy-policy p {
+	@apply text-sm font-bold md:text-base;
+}
+
+.privacy-policy ol {
+	@apply text-sm md:text-base;
+}
+
+.privacy-policy ol li span {
+	@apply font-bold;
+}
+
 .animate {
 	@apply transition-all delay-100;
 }
@@ -15,7 +27,7 @@
 }
 
 .post-category {
-	@apply uppercase text-[10px] font-bold text-pry;
+	@apply uppercase text-[12px] font-bold text-pry;
 }
 
 .scrollBar {

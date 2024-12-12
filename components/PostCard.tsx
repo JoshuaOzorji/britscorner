@@ -16,7 +16,7 @@ export const PostCard = ({ post }: { post: Post }) => (
 			/>
 		)}
 		<div className='p-1 border-b rounded-lg rounded-b shadow-inherit'>
-			<div className='flex items-center gap-1 md:p-1'>
+			<div className='flex items-center gap-1 '>
 				<MdPlayArrow className='w-3 h-3' />
 				<CategoryLinks
 					categories={post?.categories || []}

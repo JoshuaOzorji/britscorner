@@ -31,7 +31,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 					alt
 				},
 				categories[]->{
-					_id, 
+					_id,
 					title,
 					"slug": slug.current
 				},
@@ -65,7 +65,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 			<article className='prose'>
 				<div className='my-5'>
 					{/* Post Categories */}
-					<div className='flex justify-center gap-2 my-4 font-josefin'>
+					<div className='flex justify-center gap-2 my-4 font-inconsolata font-bold'>
 						{post.categories.map(
 							(category) => (
 								<Link
@@ -168,7 +168,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 									.alt ||
 								"Post image"
 							}
-							className='w-full rounded-lg object-cover object-center md:h-[65vh]'
+							className='w-full rounded-lg object-cover object-center md:h-[65vh] md:w-[80%] mx-auto'
 							width={800}
 							height={400}
 						/>
