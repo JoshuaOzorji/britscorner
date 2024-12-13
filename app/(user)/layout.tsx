@@ -7,8 +7,9 @@ import {
 } from "next/font/google";
 import BaseLayout from "@/components/BaseLayout";
 import { Toaster } from "react-hot-toast";
-import ProgressBar from "@/components/ProgressBar";
 import type { Metadata } from "next";
+import ProgressBar from "@/components/ProgressBar";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -53,8 +54,9 @@ export default function RootLayout({
 		<html lang='en'>
 			<body
 				className={`${poppins.variable} ${gothic.variable} ${inconsolata.variable} ${josefin.variable} antialiased`}>
-				<ProgressBar />{" "}
-				{/* This is the extracted client component */}
+				<ProgressBar />
+				<ScrollToTop />
+
 				<BaseLayout>
 					{children}
 					<Toaster

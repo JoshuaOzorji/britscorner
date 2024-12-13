@@ -252,7 +252,11 @@ const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 													className='mb-4'>
 													<Link
 														href={`/post/${result.slug.current}`}>
-														<p className='font-medium hover:underline'>
+														<p
+															className='font-medium hover:underline'
+															onClick={
+																onClose
+															}>
 															{
 																result.title
 															}

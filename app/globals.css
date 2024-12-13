@@ -22,6 +22,22 @@
 	@apply w-7 h-7 hover:text-pry animate;
 }
 
+@keyframes indeterminate {
+	0% {
+		transform: translateX(-100%);
+	}
+	50% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(100%);
+	}
+}
+
+.progress-bar {
+	animation: indeterminate 1.5s infinite;
+}
+
 .post-author {
 	@apply underline decoration-inherit hover:decoration-pry hover:text-pry;
 }
