@@ -24,6 +24,7 @@ export interface Category {
 	title: string;
 	description?: string;
 	posts: Post[];
+	slug: { current: string };
 }
 
 export interface Author {
