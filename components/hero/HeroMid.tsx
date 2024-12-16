@@ -5,7 +5,7 @@ import { defineQuery } from "next-sanity";
 import { MdPlayArrow } from "react-icons/md";
 import ClientSideRoute from "../ClientSideRoute";
 import CategoryLinks from "../CategoryLinks";
-import Link from "next/link";
+import AuthorDate from "../AuthorDate";
 
 const options = { next: { revalidate: 60 } };
 
@@ -96,33 +96,14 @@ const HeroMid = async () => {
 										post.shortDescription
 									}
 								</p>
-								<div className='author-date'>
-									<p>
-										by{" "}
-										{post
-											.author
-											?.name &&
-											post
-												.author
-												?.slug
-												?.current && (
-												<Link
-													href={`/author/${post.author.slug.current}`}
-													className='text-sec underline hover:text-pry'>
-													{
-														post
-															.author
-															.name
-													}
-												</Link>
-											)}
-									</p>
-									<p>
-										{new Date(
-											post.publishedAt,
-										).toDateString()}
-									</p>
-								</div>
+								<AuthorDate
+									author={
+										post.author
+									}
+									publishedAt={
+										post.publishedAt
+									}
+								/>
 							</section>
 						</div>
 					</ClientSideRoute>
@@ -171,33 +152,14 @@ const HeroMid = async () => {
 									}
 								</h2>
 
-								<div className='author-date'>
-									<p>
-										by{" "}
-										{post
-											.author
-											?.name &&
-											post
-												.author
-												?.slug
-												?.current && (
-												<Link
-													href={`/author/${post.author.slug.current}`}
-													className='text-sec underline hover:text-pry'>
-													{
-														post
-															.author
-															.name
-													}
-												</Link>
-											)}
-									</p>
-									<p>
-										{new Date(
-											post.publishedAt,
-										).toDateString()}
-									</p>
-								</div>
+								<AuthorDate
+									author={
+										post.author
+									}
+									publishedAt={
+										post.publishedAt
+									}
+								/>
 							</section>
 						</div>
 					</ClientSideRoute>

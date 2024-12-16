@@ -5,7 +5,7 @@ import { defineQuery } from "next-sanity";
 import { MdPlayArrow } from "react-icons/md";
 import ClientSideRoute from "../ClientSideRoute";
 import CategoryLinks from "../CategoryLinks";
-import Link from "next/link";
+import AuthorDate from "../AuthorDate";
 
 const options = { next: { revalidate: 60 } };
 const latestPostsQuery = defineQuery(`
@@ -100,32 +100,12 @@ const HeroRight = async () => {
 						<h2 className='text-base font-bold capitalize tracking-tight leading-[20px] my-2 md:my-1 group-hover:underline'>
 							{post.title}
 						</h2>
-						<div className='author-date'>
-							<p>
-								by{" "}
-								{post.author
-									?.name &&
-									post
-										.author
-										?.slug
-										?.current && (
-										<Link
-											href={`/author/${post.author.slug.current}`}
-											className='text-sec underline hover:text-pry'>
-											{
-												post
-													.author
-													.name
-											}
-										</Link>
-									)}
-							</p>
-							<p className='text-gray-500'>
-								{new Date(
-									post.publishedAt,
-								).toDateString()}
-							</p>
-						</div>
+						<AuthorDate
+							author={post.author}
+							publishedAt={
+								post.publishedAt
+							}
+						/>
 					</div>
 				</ClientSideRoute>
 			))}

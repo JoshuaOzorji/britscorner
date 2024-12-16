@@ -42,6 +42,10 @@
 	@apply underline decoration-inherit hover:decoration-pry hover:text-pry;
 }
 
+.author-date {
+	@apply text-[12px] text-gray-500 flex flex-wrap gap-y-0 gap-x-3;
+}
+
 .post-category {
 	@apply uppercase text-[12px] font-bold text-pry;
 }
@@ -55,10 +59,6 @@
   [&::-webkit-scrollbar-thumb]:bg-gray-300
   dark:[&::-webkit-scrollbar-track]:bg-neutral-700
   dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500;
-}
-
-.author-date {
-	@apply text-[12px] text-gray-500 flex flex-wrap gap-y-0 gap-x-3;
 }
 
 @layer base {

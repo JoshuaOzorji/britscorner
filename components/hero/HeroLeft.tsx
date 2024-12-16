@@ -6,7 +6,7 @@ import urlFor from "@/sanity/lib/urlFor";
 import { MdPlayArrow } from "react-icons/md";
 import ClientSideRoute from "../ClientSideRoute";
 import CategoryLinks from "../CategoryLinks";
-import Link from "next/link";
+import AuthorDate from "../AuthorDate";
 
 const options = { next: { revalidate: 60 } };
 const featuredPostsQuery = defineQuery(`
@@ -81,33 +81,12 @@ const HeroLeft = async () => {
 						<h2 className='text-[18px] font-bold capitalize tracking-tight leading-[23px] group-hover:underline'>
 							{post.title}
 						</h2>
-						<div className='author-date'>
-							<p>
-								by{" "}
-								{post.author
-									?.name &&
-									post
-										.author
-										?.slug
-										?.current && (
-										<Link
-											href={`/author/${post.author.slug.current}`}
-											className='text-sec underline hover:text-pry'>
-											{
-												post
-													.author
-													.name
-											}
-										</Link>
-									)}
-							</p>
-
-							<p>
-								{new Date(
-									post.publishedAt,
-								).toDateString()}
-							</p>
-						</div>
+						<AuthorDate
+							author={post.author}
+							publishedAt={
+								post.publishedAt
+							}
+						/>
 					</div>
 				</ClientSideRoute>
 			))}
