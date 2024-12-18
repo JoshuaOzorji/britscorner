@@ -1,3 +1,4 @@
+import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 
 export const getHomepageCategoriesQuery = groq`
@@ -9,7 +10,11 @@ export const getHomepageCategoriesQuery = groq`
     "posts": *[_type == "post" && references(^._id)] | order(publishedAt desc) [0...5] {
       _id,
       title,
-      "slug": slug.current,
+      slug,
+      author->{
+				name,
+				slug
+				},
       mainImage{
         asset->{
           url
@@ -18,10 +23,6 @@ export const getHomepageCategoriesQuery = groq`
       },
       publishedAt,
       shortDescription,
-      author->{
-        name, 
-        "slug": slug.current
-      },
       categories[]->{
         title, 
         "slug": slug.current
@@ -29,3 +30,12 @@ export const getHomepageCategoriesQuery = groq`
     }
   }
 `;
+
+export async function fetchTrendingPosts() {
+	const trendingPosts = await client.fetch(
+		`*[_type == "post"] | order(views desc)[0...5] {
+      _id, title, slug, views, mainImage { asset-> { url }, alt }
+    }`,
+	);
+	return trendingPosts;
+}

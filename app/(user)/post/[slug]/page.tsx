@@ -7,6 +7,7 @@ import Link from "next/link";
 import RelatedPosts from "@/components/RelatedPosts";
 import ShareLink from "@/components/ShareLink";
 import BreadCrumb from "@/components/BreadCrumb";
+import ClientViewUpdater from "@/components/ClientViewUpdater";
 
 interface PostPageProps {
 	params: { slug: string };
@@ -20,6 +21,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 				_id,
 				title,
 				slug,
+				views,
 				author->{
 					name,
 					slug
@@ -118,6 +120,8 @@ const PostPage = async ({ params }: PostPageProps) => {
 							<p></p>
 						)}
 					</div>
+
+					<ClientViewUpdater postId={post._id} />
 
 					<div className='justify-center hidden md:flex'>
 						<ShareLink

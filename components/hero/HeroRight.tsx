@@ -44,7 +44,7 @@ const HeroRight = async () => {
 
 	return (
 		<div className='px-4 py-1 border-t md:border-t-0 md:border-l font-poppins'>
-			<h2 className='font-bold font-josefin text-sm'>
+			<h2 className='text-sm font-bold font-josefin'>
 				LATEST POSTS
 			</h2>
 			{latestPosts.map((post, index) => (
@@ -80,7 +80,7 @@ const HeroRight = async () => {
 							}
 							className={`group-hover:opacity-75 ${
 								index === 0
-									? "h-[15vh] lg:h-[20vh] w-full"
+									? "h-[20vh] w-full"
 									: "h-[20vh] w-[100px]"
 							} object-cover object-center rounded-lg`}
 						/>
@@ -97,7 +97,7 @@ const HeroRight = async () => {
 							/>
 						</div>
 
-						<h2 className='text-base font-bold capitalize tracking-tight leading-[20px] my-2 md:my-1 group-hover:underline'>
+						<h2 className='post-title-home'>
 							{post.title}
 						</h2>
 						<AuthorDate

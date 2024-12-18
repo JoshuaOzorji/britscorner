@@ -3,6 +3,7 @@ import HeroMain from "@/components/hero/HeroMain";
 import { getHomepageCategoriesQuery } from "@/lib/queries/query";
 import CategoryPosts from "@/components/CategoryPosts";
 import { Category } from "@/types";
+import AllPosts from "@/components/AllPosts";
 
 const page = async () => {
 	const categoriesPosts = await client.fetch(getHomepageCategoriesQuery);
@@ -22,6 +23,7 @@ const page = async () => {
 					/>
 				))}
 			</section>
+			<AllPosts />
 		</main>
 	);
 };

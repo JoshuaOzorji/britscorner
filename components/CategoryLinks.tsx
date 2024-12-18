@@ -11,7 +11,7 @@ interface CategoryLinksProps {
 
 const CategoryLinks = ({ categories = [] }: CategoryLinksProps) => {
 	return (
-		<div className='flex flex-wrap font-inconsolata'>
+		<div className='flex flex-wrap font-inconsolata text-xs md:text-sm'>
 			{categories.map((category, index) => (
 				<span
 					key={category.title}

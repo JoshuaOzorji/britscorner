@@ -2,6 +2,8 @@ import { Category, Post } from "@/types";
 import Image from "next/image";
 import ClientSideRoute from "@/components/ClientSideRoute";
 import AuthorDate from "./AuthorDate";
+import { MdPlayArrow } from "react-icons/md";
+import CategoryLinks from "./CategoryLinks";
 
 interface CategoryPostsProps {
 	category: Category;
@@ -16,9 +18,9 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 	const renderFirstPost = (post: Post) => (
 		<ClientSideRoute
 			key={post._id}
-			href={`/post/${post.slug.current}`}>
-			<div className='p-4 rounded-md group '>
-				<div className='relative w-full h-64 bg-gray-300 rounded-lg overflow-hidden'>
+			href={`/post/${post.slug?.current}`}>
+			<div className='p-2 border-b rounded-lg rounded-b group shadow-inherit'>
+				<div className='relative w-full h-[30vh] md:h-[40vh] overflow-hidden rounded-lg'>
 					{post.mainImage?.asset?.url && (
 						<Image
 							src={
@@ -31,17 +33,25 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 									.alt ||
 								"Post Image"
 							}
-							layout='fill'
-							objectFit='cover'
-							className='group-hover:opacity-75'
+							width={500}
+							height={300}
+							className='object-cover object-center w-full rounded-lg group-hover:opacity-75'
 						/>
 					)}
 				</div>
-				<div className='mt-4'>
-					<h3 className='text-2xl font-semibold group-hover:underline'>
+
+				<div className='flex items-center gap-1 md:p-1'>
+					<MdPlayArrow className='w-3 h-3' />
+					<CategoryLinks
+						categories={post.categories}
+					/>
+				</div>
+
+				<div className='mt-1'>
+					<h3 className='text-base font-bold leading-5 md:text-3xl group-hover:underline'>
 						{post.title}
 					</h3>
-					<p className='text-sm text-sec mt-2 line-clamp-3'>
+					<p className='my-1 mt-2 text-sm text-sec line-clamp-3'>
 						{post.shortDescription || ""}
 					</p>
 					<AuthorDate
@@ -57,9 +67,9 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 	const renderOtherPost = (post: Post) => (
 		<ClientSideRoute
 			key={post._id}
-			href={`/post/${post.slug.current}`}>
-			<div className='p-2 bg-white rounded-md shadow-md group'>
-				<div className='relative w-full h-48 bg-gray-200 rounded-md overflow-hidden'>
+			href={`/post/${post.slug?.current}`}>
+			<div className='p-2 bg-white border-b rounded-lg rounded-b group shadow-inherit'>
+				<div className='relative w-full hidden md:block h-[17vh] overflow-hidden rounded-md'>
 					{post.mainImage?.asset?.url && (
 						<Image
 							src={
@@ -73,14 +83,22 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 								"Post Image"
 							}
 							layout='fill'
-							objectFit='cover'
-							className='group-hover:opacity-75'
+							className='object-cover w-full group-hover:opacity-75'
 						/>
 					)}
 				</div>
-				<h3 className='mt-2 text-lg font-semibold group-hover:underline'>
+
+				<div className='flex items-center gap-1 md:p-1'>
+					<MdPlayArrow className='w-3 h-3' />
+					<CategoryLinks
+						categories={post.categories}
+					/>
+				</div>
+
+				<h2 className='post-title-home'>
 					{post.title}
-				</h3>
+				</h2>
+
 				<AuthorDate
 					author={post.author}
 					publishedAt={post.publishedAt}
@@ -90,24 +108,24 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 	);
 
 	return (
-		<main className='category-section mb-8 font-poppins border rounded-lg'>
-			<h2 className='text-xl font-bold mb-4'>
+		<main className='p-2 mb-8 border rounded-lg category-section font-poppins'>
+			<h2 className='text-xl font-bold'>
 				<ClientSideRoute
 					href={`/category/${slug.current}`}>
-					<button className='uppercase font-josefin'>
+					<button className='px-4 mt-2 uppercase font-josefin text-pry'>
 						{title}
 					</button>
 				</ClientSideRoute>
 			</h2>
 
-			<div className='flex gap-4'>
+			<div className='flex flex-col gap-4 md:flex-row'>
 				{/* First post */}
 				<div className='w-full md:w-1/2'>
 					{renderFirstPost(posts[0])}
 				</div>
 
 				{/* Other posts */}
-				<div className='w-full md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4'>
+				<div className='flex flex-col w-full gap-4 md:grid md:w-1/2 sm:grid-cols-2'>
 					{posts
 						.slice(1)
 						.map((post: Post) =>

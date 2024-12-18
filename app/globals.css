@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.post-title-home {
+	@apply text-base font-bold capitalize tracking-tight leading-[20px] my-2 md:my-0 group-hover:underline;
+}
+
+.hover-underline {
+	@apply relative text-pry after:absolute after:bottom-[0.6px] after:left-0 after:h-[1px] after:w-full after:bg-pry after:transition-all after:duration-300 hover:after:w-0;
+}
+
 .privacy-policy p {
 	@apply text-sm font-bold md:text-base;
 }

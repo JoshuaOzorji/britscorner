@@ -62,7 +62,7 @@ const HeroLeft = async () => {
 										.alt ||
 									"Post image"
 								}
-								className='h-[28vh] sm:h-[20vh] md:h-[20vh] object-cover object-center rounded-lg w-full group-hover:opacity-75'
+								className='h-[20vh] object-cover object-center rounded-lg w-full group-hover:opacity-75'
 								width={300}
 								height={300}
 							/>
@@ -78,7 +78,7 @@ const HeroLeft = async () => {
 							/>
 						</div>
 
-						<h2 className='text-[18px] font-bold capitalize tracking-tight leading-[23px] group-hover:underline'>
+						<h2 className='post-title-home'>
 							{post.title}
 						</h2>
 						<AuthorDate

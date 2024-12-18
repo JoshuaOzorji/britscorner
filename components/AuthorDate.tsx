@@ -16,7 +16,7 @@ const AuthorDate = ({ author, publishedAt }: AuthorDateProps) => {
 				{author?.name && author?.slug?.current && (
 					<Link
 						href={`/author/${author.slug.current}`}
-						className='text-sec underline hover:text-pry'>
+						className='hover-underline'>
 						{author.name}
 					</Link>
 				)}

@@ -79,6 +79,14 @@ export const postType = defineType({
 			type: "blockContent",
 		}),
 
+		defineField({
+			name: "views",
+			title: "Views",
+			type: "number",
+			description: "Number of views for this post",
+			validation: (Rule) => Rule.min(0),
+		}),
+
 		// TAGS
 		defineField({
 			name: "tags",
