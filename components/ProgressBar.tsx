@@ -1,87 +1,95 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Progress } from "@/components/ui/progress";
+
+// Debounce helper function
+function debounce(fn: () => void, delay: number) {
+	let timer: NodeJS.Timeout | null = null;
+	return () => {
+		if (timer) clearTimeout(timer);
+		timer = setTimeout(fn, delay);
+	};
+}
 
 const ProgressBar = () => {
 	const [progress, setProgress] = useState(0);
-	let isNavigating = false;
+	const [isNavigating, setIsNavigating] = useState(false);
+
+	const startLoading = useCallback(() => {
+		if (!isNavigating) {
+			setIsNavigating(true);
+			setProgress(30);
+		}
+	}, [isNavigating]);
+
+	const completeLoading = useCallback(() => {
+		if (isNavigating) {
+			setProgress(100);
+			setTimeout(() => {
+				setProgress(0);
+				setIsNavigating(false);
+			}, 500);
+		}
+	}, [isNavigating]);
+
+	const debouncedStartLoading = useMemo(
+		() => debounce(startLoading, 50),
+		[startLoading],
+	);
 
 	useEffect(() => {
-		const startLoading = () => {
-			if (!isNavigating) {
-				// eslint-disable-next-line react-hooks/exhaustive-deps
-				isNavigating = true;
-				setProgress(30);
-			}
-		};
-
-		const completeLoading = () => {
-			if (isNavigating) {
-				setProgress(100);
-				isNavigating = false;
-			}
-		};
-
 		const handleLinkClick = (e: MouseEvent) => {
 			const target = e.target as HTMLElement;
 			const link = target.closest("a");
 
 			if (link) {
 				const href = link.getAttribute("href");
-				// Check if it's an internal link (starts with / or is relative)
 				if (
 					href &&
 					(href.startsWith("/") ||
 						!href.includes("://"))
 				) {
-					startLoading();
+					debouncedStartLoading();
 				}
 			}
 		};
 
-		document.addEventListener("click", handleLinkClick);
-
-		// Monitor SPA navigation using pushState, replaceState, and popstate
 		const originalPushState = history.pushState;
 		const originalReplaceState = history.replaceState;
 
-		history.pushState = function (...args) {
-			startLoading();
+		const wrappedPushState = function (
+			...args: Parameters<typeof history.pushState>
+		) {
+			debouncedStartLoading();
 			const result = originalPushState.apply(history, args);
-			completeLoading(); // Assume page is ready after SPA navigation
+			completeLoading(); // Use completeLoading directly
 			return result;
 		};
 
-		history.replaceState = function (...args) {
-			startLoading();
+		const wrappedReplaceState = function (
+			...args: Parameters<typeof history.replaceState>
+		) {
+			debouncedStartLoading();
 			const result = originalReplaceState.apply(
 				history,
 				args,
 			);
-			completeLoading(); // Assume page is ready after SPA navigation
+			completeLoading(); // Use completeLoading directly
 			return result;
 		};
 
-		// Handle back/forward browser navigation
-		window.addEventListener("popstate", () => {
-			startLoading();
-			completeLoading();
-		});
+		document.addEventListener("click", handleLinkClick);
+		history.pushState = wrappedPushState;
+		history.replaceState = wrappedReplaceState;
+		window.addEventListener("popstate", completeLoading); // Use completeLoading directly
 
 		return () => {
 			document.removeEventListener("click", handleLinkClick);
 			history.pushState = originalPushState;
 			history.replaceState = originalReplaceState;
-			window.removeEventListener("popstate", completeLoading);
+			window.removeEventListener("popstate", completeLoading); // Clean up
 		};
-	}, []);
-
-	useEffect(() => {
-		if (progress === 100) {
-			const timer = setTimeout(() => setProgress(0), 500);
-			return () => clearTimeout(timer);
-		}
-	}, [progress]);
+	}, [debouncedStartLoading, completeLoading]);
 
 	if (progress === 0) return null;
 

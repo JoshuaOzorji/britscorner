@@ -11,10 +11,10 @@ const BreadCrumb = ({ categories, postTitle }: BreadCrumbProps) => {
 			<ul className='flex flex-wrap items-center gap-2'>
 				{/* Home */}
 				<li>
-					<Link
-						href='/'
-						className='hover:underline'>
-						Home
+					<Link href='/'>
+						<span className='hover:underline'>
+							Home
+						</span>
 					</Link>
 				</li>
 				<span> {">"} </span>
@@ -25,9 +25,10 @@ const BreadCrumb = ({ categories, postTitle }: BreadCrumbProps) => {
 						key={category.slug}
 						className='inline-flex items-center'>
 						<Link
-							href={`/category/${category.slug}`}
-							className='hover:underline'>
-							<p>{category.title}</p>
+							href={`/category/${category.slug}`}>
+							<p className='hover:underline'>
+								{category.title}
+							</p>
 						</Link>
 						{index <
 							categories.length -

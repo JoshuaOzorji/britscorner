@@ -3,6 +3,7 @@ import { PortableTextBlock } from "@portabletext/types";
 export interface Post {
 	_id: string;
 	title: string;
+	views?: number;
 	slug: { current: string };
 	author?: { name: string; slug: { current: string } };
 	mainImage?: {

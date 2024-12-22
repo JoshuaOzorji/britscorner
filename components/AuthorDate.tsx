@@ -15,9 +15,10 @@ const AuthorDate = ({ author, publishedAt }: AuthorDateProps) => {
 				<span className='mx-1'>&bull;</span>by{" "}
 				{author?.name && author?.slug?.current && (
 					<Link
-						href={`/author/${author.slug.current}`}
-						className='hover-underline'>
-						{author.name}
+						href={`/author/${author.slug.current}`}>
+						<span className='hover-underline'>
+							{author.name}
+						</span>
 					</Link>
 				)}
 			</div>

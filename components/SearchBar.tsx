@@ -181,13 +181,14 @@ const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 														)}
 														<Link
 															href={`/author/${author.slug?.current}`}
-															className='underline text-sec hover:text-pry'
 															onClick={
 																onClose
 															}>
-															{
-																author.name
-															}
+															<span className='underline text-sec hover:text-pry'>
+																{
+																	author.name
+																}
+															</span>
 														</Link>
 													</div>
 												),

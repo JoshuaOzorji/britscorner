@@ -49,10 +49,9 @@ const HeroMid = async () => {
 			{featuredPosts.map((post, index) =>
 				index === 0 ? (
 					<ClientSideRoute
-						className='flex flex-col items-center w-full gap-4 pb-4 border-b group'
 						href={`/post/${post.slug?.current}`}
 						key={post._id}>
-						<div className=''>
+						<div className='flex flex-col items-center w-full gap-4 pb-4 border-b group'>
 							{post.mainImage?.asset
 								?.url && (
 								<Image

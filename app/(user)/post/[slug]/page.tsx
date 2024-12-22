@@ -65,6 +65,13 @@ const PostPage = async ({ params }: PostPageProps) => {
 				postTitle={post.title}
 			/>
 			<article className='prose'>
+				<div className='flex justify-between items-center mt-4'>
+					<p className='text-gray-600'>
+						Views: {post.views ?? 0}
+					</p>
+				</div>
+
+				<ClientViewUpdater postId={post._id} />
 				<div className='my-5'>
 					{/* Post Categories */}
 					<div className='flex justify-center gap-2 my-4 font-inconsolata font-bold'>
@@ -74,11 +81,12 @@ const PostPage = async ({ params }: PostPageProps) => {
 									key={
 										category.title
 									}
-									href={`/category/${category.slug}`}
-									className='px-3 py-1 text-xs border rounded-full md:text-sm bg-pry animate text-acc hover:bg-acc hover:text-sec hover:border-sec'>
-									{
-										category.title
-									}
+									href={`/category/${category.slug}`}>
+									<span className='px-3 py-1 text-xs border rounded-full md:text-sm bg-pry animate text-acc hover:bg-acc hover:text-sec hover:border-sec'>
+										{
+											category.title
+										}
+									</span>
 								</Link>
 							),
 						)}
@@ -121,8 +129,6 @@ const PostPage = async ({ params }: PostPageProps) => {
 						)}
 					</div>
 
-					<ClientViewUpdater postId={post._id} />
-
 					<div className='justify-center hidden md:flex'>
 						<ShareLink
 							postUrl={`${baseUrl}/post/${post.slug.current}`}
@@ -138,13 +144,14 @@ const PostPage = async ({ params }: PostPageProps) => {
 									?.slug
 									?.current && (
 									<Link
-										href={`/author/${post.author.slug.current}`}
-										className='text-pry hover:underline'>
-										{
-											post
-												.author
-												.name
-										}
+										href={`/author/${post.author.slug.current}`}>
+										<span className='text-pry hover:underline'>
+											{
+												post
+													.author
+													.name
+											}
+										</span>
 									</Link>
 								)}
 						</p>
@@ -207,11 +214,12 @@ const PostPage = async ({ params }: PostPageProps) => {
 										}>
 										{tag.slug ? (
 											<Link
-												href={`/tag/${tag.slug}`}
-												className='text-base underline capitalize text-pry hover:text-sec decoration-inherit'>
-												{
-													tag.name
-												}
+												href={`/tag/${tag.slug}`}>
+												<span className='text-base underline capitalize text-pry hover:text-sec decoration-inherit'>
+													{
+														tag.name
+													}
+												</span>
 											</Link>
 										) : (
 											<span className='text-base capitalize text-pry'>

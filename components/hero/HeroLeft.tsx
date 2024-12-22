@@ -48,45 +48,54 @@ const HeroLeft = async () => {
 			{featuredPosts.map((post, index) => (
 				<ClientSideRoute
 					key={post._id}
-					href={`/post/${post.slug?.current}`}
-					className={`flex flex-col group ${index === 0 ? "first-item-class" : "other-item-class"} ${index !== featuredPosts.length - 1 ? "border-b mb-2 pb-2" : ""}`}>
-					{index === 0 &&
-						post.mainImage?.asset?.url && (
-							<Image
-								src={urlFor(
-									post.mainImage,
-								).url()}
-								alt={
-									post
-										.mainImage
-										.alt ||
-									"Post image"
-								}
-								className='h-[20vh] object-cover object-center rounded-lg w-full group-hover:opacity-75'
-								width={300}
-								height={300}
-							/>
-						)}
+					href={`/post/${post.slug?.current}`}>
+					<div
+						className={`flex flex-col group ${index === 0 ? "first-item-class" : "other-item-class"} ${index !== featuredPosts.length - 1 ? "border-b mb-2 pb-2" : ""}`}>
+						{index === 0 &&
+							post.mainImage?.asset
+								?.url && (
+								<Image
+									src={urlFor(
+										post.mainImage,
+									).url()}
+									alt={
+										post
+											.mainImage
+											.alt ||
+										"Post image"
+									}
+									className='h-[20vh] object-cover object-center rounded-lg w-full group-hover:opacity-75'
+									width={
+										300
+									}
+									height={
+										300
+									}
+								/>
+							)}
 
-					<div className='py-1'>
-						<div className='flex items-center gap-1'>
-							<MdPlayArrow className='w-3 h-3' />
-							<CategoryLinks
-								categories={
-									post.categories
+						<div className='py-1'>
+							<div className='flex items-center gap-1'>
+								<MdPlayArrow className='w-3 h-3' />
+								<CategoryLinks
+									categories={
+										post.categories
+									}
+								/>
+							</div>
+
+							<h2 className='post-title-home'>
+								{post.title}
+							</h2>
+							<AuthorDate
+								author={
+									post.author
+								}
+								publishedAt={
+									post.publishedAt
 								}
 							/>
 						</div>
-
-						<h2 className='post-title-home'>
-							{post.title}
-						</h2>
-						<AuthorDate
-							author={post.author}
-							publishedAt={
-								post.publishedAt
-							}
-						/>
 					</div>
 				</ClientSideRoute>
 			))}

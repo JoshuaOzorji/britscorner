@@ -35,9 +35,8 @@ export default async function HomePage() {
 						className='p-4 bg-white rounded-lg'
 						key={post._id}>
 						<Link
-							className='hover:underline'
 							href={`/post/${post?.slug?.current}`}>
-							<h2 className='text-xl font-semibold'>
+							<h2 className='text-xl font-semibold hover:underline'>
 								{post?.title}
 							</h2>
 

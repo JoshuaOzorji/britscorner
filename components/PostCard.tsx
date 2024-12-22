@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MdPlayArrow } from "react-icons/md";
 import CategoryLinks from "./CategoryLinks";
+import ClientViewUpdater from "./ClientViewUpdater";
 
 export const PostCard = ({ post }: { post: Post }) => (
 	<div className='group'>
@@ -22,10 +23,13 @@ export const PostCard = ({ post }: { post: Post }) => (
 					categories={post?.categories || []}
 				/>
 			</div>
-			<Link
-				href={`/post/${post.slug}`}
-				className='text-sm font-semibold tracking-tight md:text-base font-poppins group-hover:underline decoration-inherit animate'>
-				{post.title}
+
+			<ClientViewUpdater postId={post._id} />
+
+			<Link href={`/post/${post.slug}`}>
+				<p className='text-sm font-semibold tracking-tight md:text-base font-poppins group-hover:underline decoration-inherit animate'>
+					{post.title}
+				</p>
 			</Link>
 
 			<div className='author-date'>

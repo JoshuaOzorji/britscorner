@@ -20,16 +20,16 @@ const Footer = () => {
 				</p>
 
 				<div className='flex items-center justify-center gap-4 text-xs md:text-sm'>
-					<Link
-						href='/privacy-policy'
-						className='hover:underline hover:text-pry'>
-						Privacy Policy
+					<Link href='/privacy-policy'>
+						<span className='hover:underline hover:text-pry'>
+							Privacy Policy
+						</span>
 					</Link>
 
-					<Link
-						href='/about-us'
-						className='hover:underline hover:text-pry'>
-						About us
+					<Link href='/about-us'>
+						<span className='hover:underline hover:text-pry'>
+							About us
+						</span>
 					</Link>
 				</div>
 			</div>

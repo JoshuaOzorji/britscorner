@@ -17,9 +17,12 @@ const CategoryLinks = ({ categories = [] }: CategoryLinksProps) => {
 					key={category.title}
 					className='post-category'>
 					<Link
-						href={`/category/${category.slug}`}
-						className='hover:underline'>
-						{category.title}
+						href={`/category/${category.slug}`}>
+						<span>
+							<span className='hover:underline'>
+								{category.title}
+							</span>
+						</span>
 					</Link>
 					{index < categories.length - 1 && (
 						<span>,&nbsp;</span>

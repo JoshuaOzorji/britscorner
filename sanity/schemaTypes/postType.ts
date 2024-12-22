@@ -81,10 +81,11 @@ export const postType = defineType({
 
 		defineField({
 			name: "views",
-			title: "Views",
 			type: "number",
+			title: "Views",
 			description: "Number of views for this post",
 			validation: (Rule) => Rule.min(0),
+			initialValue: 0,
 		}),
 
 		// TAGS
