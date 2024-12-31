@@ -48,9 +48,11 @@ const HeroRight = async () => {
 				LATEST POSTS
 			</h2>
 			{latestPosts.map((post, index) => (
-				<ClientSideRoute
-					key={post._id}
-					href={`/post/${post.slug?.current}`}
+				<div
+					key={
+						post.slug?.current ||
+						`fallback-${post._id}`
+					}
 					className={`flex group ${
 						index === 0
 							? "flex-col"
@@ -97,9 +99,13 @@ const HeroRight = async () => {
 							/>
 						</div>
 
-						<h2 className='post-title-home'>
-							{post.title}
-						</h2>
+						<ClientSideRoute
+							href={`/post/${post.slug?.current}`}>
+							<h2 className='post-title-home'>
+								{post.title}
+							</h2>
+						</ClientSideRoute>
+
 						<AuthorDate
 							author={post.author}
 							publishedAt={
@@ -107,7 +113,7 @@ const HeroRight = async () => {
 							}
 						/>
 					</div>
-				</ClientSideRoute>
+				</div>
 			))}
 		</div>
 	);

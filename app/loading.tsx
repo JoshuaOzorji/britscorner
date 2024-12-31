@@ -8,16 +8,15 @@ export default function Loading() {
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setProgress((prev) => (prev < 90 ? prev + 10 : prev)); // Increase up to 90%
+			setProgress((prev) => (prev < 90 ? prev + 10 : prev));
 		}, 200);
 
 		const onLoad = () => {
-			setProgress(100); // Set to 100% when the page is ready
-			setTimeout(() => setProgress(0), 500); // Reset after delay
+			setProgress(100);
+			setTimeout(() => setProgress(0), 500);
 		};
 
-		window.addEventListener("load", onLoad); // Page load event
-
+		window.addEventListener("load", onLoad);
 		return () => {
 			clearInterval(interval);
 			window.removeEventListener("load", onLoad);
@@ -25,7 +24,7 @@ export default function Loading() {
 	}, []);
 
 	return (
-		<div className='fixed top-0 left-0 w-full h-1 md:h-2 bg-transparent'>
+		<div className='fixed top-0 left-0 w-full h-1 bg-transparent md:h-2'>
 			<Progress value={progress} className='h-full' />
 		</div>
 	);

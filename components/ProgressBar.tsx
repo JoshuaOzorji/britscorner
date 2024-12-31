@@ -62,7 +62,7 @@ const ProgressBar = () => {
 		) {
 			debouncedStartLoading();
 			const result = originalPushState.apply(history, args);
-			completeLoading(); // Use completeLoading directly
+			completeLoading();
 			return result;
 		};
 
@@ -74,20 +74,20 @@ const ProgressBar = () => {
 				history,
 				args,
 			);
-			completeLoading(); // Use completeLoading directly
+			completeLoading();
 			return result;
 		};
 
 		document.addEventListener("click", handleLinkClick);
 		history.pushState = wrappedPushState;
 		history.replaceState = wrappedReplaceState;
-		window.addEventListener("popstate", completeLoading); // Use completeLoading directly
+		window.addEventListener("popstate", completeLoading);
 
 		return () => {
 			document.removeEventListener("click", handleLinkClick);
 			history.pushState = originalPushState;
 			history.replaceState = originalReplaceState;
-			window.removeEventListener("popstate", completeLoading); // Clean up
+			window.removeEventListener("popstate", completeLoading);
 		};
 	}, [debouncedStartLoading, completeLoading]);
 

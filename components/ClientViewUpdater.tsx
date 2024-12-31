@@ -1,38 +1,17 @@
-// "use client";
-// import { useEffect } from "react";
-
-// interface ClientViewUpdaterProps {
-// 	postId: string;
-// }
-
-// const ClientViewUpdater = ({ postId }: ClientViewUpdaterProps) => {
-// 	useEffect(() => {
-// 		const updateViews = async () => {
-// 			try {
-// 				await fetch(`/api/views/${postId}`, {
-// 					method: "POST",
-// 				});
-// 			} catch (error) {
-// 				console.error("Error updating views:", error);
-// 			}
-// 		};
-
-// 		updateViews();
-// 	}, [postId]);
-
-// 	return null;
-// };
-
-// export default ClientViewUpdater;
-
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface ClientViewUpdaterProps {
 	postId: string;
+	initialViews: number;
 }
 
-const ClientViewUpdater = ({ postId }: ClientViewUpdaterProps) => {
+const ClientViewUpdater = ({
+	postId,
+	initialViews,
+}: ClientViewUpdaterProps) => {
+	const [views, setViews] = useState(initialViews);
+
 	useEffect(() => {
 		const updateViews = async () => {
 			try {
@@ -42,21 +21,40 @@ const ClientViewUpdater = ({ postId }: ClientViewUpdaterProps) => {
 						method: "POST",
 					},
 				);
+
 				if (!response.ok) {
 					console.error(
 						"Failed to update views",
 						await response.json(),
 					);
+					return;
 				}
+
+				const data = await response.json();
+				setViews(data.views);
 			} catch (error) {
 				console.error("Error updating views:", error);
 			}
 		};
 
-		updateViews();
+		// Only update views once per session for this post
+		const viewedPosts = JSON.parse(
+			sessionStorage.getItem("viewedPosts") || "[]",
+		);
+		if (!viewedPosts.includes(postId)) {
+			updateViews();
+			sessionStorage.setItem(
+				"viewedPosts",
+				JSON.stringify([...viewedPosts, postId]),
+			);
+		}
 	}, [postId]);
 
-	return null;
+	return (
+		<div className='font-inconsolata text-sec'>
+			<p>Views: {views}</p>
+		</div>
+	);
 };
 
 export default ClientViewUpdater;

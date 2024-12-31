@@ -16,9 +16,7 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 
 	// Function to render the first post layout
 	const renderFirstPost = (post: Post) => (
-		<ClientSideRoute
-			key={post._id}
-			href={`/post/${post.slug?.current}`}>
+		<div key={post._id}>
 			<div className='p-2 border-b rounded-lg rounded-b group shadow-inherit'>
 				<div className='relative w-full h-[30vh] md:h-[40vh] overflow-hidden rounded-lg'>
 					{post.mainImage?.asset?.url && (
@@ -48,9 +46,13 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 				</div>
 
 				<div className='mt-1'>
-					<h3 className='text-base font-bold leading-5 md:text-3xl group-hover:underline'>
-						{post.title}
-					</h3>
+					<ClientSideRoute
+						href={`/post/${post.slug?.current}`}>
+						<h3 className='text-base font-bold leading-5 md:text-3xl group-hover:underline'>
+							{post.title}
+						</h3>
+					</ClientSideRoute>
+
 					<p className='my-1 mt-2 text-sm text-sec line-clamp-3'>
 						{post.shortDescription || ""}
 					</p>
@@ -60,14 +62,12 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 					/>
 				</div>
 			</div>
-		</ClientSideRoute>
+		</div>
 	);
 
 	// Function to render layout for all other posts
 	const renderOtherPost = (post: Post) => (
-		<ClientSideRoute
-			key={post._id}
-			href={`/post/${post.slug?.current}`}>
+		<div key={post._id}>
 			<div className='p-2 bg-white border-b rounded-lg rounded-b group shadow-inherit'>
 				<div className='relative w-full hidden md:block h-[17vh] overflow-hidden rounded-md'>
 					{post.mainImage?.asset?.url && (
@@ -95,16 +95,19 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 					/>
 				</div>
 
-				<h2 className='post-title-home'>
-					{post.title}
-				</h2>
+				<ClientSideRoute
+					href={`/post/${post.slug?.current}`}>
+					<h2 className='post-title-home'>
+						{post.title}
+					</h2>
+				</ClientSideRoute>
 
 				<AuthorDate
 					author={post.author}
 					publishedAt={post.publishedAt}
 				/>
 			</div>
-		</ClientSideRoute>
+		</div>
 	);
 
 	return (

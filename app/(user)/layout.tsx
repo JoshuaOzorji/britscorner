@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
 import ProgressBar from "@/components/ProgressBar";
 import ScrollToTop from "@/components/ScrollToTop";
+import { ErrorBoundary } from "react-error-boundary";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -54,11 +55,13 @@ export default function RootLayout({
 		<html lang='en'>
 			<body
 				className={`${poppins.variable} ${gothic.variable} ${inconsolata.variable} ${josefin.variable} antialiased`}>
-				<ProgressBar />
+				<ErrorBoundary fallback={<></>}>
+					<ProgressBar />
+				</ErrorBoundary>
 				<ScrollToTop />
 
 				<BaseLayout>
-					{children}
+					<main>{children}</main>
 					<Toaster
 						position='bottom-center'
 						reverseOrder={false}

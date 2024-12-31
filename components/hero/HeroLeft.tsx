@@ -46,9 +46,11 @@ const HeroLeft = async () => {
 	return (
 		<div className='px-4 py-4 border-t md:border-t-0 md:border-r font-poppins'>
 			{featuredPosts.map((post, index) => (
-				<ClientSideRoute
-					key={post._id}
-					href={`/post/${post.slug?.current}`}>
+				<div
+					key={
+						post.slug?.current ||
+						`fallback-${post._id}`
+					}>
 					<div
 						className={`flex flex-col group ${index === 0 ? "first-item-class" : "other-item-class"} ${index !== featuredPosts.length - 1 ? "border-b mb-2 pb-2" : ""}`}>
 						{index === 0 &&
@@ -84,9 +86,16 @@ const HeroLeft = async () => {
 								/>
 							</div>
 
-							<h2 className='post-title-home'>
-								{post.title}
-							</h2>
+							<ClientSideRoute
+								href={`/post/${post.slug?.current}`}>
+								{" "}
+								<h2 className='post-title-home'>
+									{
+										post.title
+									}
+								</h2>
+							</ClientSideRoute>
+
 							<AuthorDate
 								author={
 									post.author
@@ -97,7 +106,7 @@ const HeroLeft = async () => {
 							/>
 						</div>
 					</div>
-				</ClientSideRoute>
+				</div>
 			))}
 		</div>
 	);
