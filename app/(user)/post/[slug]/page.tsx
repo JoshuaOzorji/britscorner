@@ -55,7 +55,6 @@ const PostPage = async ({ params }: PostPageProps) => {
 
 	const categoryIds = post.categories.map((category) => category._id);
 
-	console.log(post._id);
 	return (
 		<>
 			<main className='text-sec'>

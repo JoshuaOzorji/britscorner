@@ -3,11 +3,14 @@ import { PostCard } from "@/components/PostCard";
 import { client } from "@/sanity/lib/client";
 import { Category } from "@/types";
 import { IoLocationOutline } from "react-icons/io5";
+
 interface CategoryPageProps {
 	params: { slug: string };
 }
 
 const CategoryPage = async ({ params }: CategoryPageProps) => {
+	const slug = params?.slug;
+
 	const category: Category = await client.fetch(
 		`
 		*[_type == "category" && slug.current == $slug][0]{
@@ -33,7 +36,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 			}
 		}
 		`,
-		{ slug: params.slug },
+		{ slug },
 	);
 
 	if (!category) {
@@ -46,7 +49,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 				categories={[
 					{
 						title: category.title,
-						slug: params.slug,
+						slug,
 					},
 				]}
 			/>

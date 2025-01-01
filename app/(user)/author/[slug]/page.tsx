@@ -9,6 +9,8 @@ interface AuthorPageProps {
 }
 
 const AuthorPage = async ({ params }: AuthorPageProps) => {
+	const { slug } = params;
+
 	const author: Author | null = await client.fetch(
 		`
       *[_type == "author" && slug.current == $slug][0]{
@@ -20,10 +22,11 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
           }
         },
         "posts": *[_type == "post" && references(^._id)]{
+					_id,
           title,
           "slug": slug.current,
 					author->{
-					name, 
+					name,
 					"slug": slug.current
 				},
           mainImage{
@@ -35,14 +38,16 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
           publishedAt,
           shortDescription,
 					categories[]->{
-					title,	
+					title,
 					"slug": slug.current
 					},
         }
       }
     `,
-		{ slug: params.slug },
+		{ slug },
 	);
+
+	console.log(params);
 
 	if (!author) {
 		return <p>Author not found</p>;

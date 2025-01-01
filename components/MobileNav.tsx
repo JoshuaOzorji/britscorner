@@ -30,7 +30,7 @@ const MobileNav = ({ onToggleSearch }: MobileNavProps) => {
 	};
 
 	return (
-		<div className='flex items-center justify-between p-2 font-inconsolata border-b'>
+		<div className='flex items-center justify-between p-2 border-b font-inconsolata'>
 			{/* MENU LINK */}
 			<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
 				<SheetTrigger>
@@ -59,11 +59,11 @@ const MobileNav = ({ onToggleSearch }: MobileNavProps) => {
 												onClick={
 													closeSheet
 												}>
-												<p className='hover:text-black animate'>
+												<span className='hover:text-black animate'>
 													{
 														item
 													}
-												</p>
+												</span>
 											</Link>
 										</li>
 									),

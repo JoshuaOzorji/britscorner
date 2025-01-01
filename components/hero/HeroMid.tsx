@@ -81,11 +81,6 @@ const HeroMid = async () => {
 							<section className='flex flex-col items-center gap-1 px-4 text-left md:text-center'>
 								<div className='flex items-center gap-1 md:p-1'>
 									<MdPlayArrow className='w-3 h-3' />
-									{/* <CategoryLinks
-										categories={
-											post.categories
-										}
-									/> */}
 
 									<CategoryLinks
 										categories={

@@ -37,7 +37,6 @@ const ClientViewUpdater = ({
 			}
 		};
 
-		// Only update views once per session for this post
 		const viewedPosts = JSON.parse(
 			sessionStorage.getItem("viewedPosts") || "[]",
 		);
