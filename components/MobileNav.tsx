@@ -3,7 +3,6 @@ import {
 	Sheet,
 	SheetClose,
 	SheetContent,
-	SheetDescription,
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
@@ -43,7 +42,7 @@ const MobileNav = ({ onToggleSearch }: MobileNavProps) => {
 							<TfiClose className='w-6 h-6 ' />
 						</SheetClose>
 						<SheetTitle></SheetTitle>
-						<SheetDescription className=''>
+						<div>
 							<ul className='flex flex-col gap-4 text-2xl sm:text-4xl'>
 								{navItems.map(
 									(
@@ -69,7 +68,7 @@ const MobileNav = ({ onToggleSearch }: MobileNavProps) => {
 									),
 								)}
 							</ul>
-						</SheetDescription>
+						</div>
 					</SheetHeader>
 				</SheetContent>
 			</Sheet>

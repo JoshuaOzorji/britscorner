@@ -103,14 +103,6 @@ const HeroMid = async () => {
 										post.shortDescription
 									}
 								</p>
-								{/* <AuthorDate
-									author={
-										post.author
-									}
-									publishedAt={
-										post.publishedAt
-									}
-								/> */}
 
 								<AuthorDate
 									author={

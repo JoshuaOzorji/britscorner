@@ -40,12 +40,9 @@ const TagPage = async ({ params }: TagPageProps) => {
 	}
 
 	return (
-		<main className='mx-auto'>
-			<BreadCrumb
-				categories={[
-					{ title: tag.name, slug: params.slug },
-				]}
-			/>
+		<main className='page-padding'>
+			<BreadCrumb tagName={tag.name} />
+
 			<div className='py-4 border-b'>
 				<h1 className='text-3xl font-bold'>
 					{tag.name}

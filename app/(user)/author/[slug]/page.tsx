@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Author } from "@/types";
 import { PostCard } from "@/components/PostCard";
 import { IoLocationOutline } from "react-icons/io5";
+import BreadCrumb from "@/components/BreadCrumb";
 
 interface AuthorPageProps {
 	params: { slug: string };
@@ -54,7 +55,9 @@ const AuthorPage = async ({ params }: AuthorPageProps) => {
 	}
 
 	return (
-		<main className='px-4 '>
+		<main className='page-padding'>
+			<BreadCrumb authorName={author.name} />
+
 			{/* Author Information */}
 			<div className='pb-4 border-b'>
 				<div className='flex items-center gap-4 py-4'>

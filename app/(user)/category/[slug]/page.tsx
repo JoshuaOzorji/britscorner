@@ -44,7 +44,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 	}
 
 	return (
-		<main className='px-4'>
+		<main className='page-padding'>
 			<BreadCrumb
 				categories={[
 					{
@@ -55,7 +55,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 			/>
 			{/* Category Information */}
 			<div className='py-4 border-b'>
-				<h1 className='text-4xl font-bold font-poppins'>
+				<h1 className='text-2xl md:text-4xl font-bold font-poppins'>
 					{category.title} Category
 				</h1>
 

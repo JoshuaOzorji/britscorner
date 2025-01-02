@@ -113,8 +113,7 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 	return (
 		<main className='p-2 mb-8 border rounded-lg category-section font-poppins'>
 			<h2 className='text-xl font-bold'>
-				<ClientSideRoute
-					href={`/category/${slug.current}`}>
+				<ClientSideRoute href={`/category/${slug}`}>
 					<button className='px-4 mt-2 uppercase font-josefin text-pry'>
 						{title}
 					</button>
@@ -123,7 +122,7 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 
 			<div className='flex flex-col gap-4 md:flex-row'>
 				{/* First post */}
-				<div className='w-full md:w-1/2'>
+				<div className='w-full md:w-1/2 bg-white'>
 					{renderFirstPost(posts[0])}
 				</div>
 
