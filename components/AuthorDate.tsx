@@ -1,3 +1,4 @@
+import { formatDate } from "@/sanity/lib/formatDate";
 import Link from "next/link";
 
 interface AuthorDateProps {
@@ -25,9 +26,10 @@ const AuthorDate = ({ author, publishedAt }: AuthorDateProps) => {
 
 			<div>
 				<span className='mx-1'>&bull;</span>
-				<span>
+				{/* <span>
 					{new Date(publishedAt).toDateString()}
-				</span>
+				</span> */}
+				<span>{formatDate(new Date(publishedAt))}</span>
 			</div>
 		</div>
 	);
