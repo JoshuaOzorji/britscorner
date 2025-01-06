@@ -26,9 +26,6 @@ const AuthorDate = ({ author, publishedAt }: AuthorDateProps) => {
 
 			<div>
 				<span className='mx-1'>&bull;</span>
-				{/* <span>
-					{new Date(publishedAt).toDateString()}
-				</span> */}
 				<span>{formatDate(new Date(publishedAt))}</span>
 			</div>
 		</div>

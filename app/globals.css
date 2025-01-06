@@ -30,7 +30,7 @@
 }
 
 .social {
-	@apply w-7 h-7 hover:text-pry animate;
+	@apply w-7 h-7 animate;
 }
 
 @keyframes indeterminate {

@@ -35,18 +35,16 @@ const ShareLink = ({
 			<a
 				href={twitterShare}
 				target='_blank'
-				rel='noopener noreferrer'
-				className=' hover:underline'>
-				<FaXTwitter className='social' />
+				rel='noopener noreferrer'>
+				<FaXTwitter className='social hover:text-black' />
 			</a>
 
 			{/* Facebook */}
 			<a
 				href={facebookShare}
 				target='_blank'
-				rel='noopener noreferrer'
-				className=' hover:underline'>
-				<AiFillFacebook className='social' />
+				rel='noopener noreferrer'>
+				<AiFillFacebook className='social hover:text-blue-600' />
 			</a>
 
 			{/* WhatsApp */}
@@ -54,8 +52,8 @@ const ShareLink = ({
 				href={whatsappShare}
 				target='_blank'
 				rel='noopener noreferrer'
-				className=' hover:underline'>
-				<FaWhatsapp className='social' />
+				className='hover:underline'>
+				<FaWhatsapp className='social hover:text-green-600' />
 			</a>
 
 			{/* Copy Link */}

@@ -3,19 +3,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { MdPlayArrow } from "react-icons/md";
 import CategoryLinks from "./CategoryLinks";
+import { formatDate } from "@/sanity/lib/formatDate";
 
 export const PostCard = ({ post }: { post: Post }) => (
-	<div className='group'>
-		{post.mainImage?.asset?.url && (
-			<Image
-				src={post.mainImage.asset.url}
-				alt={post.mainImage.alt || "Post image"}
-				className='object-cover w-full h-[20vh] rounded-lg group-hover:opacity-75'
-				width={300}
-				height={200}
-			/>
-		)}
-		<div className='p-1 border-b rounded-lg rounded-b shadow-inherit'>
+	<div className='flex flex-row items-center gap-2 border-b rounded-lg rounded-b group md:flex-col md:gap-0 shadow-inherit md:border-none md:items-start md:block'>
+		<div>
+			{post.mainImage?.asset?.url && (
+				<Image
+					src={post.mainImage.asset.url}
+					alt={post.mainImage.alt || "Post image"}
+					className='object-cover w-full h-[12vh] md:h-[18vh] rounded-lg group-hover:opacity-75'
+					width={300}
+					height={200}
+				/>
+			)}
+		</div>
+
+		<div className='p-1 rounded-lg rounded-b md:border-b shadow-inherit'>
 			<div className='flex items-center gap-1 '>
 				<MdPlayArrow className='w-3 h-3' />
 				<CategoryLinks
@@ -29,10 +33,13 @@ export const PostCard = ({ post }: { post: Post }) => (
 				</p>
 			</Link>
 
-			<div className='author-date'>
+			<div className='flex-wrap author-date'>
 				{post.author?.slug ? (
 					<Link
 						href={`/author/${post.author.slug}`}>
+						<span className='mx-1'>
+							&bull;
+						</span>
 						by{" "}
 						<span className='post-author'>
 							{post.author.name}
@@ -44,11 +51,16 @@ export const PostCard = ({ post }: { post: Post }) => (
 					</span>
 				)}
 
-				<p>
-					{new Date(
-						post.publishedAt,
-					).toDateString()}
-				</p>
+				<div>
+					<span className='mx-1'>&bull;</span>{" "}
+					<span>
+						{formatDate(
+							new Date(
+								post.publishedAt,
+							),
+						)}
+					</span>
+				</div>
 			</div>
 		</div>
 	</div>

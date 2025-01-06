@@ -7,7 +7,6 @@ import Link from "next/link";
 import RelatedPosts from "@/components/RelatedPosts";
 import ShareLink from "@/components/ShareLink";
 import BreadCrumb from "@/components/BreadCrumb";
-import ClientViewUpdater from "@/components/ClientViewUpdater";
 
 interface PostPageProps {
 	params: { slug: string };
@@ -68,10 +67,10 @@ const PostPage = async ({ params }: PostPageProps) => {
 					postTitle={post.title}
 				/>
 				<article className='prose'>
-					<ClientViewUpdater
+					{/* <ClientViewUpdater
 						postId={post._id}
 						initialViews={post.views ?? 0}
-					/>
+					/> */}
 
 					<div className='my-5'>
 						{/* Post Categories */}
@@ -217,6 +216,9 @@ const PostPage = async ({ params }: PostPageProps) => {
 							post.tags.length >
 								0 && (
 								<div className='flex flex-wrap items-center gap-2 mt-10 font-josefin'>
+									<span className='font-bold'>
+										TAGS:
+									</span>
 									{post.tags.map(
 										(
 											tag,
