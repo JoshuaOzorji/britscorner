@@ -70,7 +70,7 @@ const TagPage = async ({ params }: TagPageProps) => {
 					</span>{" "}
 					tag
 				</h2>
-				<div className='flex flex-wrap gap-6 md:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4'>
+				<div className='postcard-container'>
 					{tag.posts.map((post: Post) => (
 						<PostCard
 							key={post._id}

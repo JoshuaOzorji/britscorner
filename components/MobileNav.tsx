@@ -58,7 +58,7 @@ const MobileNav = ({ onToggleSearch }: MobileNavProps) => {
 												onClick={
 													closeSheet
 												}>
-												<span className='hover:text-black animate'>
+												<span className='text-sec hover:text-black animate'>
 													{
 														item
 													}

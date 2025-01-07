@@ -55,7 +55,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 			/>
 			{/* Category Information */}
 			<div className='py-4 border-b'>
-				<h1 className='text-2xl md:text-4xl font-bold font-poppins'>
+				<h1 className='text-2xl font-bold md:text-4xl font-poppins'>
 					{category.title} Category
 				</h1>
 
@@ -73,7 +73,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 				<h2 className='mb-4 text-xl font-bold font-poppins'>
 					Posts in {category.title}
 				</h2>
-				<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
+				<div className='postcard-container'>
 					{category.posts.map((post) => (
 						<PostCard
 							key={post._id}

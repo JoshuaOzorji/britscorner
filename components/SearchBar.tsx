@@ -76,7 +76,7 @@ const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 		<Sheet open={isOpen} onOpenChange={onClose}>
 			<SheetContent
 				side='top'
-				className='max-h-screen p-3 overflow-y-auto font-inconsolata md:p-4'>
+				className='max-h-screen p-2 overflow-y-auto font-inconsolata md:p-4'>
 				<SheetHeader className='w-[94%] md:w-[90%] mx-auto'>
 					<SheetTitle className='flex flex-col items-center justify-center gap-4 w-[100%] md:w-[80%] mx-auto'>
 						<div className='relative flex items-center w-full gap-2 md:gap-4'>
@@ -107,7 +107,7 @@ const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 										}
 									}}
 									placeholder='Search...'
-									className='w-full p-2 px-6 border-2 border-pry focus:outline-none'
+									className='w-full p-1.5 px-6 border-2 border-pry focus:outline-none'
 								/>
 								<button
 									onClick={

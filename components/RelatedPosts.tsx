@@ -89,7 +89,7 @@ const RelatedPosts = ({
 			<h2 className='mb-4 text-2xl font-bold text-black font-poppins'>
 				Related Posts
 			</h2>
-			<ul className='flex flex-wrap gap-6 sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>
+			<ul className='postcard-container'>
 				{relatedPosts.map((post) => (
 					<li key={post._id}>
 						<PostCard post={post} />

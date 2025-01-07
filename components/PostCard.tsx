@@ -6,13 +6,13 @@ import CategoryLinks from "./CategoryLinks";
 import { formatDate } from "@/sanity/lib/formatDate";
 
 export const PostCard = ({ post }: { post: Post }) => (
-	<div className='flex flex-row items-center gap-2 border-b rounded-lg rounded-b group md:flex-col md:gap-0 shadow-inherit md:border-none md:items-start md:block'>
-		<div>
+	<div className='flex flex-row items-center w-full gap-2 bg-white border-b rounded-lg rounded-b group md:flex-col md:gap-0 shadow-inherit md:border-none md:items-start md:block'>
+		<div className='px-2'>
 			{post.mainImage?.asset?.url && (
 				<Image
 					src={post.mainImage.asset.url}
 					alt={post.mainImage.alt || "Post image"}
-					className='object-cover w-full h-[12vh] md:h-[18vh] rounded-lg group-hover:opacity-75'
+					className='object-cover max-w-[13vh] md:max-w-full h-[12vh] md:h-[18vh] rounded-lg group-hover:opacity-75'
 					width={300}
 					height={200}
 				/>
