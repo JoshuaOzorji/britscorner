@@ -26,6 +26,7 @@ export interface Category {
 	description?: string;
 	posts: Post[];
 	slug: { current: string };
+	totalPosts: number;
 }
 
 export interface Author {
@@ -38,6 +39,7 @@ export interface Author {
 		};
 	};
 	posts: Post[];
+	totalPosts: number;
 }
 
 export interface Tag {
@@ -48,4 +50,5 @@ export interface Tag {
 	};
 	description?: string;
 	posts: Post[];
+	totalPosts: number;
 }

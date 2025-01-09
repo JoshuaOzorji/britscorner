@@ -73,12 +73,12 @@ const PostsPage = async ({
 			</div>
 
 			{totalPages > 1 && (
-				<div className='flex justify-center gap-4 mt-8'>
+				<div className='flex justify-center gap-4 mt-8 text-xs md:text-sm font-poppins text-sec'>
 					{page > 1 && (
 						<Link
 							href={`/posts?page=${page - 1}`}
-							className='px-4 py-2 border rounded hover:bg-gray-100'>
-							Previous
+							className='pagination-button'>
+							Prev
 						</Link>
 					)}
 
@@ -89,10 +89,10 @@ const PostsPage = async ({
 						<Link
 							key={pageNum}
 							href={`/posts?page=${pageNum}`}
-							className={`px-4 py-2 border rounded ${
+							className={`pagination-button ${
 								pageNum === page
-									? "bg-blue-500 text-white"
-									: "hover:bg-gray-100"
+									? "bg-pry text-white "
+									: "hover:bg-white hover:text-sec"
 							}`}>
 							{pageNum}
 						</Link>
@@ -101,7 +101,7 @@ const PostsPage = async ({
 					{page < totalPages && (
 						<Link
 							href={`/posts?page=${page + 1}`}
-							className='px-4 py-2 border rounded hover:bg-gray-100'>
+							className='pagination-button'>
 							Next
 						</Link>
 					)}

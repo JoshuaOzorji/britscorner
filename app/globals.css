@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.animate {
+	@apply transition-all delay-100;
+}
+
 .post-title-home {
 	@apply text-base font-bold capitalize tracking-tight leading-[20px] my-2 md:my-0 group-hover:underline;
 }
@@ -26,16 +30,16 @@
 	@apply font-bold;
 }
 
-.animate {
-	@apply transition-all delay-100;
-}
-
 .social {
 	@apply w-7 h-7 animate;
 }
 
 .postcard-container {
 	@apply flex flex-wrap gap-4 md:gap-6 md:grid md:grid-cols-2 lg:grid-cols-4;
+}
+
+.pagination-button {
+	@apply px-2 py-1 border rounded hover:bg-sec hover:text-acc animate;
 }
 
 @keyframes indeterminate {

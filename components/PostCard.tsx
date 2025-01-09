@@ -6,7 +6,7 @@ import CategoryLinks from "./CategoryLinks";
 import { formatDate } from "@/sanity/lib/formatDate";
 
 export const PostCard = ({ post }: { post: Post }) => (
-	<div className='flex flex-row items-center w-full gap-2 bg-white border-b rounded-lg rounded-b group md:flex-col md:gap-0 shadow-inherit md:border-none md:items-start md:block'>
+	<div className='flex flex-row items-center w-full gap-2 bg-white border-b rounded-lg rounded-b group md:flex-col md:gap-0 shadow-inherit md:items-start md:block md:border-none'>
 		<div className='px-2'>
 			{post.mainImage?.asset?.url && (
 				<Image
