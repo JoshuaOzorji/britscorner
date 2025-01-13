@@ -8,13 +8,15 @@ import RelatedPosts from "@/components/RelatedPosts";
 import ShareLink from "@/components/ShareLink";
 import BreadCrumb from "@/components/BreadCrumb";
 
-interface PostPageProps {
-	params: { slug: string };
+interface Props {
+	params: Promise<{ slug: string }>;
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-const PostPage = async ({ params }: PostPageProps) => {
+const PostPage = async ({ params }: Props) => {
+	const { slug } = await params;
+
 	const post: Post | null = await client.fetch(
 		`*[_type == "post" && slug.current == $slug][0]{
 				_id,
@@ -44,7 +46,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 				shortDescription,
 				body
 			}`,
-		{ slug: params.slug },
+		{ slug },
 	);
 
 	// If no post is found, show a message

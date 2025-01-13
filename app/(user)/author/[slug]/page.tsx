@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import { Author } from "@/types";
@@ -6,16 +7,28 @@ import { IoLocationOutline } from "react-icons/io5";
 import BreadCrumb from "@/components/BreadCrumb";
 import Link from "next/link";
 
-const POSTS_PER_PAGE = 10;
-
 type Props = {
-	params: { slug: string };
-	searchParams?: { [key: string]: string | string[] | undefined };
+	params: Promise<{ slug: string }>;
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-const AuthorPage = async ({ params, searchParams }: Props) => {
-	const { slug } = params;
-	const page = Number(searchParams?.page) || 1;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { slug } = await params;
+	return {
+		title: `Author - ${slug}`,
+	};
+}
+
+const POSTS_PER_PAGE = 10;
+
+export default async function AuthorPage({ params, searchParams }: Props) {
+	// Await both params and searchParams concurrently
+	const [{ slug }, searchParamsData] = await Promise.all([
+		params,
+		searchParams,
+	]);
+
+	const page = Number(searchParamsData?.page) || 1;
 	const start = (page - 1) * POSTS_PER_PAGE;
 
 	const author: Author | null = await client.fetch(
@@ -147,6 +160,4 @@ const AuthorPage = async ({ params, searchParams }: Props) => {
 			</div>
 		</main>
 	);
-};
-
-export default AuthorPage;
+}

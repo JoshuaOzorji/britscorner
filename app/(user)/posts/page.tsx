@@ -5,12 +5,14 @@ import Link from "next/link";
 
 const POSTS_PER_PAGE = 10;
 
-const PostsPage = async ({
-	searchParams,
-}: {
-	searchParams: { [key: string]: string | string[] | undefined };
-}) => {
-	const page = Number(searchParams?.page) || 1;
+interface PostsPageProps {
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+const PostsPage = async ({ searchParams }: PostsPageProps) => {
+	// Await searchParams before using it
+	const params = await searchParams;
+	const page = Number(params?.page) || 1;
 	const start = (page - 1) * POSTS_PER_PAGE;
 
 	// Get total posts count
@@ -21,26 +23,26 @@ const PostsPage = async ({
 	// Fetch paginated posts
 	const posts: Post[] | null = await client.fetch(
 		`*[_type == "post"] | order(publishedAt desc) [$start...$end]{
-      _id,
-      title,
-      "slug": slug.current,
-      author->{
-        name,
-        "slug": slug.current
-      },
-      mainImage{
-        asset->{
-          url
-        },
-        alt
-      },
-      publishedAt,
-      shortDescription,
-      categories[]->{
-        title,
-        "slug": slug.current
-      }
-    }`,
+            _id,
+            title,
+            "slug": slug.current,
+            author->{
+                name,
+                "slug": slug.current
+            },
+            mainImage{
+                asset->{
+                    url
+                },
+                alt
+            },
+            publishedAt,
+            shortDescription,
+            categories[]->{
+                title,
+                "slug": slug.current
+            }
+        }`,
 		{ start, end: start + POSTS_PER_PAGE },
 	);
 

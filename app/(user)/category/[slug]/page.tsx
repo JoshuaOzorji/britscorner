@@ -7,43 +7,48 @@ import Link from "next/link";
 
 const POSTS_PER_PAGE = 10;
 
-interface CategoryPageProps {
-	params: { slug: string };
-	searchParams: { [key: string]: string | string[] | undefined };
+interface Props {
+	params: Promise<{ slug: string }>;
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-const CategoryPage = async ({ params, searchParams }: CategoryPageProps) => {
-	const { slug } = params;
-	const page = Number(searchParams?.page) || 1;
+const CategoryPage = async ({ params, searchParams }: Props) => {
+	// Await both params and searchParams
+	const [{ slug }, searchParamsData] = await Promise.all([
+		params,
+		searchParams,
+	]);
+
+	const page = Number(searchParamsData?.page) || 1;
 	const start = (page - 1) * POSTS_PER_PAGE;
 
 	const category: Category = await client.fetch(
 		`*[_type == "category" && slug.current == $slug][0]{
-      title,
-      description,
-      "totalPosts": count(*[_type == "post" && references(^._id)]),
-      "posts": *[_type == "post" && references(^._id)] | order(publishedAt desc) [$start...$end]{
-        _id,
-        title,
-        "slug": slug.current,
-        author->{
-          name,
-          "slug": slug.current
-        },
-        mainImage{
-          asset->{
-            url
-          },
-          alt
-        },
-        publishedAt,
-        shortDescription,
-        categories[]->{
-          title,
-          "slug": slug.current
-        }
-      }
-    }`,
+            title,
+            description,
+            "totalPosts": count(*[_type == "post" && references(^._id)]),
+            "posts": *[_type == "post" && references(^._id)] | order(publishedAt desc) [$start...$end]{
+                _id,
+                title,
+                "slug": slug.current,
+                author->{
+                    name,
+                    "slug": slug.current
+                },
+                mainImage{
+                    asset->{
+                        url
+                    },
+                    alt
+                },
+                publishedAt,
+                shortDescription,
+                categories[]->{
+                    title,
+                    "slug": slug.current
+                }
+            }
+        }`,
 		{ slug, start, end: start + POSTS_PER_PAGE },
 	);
 
