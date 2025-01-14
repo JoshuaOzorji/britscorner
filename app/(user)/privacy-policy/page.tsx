@@ -1,5 +1,3 @@
-import React from "react";
-
 const page = () => {
 	return (
 		<main className='font-poppins w-full md:w-[70%]  text-sec privacy'>
@@ -187,7 +185,7 @@ const page = () => {
 				acknowledge and agree to this Privacy Policy.
 				Thank you for trusting us with your information.
 			</div>
-			<h4 className='italic py-2'>
+			<h4 className='py-2 italic'>
 				Last Updated: December, 2024
 			</h4>
 		</main>
