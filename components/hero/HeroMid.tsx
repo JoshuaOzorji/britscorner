@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { client } from "@/sanity/lib/client";
 import { Post } from "@/types";
 import { defineQuery } from "next-sanity";
@@ -53,30 +53,29 @@ const HeroMid = async () => {
 							post.slug?.current ||
 							`fallback-${post._id}`
 						}>
-						<div className='flex flex-col items-center w-full gap-4 pb-4 border-b group'>
+						<div className='flex flex-col items-center w-full gap-1 border-b group'>
 							{post.mainImage?.asset
 								?.url && (
-								<Image
-									src={
-										post
-											.mainImage
-											.asset
-											.url
-									}
-									alt={
-										post
-											.mainImage
-											.alt ||
-										"Post image"
-									}
-									width={
-										500
-									}
-									height={
-										300
-									}
-									className='object-cover object-center w-full rounded-lg group-hover:opacity-75'
-								/>
+								<div className='relative w-full h-[40vh] md:h-[50vh]'>
+									<Image
+										src={
+											post
+												.mainImage
+												.asset
+												.url
+										}
+										alt={
+											post
+												.mainImage
+												.alt ||
+											"Post image"
+										}
+										className='rounded-lg group-hover:opacity-75'
+										layout='fill'
+										objectFit='cover'
+										objectPosition='center'
+									/>
+								</div>
 							)}
 							<section className='flex flex-col items-center gap-1 px-4 text-left md:text-center'>
 								<div className='flex items-center gap-1 md:p-1'>
@@ -122,30 +121,29 @@ const HeroMid = async () => {
 							`fallback-${post._id}`
 						}
 						className='w-full px-4 my-2 lg:w-auto lg:flex-1 lg:mb-0 lg:px-0 lg:my-0 group'>
-						<div className='flex flex-row gap-2 lg:gap-4 lg:my-4'>
+						<div className='flex flex-row items-center gap-2 lg:gap-2 lg:my-3'>
 							{post.mainImage?.asset
 								?.url && (
-								<Image
-									src={
-										post
-											.mainImage
-											.asset
-											.url
-									}
-									alt={
-										post
-											.mainImage
-											.alt ||
-										"Post image"
-									}
-									width={
-										200
-									}
-									height={
-										120
-									}
-									className='object-cover object-center rounded-lg h-[20vh] w-[100px] group-hover:opacity-75'
-								/>
+								<div className='relative h-[18vh] w-[12rem]'>
+									<Image
+										src={
+											post
+												.mainImage
+												.asset
+												.url
+										}
+										alt={
+											post
+												.mainImage
+												.alt ||
+											"Post image"
+										}
+										layout='fill'
+										objectFit='cover'
+										objectPosition='center'
+										className='rounded-lg group-hover:opacity-75'
+									/>
+								</div>
 							)}
 							<div className='flex flex-col py-1 md:gap-'>
 								<div className='flex items-center gap-1'>

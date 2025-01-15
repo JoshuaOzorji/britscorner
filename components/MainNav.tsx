@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import logo from "@/public/logo.png";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { CiSearch } from "react-icons/ci";
 import { navItems } from "@/lib/data";
 

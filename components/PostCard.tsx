@@ -1,5 +1,5 @@
 import { Post } from "@/types";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { MdPlayArrow } from "react-icons/md";
 import CategoryLinks from "./CategoryLinks";

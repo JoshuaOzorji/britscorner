@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { client } from "@/sanity/lib/client";
 import { Post } from "@/types";
 import { defineQuery } from "next-sanity";
@@ -9,22 +9,22 @@ import AuthorDate from "../AuthorDate";
 
 const options = { next: { revalidate: 60 } };
 const latestPostsQuery = defineQuery(`
-  *[_type == "post"] | order(publishedAt desc)[0...3]{
+  *[_type == "post"] | order(publishedAt desc)[0...4]{
     title,
     slug,
-		author->{
-				name,
-				slug
-				},
+    author->{
+        name,
+        slug
+    },
     mainImage{
       asset->{
         url
       },
       alt
     },
-		categories[]->{
+    categories[]->{
       title,
-			"slug": slug.current
+      "slug": slug.current
     },
     publishedAt,
     body
@@ -39,7 +39,7 @@ const HeroRight = async () => {
 	);
 
 	if (!Array.isArray(latestPosts) || latestPosts.length === 0) {
-		return <p>No featured post(s) available</p>;
+		return <p>No post(s) available</p>;
 	}
 
 	return (
@@ -56,42 +56,42 @@ const HeroRight = async () => {
 					className={`flex group ${
 						index === 0
 							? "flex-col"
-							: "flex-row items-start"
-					} gap-2 pb-2 mb-2 ${index !== latestPosts.length - 1 ? "border-b" : ""}`}>
+							: "flex-row items-center"
+					} gap-2 pb-2 mb-2 ${
+						index !== latestPosts.length - 1
+							? "border-b"
+							: ""
+					}`}>
 					{post.mainImage?.asset?.url && (
-						<Image
-							src={
-								post.mainImage
-									.asset
-									.url
-							}
-							alt={
-								post.mainImage
-									.alt ||
-								"Post image"
-							}
-							width={
+						<div
+							className={`relative ${
 								index === 0
-									? 500
-									: 100
-							}
-							height={
-								index === 0
-									? 300
-									: 150
-							}
-							className={`group-hover:opacity-75 ${
-								index === 0
-									? "h-[20vh] w-full"
-									: "h-[20vh] w-[100px]"
-							} object-cover object-center rounded-lg`}
-						/>
+									? "h-[18vh] w-full"
+									: "h-[18vh] w-[12rem]"
+							}`}>
+							<Image
+								src={
+									post
+										.mainImage
+										.asset
+										.url
+								}
+								alt={
+									post
+										.mainImage
+										.alt ||
+									"Post image"
+								}
+								layout='fill'
+								objectFit='cover'
+								className='rounded-lg group-hover:opacity-75'
+							/>
+						</div>
 					)}
 
 					<div className='py-1'>
 						<div className='flex items-center gap-1'>
 							<MdPlayArrow className='w-3 h-3' />
-
 							<CategoryLinks
 								categories={
 									post.categories

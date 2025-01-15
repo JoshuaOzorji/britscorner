@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { client } from "@/sanity/lib/client";
 import { Post } from "@/types";
 import { defineQuery } from "next-sanity";
@@ -52,28 +52,28 @@ const HeroLeft = async () => {
 						`fallback-${post._id}`
 					}>
 					<div
-						className={`flex flex-col group ${index === 0 ? "first-item-class" : "other-item-class"} ${index !== featuredPosts.length - 1 ? "border-b mb-2 pb-2" : ""}`}>
+						className={`flex flex-col group relative ${index === 0 ? "first-item-class" : "other-item-class"} ${index !== featuredPosts.length - 1 ? "border-b mb-2 pb-2" : ""}`}>
 						{index === 0 &&
 							post.mainImage?.asset
 								?.url && (
-								<Image
-									src={urlFor(
-										post.mainImage,
-									).url()}
-									alt={
-										post
-											.mainImage
-											.alt ||
-										"Post image"
-									}
-									className='h-[20vh] object-cover object-center rounded-lg w-full group-hover:opacity-75'
-									width={
-										300
-									}
-									height={
-										300
-									}
-								/>
+								<div className='relative h-[20vh] md:h-[18vh] w-full'>
+									<Image
+										src={urlFor(
+											post.mainImage,
+										).url()}
+										alt={
+											post
+												.mainImage
+												.alt ||
+											"Post image"
+										}
+										className='object-cover object-center rounded-lg group-hover:opacity-75
+									'
+										layout='fill'
+										objectFit='cover'
+										objectPosition='center'
+									/>
+								</div>
 							)}
 
 						<div className='py-1'>

@@ -1,5 +1,5 @@
 import { Category, Post } from "@/types";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import ClientSideRoute from "@/components/ClientSideRoute";
 import AuthorDate from "./AuthorDate";
 import { MdPlayArrow } from "react-icons/md";

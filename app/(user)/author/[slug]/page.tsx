@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { Author } from "@/types";
 import { PostCard } from "@/components/PostCard";
 import { IoLocationOutline } from "react-icons/io5";

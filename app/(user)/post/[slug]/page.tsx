@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { Post } from "@/types";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { PortableText } from "@portabletext/react";
 import { customSerializers } from "@/lib/customSerializers";
 import Link from "next/link";

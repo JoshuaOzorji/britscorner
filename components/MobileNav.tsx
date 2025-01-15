@@ -7,7 +7,7 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { CiMenuBurger } from "react-icons/ci";
 import logo from "@/public/logo.png";
