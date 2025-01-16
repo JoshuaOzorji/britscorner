@@ -120,11 +120,11 @@ const HeroMid = async () => {
 							post.slug?.current ||
 							`fallback-${post._id}`
 						}
-						className='w-full px-4 my-2 lg:w-auto lg:flex-1 lg:mb-0 lg:px-0 lg:my-0 group'>
+						className='flex flex-col w-full px-4 my-2 lg:w-auto lg:flex-1 lg:mb-0 lg:px-0 lg:my-0 group md:flex-row'>
 						<div className='flex flex-row items-center gap-2 lg:gap-2 lg:my-3'>
 							{post.mainImage?.asset
 								?.url && (
-								<div className='relative h-[18vh] w-[12rem]'>
+								<div className='relative h-[20vh] w-[30vh]'>
 									<Image
 										src={
 											post
@@ -145,7 +145,7 @@ const HeroMid = async () => {
 									/>
 								</div>
 							)}
-							<div className='flex flex-col py-1 md:gap-'>
+							<div className='flex flex-col py-1'>
 								<div className='flex items-center gap-1'>
 									<MdPlayArrow className='w-3 h-3' />
 									<CategoryLinks

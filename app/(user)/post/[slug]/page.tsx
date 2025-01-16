@@ -174,7 +174,7 @@ const PostPage = async ({ params }: Props) => {
 						</div>
 					</div>
 
-					<div>
+					<div className='relative h-[40vh] md:h-[65vh] w-full md:w-[86%] mx-auto'>
 						{post.mainImage?.asset?.url && (
 							<Image
 								src={
@@ -189,9 +189,10 @@ const PostPage = async ({ params }: Props) => {
 										.alt ||
 									"Post image"
 								}
-								className='w-full rounded-lg object-cover object-center md:h-[65vh] md:w-[80%] mx-auto'
-								width={800}
-								height={400}
+								className='rounded-lg '
+								layout='fill'
+								objectFit='cover'
+								objectPosition='center'
 							/>
 						)}
 					</div>

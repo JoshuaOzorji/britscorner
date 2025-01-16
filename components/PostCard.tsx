@@ -6,20 +6,26 @@ import CategoryLinks from "./CategoryLinks";
 import { formatDate } from "@/sanity/lib/formatDate";
 
 export const PostCard = ({ post }: { post: Post }) => (
-	<div className='flex flex-row items-center w-full gap-2 bg-white border-b rounded-lg rounded-b group md:flex-col md:gap-0 shadow-inherit md:items-start md:block md:border-none'>
+	<div className='flex flex-row items-center w-full bg-white border-b rounded-lg rounded-b group md:flex-col shadow-inherit md:items-start md:block md:border-none'>
 		<div className='px-2'>
 			{post.mainImage?.asset?.url && (
-				<Image
-					src={post.mainImage.asset.url}
-					alt={post.mainImage.alt || "Post image"}
-					className='object-cover max-w-[13vh] md:max-w-full h-[12vh] md:h-[18vh] rounded-lg group-hover:opacity-75'
-					width={300}
-					height={200}
-				/>
+				<div className='relative w-[12vh] md:w-full h-[12vh] md:h-[18vh]'>
+					<Image
+						src={post.mainImage.asset.url}
+						alt={
+							post.mainImage.alt ||
+							"Post image"
+						}
+						className='object-cover rounded-lg group-hover:opacity-75'
+						layout='fill'
+						objectFit='cover'
+						objectPosition='center'
+					/>
+				</div>
 			)}
 		</div>
 
-		<div className='p-1 rounded-lg rounded-b md:border-b shadow-inherit'>
+		<div className='p-1 rounded-lg rounded-b md:px-3 md:border-b shadow-inherit'>
 			<div className='flex items-center gap-1 '>
 				<MdPlayArrow className='w-3 h-3' />
 				<CategoryLinks

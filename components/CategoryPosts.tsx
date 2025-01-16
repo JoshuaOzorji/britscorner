@@ -17,9 +17,9 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 	// Function to render the first post layout
 	const renderFirstPost = (post: Post) => (
 		<div key={post._id}>
-			<div className='p-2 border-b rounded-lg rounded-b group shadow-inherit'>
-				<div className='relative w-full h-[30vh] md:h-[40vh] overflow-hidden rounded-lg'>
-					{post.mainImage?.asset?.url && (
+			<div className='p-2'>
+				{post.mainImage?.asset?.url && (
+					<div className='relative w-full h-[30vh] md:h-[40vh] overflow-hidden rounded-lg'>
 						<Image
 							src={
 								post.mainImage
@@ -31,12 +31,13 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 									.alt ||
 								"Post Image"
 							}
-							width={500}
-							height={300}
-							className='object-cover object-center w-full rounded-lg group-hover:opacity-75'
+							className='rounded-lg group-hover:opacity-75'
+							layout='fill'
+							objectFit='cover'
+							objectPosition='center'
 						/>
-					)}
-				</div>
+					</div>
+				)}
 
 				<div className='flex items-center gap-1 md:p-1'>
 					<MdPlayArrow className='w-3 h-3' />
@@ -71,20 +72,26 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 			<div className='p-2 bg-white border-b rounded-lg rounded-b group shadow-inherit'>
 				<div className='relative w-full hidden md:block h-[17vh] overflow-hidden rounded-md'>
 					{post.mainImage?.asset?.url && (
-						<Image
-							src={
-								post.mainImage
-									.asset
-									.url
-							}
-							alt={
-								post.mainImage
-									.alt ||
-								"Post Image"
-							}
-							layout='fill'
-							className='object-cover w-full group-hover:opacity-75'
-						/>
+						<div className='w-full relative h-[22vh]'>
+							<Image
+								src={
+									post
+										.mainImage
+										.asset
+										.url
+								}
+								alt={
+									post
+										.mainImage
+										.alt ||
+									"Post Image"
+								}
+								layout='fill'
+								objectFit='cover'
+								objectPosition='center'
+								className='group-hover:opacity-75'
+							/>
+						</div>
 					)}
 				</div>
 
@@ -122,7 +129,7 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 
 			<div className='flex flex-col gap-4 md:flex-row'>
 				{/* First post */}
-				<div className='w-full md:w-1/2 bg-white'>
+				<div className='w-full bg-white md:w-1/2'>
 					{renderFirstPost(posts[0])}
 				</div>
 

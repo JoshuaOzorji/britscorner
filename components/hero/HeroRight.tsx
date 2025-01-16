@@ -67,7 +67,7 @@ const HeroRight = async () => {
 							className={`relative ${
 								index === 0
 									? "h-[18vh] w-full"
-									: "h-[18vh] w-[12rem]"
+									: "h-[18vh] w-[200px]"
 							}`}>
 							<Image
 								src={
