@@ -7,12 +7,14 @@ import Link from "next/link";
 
 const POSTS_PER_PAGE = 10;
 
-type Props = {
-	params: { slug: string };
-	searchParams?: { [key: string]: string | string[] | undefined };
-};
+interface PageProps {
+	params: {
+		slug: string;
+	};
+	searchParams: { [key: string]: string | string[] | undefined };
+}
 
-const TagPage = async ({ params, searchParams }: Props) => {
+const TagPage = async ({ params, searchParams = {} }: PageProps) => {
 	const page = Number(searchParams?.page) || 1;
 	const start = (page - 1) * POSTS_PER_PAGE;
 
