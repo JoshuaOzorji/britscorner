@@ -7,10 +7,10 @@ import Link from "next/link";
 
 const POSTS_PER_PAGE = 10;
 
-interface Props {
+type Props = {
 	params: Promise<{ slug: string }>;
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+};
 
 const CategoryPage = async ({ params, searchParams }: Props) => {
 	// Await both params and searchParams

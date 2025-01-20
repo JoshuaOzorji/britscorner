@@ -8,9 +8,9 @@ import RelatedPosts from "@/components/RelatedPosts";
 import ShareLink from "@/components/ShareLink";
 import BreadCrumb from "@/components/BreadCrumb";
 
-interface Props {
+type Props = {
 	params: Promise<{ slug: string }>;
-}
+};
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 

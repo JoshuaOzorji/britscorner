@@ -1,6 +1,6 @@
 import { PortableTextBlock } from "@portabletext/types";
 
-export interface Post {
+export type Post = {
 	_id: string;
 	title: string;
 	views?: number;
@@ -18,18 +18,18 @@ export interface Post {
 	shortDescription: string[];
 	body: PortableTextBlock[];
 	tags?: { _id: string; name: string; slug: { current: string } }[];
-}
+};
 
-export interface Category {
+export type Category = {
 	_id: string;
 	title: string;
 	description?: string;
 	posts: Post[];
 	slug: { current: string };
 	totalPosts: number;
-}
+};
 
-export interface Author {
+export type Author = {
 	_id: string;
 	name: string;
 	bio?: string;
@@ -40,9 +40,9 @@ export interface Author {
 	};
 	posts: Post[];
 	totalPosts: number;
-}
+};
 
-export interface Tag {
+export type Tag = {
 	_id: string;
 	name: string;
 	slug: {
@@ -51,4 +51,4 @@ export interface Tag {
 	description?: string;
 	posts: Post[];
 	totalPosts: number;
-}
+};

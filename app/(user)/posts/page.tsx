@@ -5,11 +5,11 @@ import Link from "next/link";
 
 const POSTS_PER_PAGE = 10;
 
-interface PostsPageProps {
+type Props = {
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+};
 
-const PostsPage = async ({ searchParams }: PostsPageProps) => {
+const PostsPage = async ({ searchParams }: Props) => {
 	// Await searchParams before using it
 	const params = await searchParams;
 	const page = Number(params?.page) || 1;
