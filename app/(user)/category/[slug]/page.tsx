@@ -12,17 +12,19 @@ type Props = {
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-const CategoryPage = async ({ params, searchParams }: Props) => {
-	// Await both params and searchParams
-	const [{ slug }, searchParamsData] = await Promise.all([
+const CategoryPage = async (props: Props) => {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
+    // Await both params and searchParams
+    const [{ slug }, searchParamsData] = await Promise.all([
 		params,
 		searchParams,
 	]);
 
-	const page = Number(searchParamsData?.page) || 1;
-	const start = (page - 1) * POSTS_PER_PAGE;
+    const page = Number(searchParamsData?.page) || 1;
+    const start = (page - 1) * POSTS_PER_PAGE;
 
-	const category: Category = await client.fetch(
+    const category: Category = await client.fetch(
 		`*[_type == "category" && slug.current == $slug][0]{
             title,
             description,
@@ -52,11 +54,11 @@ const CategoryPage = async ({ params, searchParams }: Props) => {
 		{ slug, start, end: start + POSTS_PER_PAGE },
 	);
 
-	if (!category) return <p>Category not found</p>;
+    if (!category) return <p>Category not found</p>;
 
-	const totalPages = Math.ceil(category.totalPosts / POSTS_PER_PAGE);
+    const totalPages = Math.ceil(category.totalPosts / POSTS_PER_PAGE);
 
-	return (
+    return (
 		<main className='page-padding'>
 			<BreadCrumb
 				categories={[

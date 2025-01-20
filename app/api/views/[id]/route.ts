@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { client } from "@/sanity/lib/client";
 
-export async function POST(req: Request, context: { params: { id: string } }) {
-	const { id } = context.params;
+export async function POST(req: Request, context: { params: Promise<{ id: string }> }) {
+	const { id } = (await context.params);
 
 	if (!id) {
 		return NextResponse.json(

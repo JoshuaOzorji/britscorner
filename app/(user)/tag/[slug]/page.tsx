@@ -143,18 +143,20 @@ import Link from "next/link";
 const POSTS_PER_PAGE = 10;
 
 export type PageProps = {
-	params: {
+	params: Promise<{
 		slug: string;
-	};
+	}>;
 	searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
-export default async function TagPage({ params, searchParams }: PageProps) {
-	const resolvedSearchParams = searchParams ? await searchParams : {};
-	const page = Number(resolvedSearchParams.page) || 1;
-	const start = (page - 1) * POSTS_PER_PAGE;
+export default async function TagPage(props: PageProps) {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
+    const resolvedSearchParams = searchParams ? await searchParams : {};
+    const page = Number(resolvedSearchParams.page) || 1;
+    const start = (page - 1) * POSTS_PER_PAGE;
 
-	const tag: Tag = await client.fetch(
+    const tag: Tag = await client.fetch(
 		`*[_type == "tag" && slug.current == $slug][0]{
       name,
       description,
@@ -184,11 +186,11 @@ export default async function TagPage({ params, searchParams }: PageProps) {
 		{ slug: params.slug, start, end: start + POSTS_PER_PAGE },
 	);
 
-	if (!tag) return <p>Tag not found</p>;
+    if (!tag) return <p>Tag not found</p>;
 
-	const totalPages = Math.ceil(tag.totalPosts / POSTS_PER_PAGE);
+    const totalPages = Math.ceil(tag.totalPosts / POSTS_PER_PAGE);
 
-	return (
+    return (
 		<main className='page-padding'>
 			<BreadCrumb tagName={tag.name} />
 
