@@ -11,11 +11,11 @@ interface PageProps {
 	params: {
 		slug: string;
 	};
-	searchParams: { [key: string]: string | string[] | undefined };
+	searchParams?: Record<string, string | string[] | undefined>;
 }
 
 const TagPage = async ({ params, searchParams = {} }: PageProps) => {
-	const page = Number(searchParams?.page) || 1;
+	const page = Number(searchParams.page) || 1;
 	const start = (page - 1) * POSTS_PER_PAGE;
 
 	const tag: Tag = await client.fetch(
