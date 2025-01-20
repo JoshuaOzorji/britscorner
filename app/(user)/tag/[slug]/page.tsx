@@ -132,6 +132,7 @@
 // };
 
 // export default TagPage;
+
 import { client } from "@/sanity/lib/client";
 import { Post, Tag } from "@/types";
 import BreadCrumb from "@/components/BreadCrumb";
@@ -141,24 +142,24 @@ import Link from "next/link";
 
 const POSTS_PER_PAGE = 10;
 
-interface Params {
+// Define the structure for dynamic route parameters
+export interface Params {
 	slug: string;
 }
 
-interface PageProps {
+export const generateStaticParams = async (): Promise<Params[]> => {
+	const tags: { slug: string }[] = await client.fetch(
+		`*[_type == "tag"]{ "slug": slug.current }`,
+	);
+	return tags.map((tag) => ({ slug: tag.slug }));
+};
+
+// Define the props for the page component
+export interface PageProps {
 	params: Params;
 	searchParams?: Record<string, string | string[] | undefined>;
 }
 
-// Generates static params for SSG
-export const generateStaticParams = async (): Promise<Params[]> => {
-	const tags = await client.fetch(
-		`*[_type == "tag"]{ "slug": slug.current }`,
-	);
-	return tags.map((tag: { slug: string }) => ({ slug: tag.slug }));
-};
-
-// The main page component
 const TagPage = async ({ params, searchParams = {} }: PageProps) => {
 	const page = Number(searchParams.page) || 1;
 	const start = (page - 1) * POSTS_PER_PAGE;
