@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+<!-- import { NextResponse } from "next/server";
 import { client } from "@/sanity/lib/client";
 
 export async function POST(req: Request, context: { params: Promise<{ id: string }> }) {
@@ -37,4 +37,4 @@ export async function POST(req: Request, context: { params: Promise<{ id: string
 			{ status: 500 },
 		);
 	}
-}
+} -->
