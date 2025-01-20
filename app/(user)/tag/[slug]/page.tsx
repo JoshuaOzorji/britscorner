@@ -142,26 +142,16 @@ import Link from "next/link";
 
 const POSTS_PER_PAGE = 10;
 
-// Define the structure for dynamic route parameters
-export interface Params {
-	slug: string;
-}
-
-export const generateStaticParams = async (): Promise<Params[]> => {
-	const tags: { slug: string }[] = await client.fetch(
-		`*[_type == "tag"]{ "slug": slug.current }`,
-	);
-	return tags.map((tag) => ({ slug: tag.slug }));
+export type PageProps = {
+	params: {
+		slug: string;
+	};
+	searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
-// Define the props for the page component
-export interface PageProps {
-	params: Params;
-	searchParams?: Record<string, string | string[] | undefined>;
-}
-
-const TagPage = async ({ params, searchParams = {} }: PageProps) => {
-	const page = Number(searchParams.page) || 1;
+export default async function TagPage({ params, searchParams }: PageProps) {
+	const resolvedSearchParams = searchParams ? await searchParams : {};
+	const page = Number(resolvedSearchParams.page) || 1;
 	const start = (page - 1) * POSTS_PER_PAGE;
 
 	const tag: Tag = await client.fetch(
@@ -275,6 +265,4 @@ const TagPage = async ({ params, searchParams = {} }: PageProps) => {
 			</div>
 		</main>
 	);
-};
-
-export default TagPage;
+}
