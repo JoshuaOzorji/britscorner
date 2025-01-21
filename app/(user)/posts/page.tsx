@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { client } from "@/sanity/lib/client";
 import { Post } from "@/types";
 import { PostCard } from "@/components/PostCard";
@@ -9,40 +10,36 @@ type Props = {
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-const PostsPage = async ({ searchParams }: Props) => {
-	// Await searchParams before using it
+const PostsList = async ({ searchParams }: Props) => {
 	const params = await searchParams;
 	const page = Number(params?.page) || 1;
 	const start = (page - 1) * POSTS_PER_PAGE;
 
-	// Get total posts count
 	const totalPosts = await client.fetch(`count(*[_type == "post"])`);
-
 	const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
 
-	// Fetch paginated posts
 	const posts: Post[] | null = await client.fetch(
 		`*[_type == "post"] | order(publishedAt desc) [$start...$end]{
-            _id,
-            title,
-            "slug": slug.current,
-            author->{
-                name,
-                "slug": slug.current
-            },
-            mainImage{
-                asset->{
-                    url
-                },
-                alt
-            },
-            publishedAt,
-            shortDescription,
-            categories[]->{
-                title,
-                "slug": slug.current
-            }
-        }`,
+      _id,
+      title,
+      "slug": slug.current,
+      author->{
+        name,
+        "slug": slug.current
+      },
+      mainImage{
+        asset->{
+          url
+        },
+        alt
+      },
+      publishedAt,
+      shortDescription,
+      categories[]->{
+        title,
+        "slug": slug.current
+      }
+    }`,
 		{ start, end: start + POSTS_PER_PAGE },
 	);
 
@@ -51,7 +48,7 @@ const PostsPage = async ({ searchParams }: Props) => {
 	}
 
 	return (
-		<main className='page-padding'>
+		<>
 			<div className='py-4 border-b'>
 				<h1 className='text-3xl font-bold'>
 					All Posts
@@ -109,6 +106,16 @@ const PostsPage = async ({ searchParams }: Props) => {
 					)}
 				</div>
 			)}
+		</>
+	);
+};
+
+const PostsPage = (props: Props) => {
+	return (
+		<main className='page-padding'>
+			<Suspense fallback={<div>Loading posts...</div>}>
+				<PostsList searchParams={props.searchParams} />
+			</Suspense>
 		</main>
 	);
 };

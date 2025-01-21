@@ -22,18 +22,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const POSTS_PER_PAGE = 10;
 
 export default async function AuthorPage(props: Props) {
-    const searchParams = await props.searchParams;
-    const params = await props.params;
-    // Await both params and searchParams concurrently
-    const [{ slug }, searchParamsData] = await Promise.all([
+	const searchParams = await props.searchParams;
+	const params = await props.params;
+
+	const [{ slug }, searchParamsData] = await Promise.all([
 		params,
 		searchParams,
 	]);
 
-    const page = Number(searchParamsData?.page) || 1;
-    const start = (page - 1) * POSTS_PER_PAGE;
+	const page = Number(searchParamsData?.page) || 1;
+	const start = (page - 1) * POSTS_PER_PAGE;
 
-    const author: Author | null = await client.fetch(
+	const author: Author | null = await client.fetch(
 		`*[_type == "author" && slug.current == $slug][0]{
       name,
       bio,
@@ -68,11 +68,11 @@ export default async function AuthorPage(props: Props) {
 		{ slug, start, end: start + POSTS_PER_PAGE },
 	);
 
-    if (!author) return <p>Author not found</p>;
+	if (!author) return <p>Author not found</p>;
 
-    const totalPages = Math.ceil(author.totalPosts / POSTS_PER_PAGE);
+	const totalPages = Math.ceil(author.totalPosts / POSTS_PER_PAGE);
 
-    return (
+	return (
 		<main className='page-padding'>
 			<BreadCrumb authorName={author.name} />
 
