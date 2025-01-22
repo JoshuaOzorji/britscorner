@@ -4,7 +4,6 @@ import { client } from "@/sanity/lib/client";
 import { Category } from "@/types";
 import { IoLocationOutline } from "react-icons/io5";
 import Link from "next/link";
-import { Suspense } from "react";
 
 const POSTS_PER_PAGE = 10;
 

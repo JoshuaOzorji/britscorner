@@ -20,7 +20,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const POSTS_PER_PAGE = 10;
-import React, { Suspense } from "react";
 
 const AuthorPage = async (props: Props) => {
 	const searchParams = await props.searchParams;

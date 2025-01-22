@@ -1,5 +1,3 @@
-import { Suspense } from "react";
-
 const PrivacyPage = () => {
 	return (
 		<main className='font-poppins w-full md:w-[70%]  text-sec privacy'>

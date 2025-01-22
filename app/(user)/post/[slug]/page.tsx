@@ -7,7 +7,6 @@ import Link from "next/link";
 import RelatedPosts from "@/components/RelatedPosts";
 import ShareLink from "@/components/ShareLink";
 import BreadCrumb from "@/components/BreadCrumb";
-import { Suspense } from "react";
 
 type Props = {
 	params: Promise<{ slug: string }>;
