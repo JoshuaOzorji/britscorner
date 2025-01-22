@@ -1,8 +1,9 @@
-import { Suspense } from "react";
-export default function AboutPage() {
+const AboutPage = () => {
 	return (
-		<Suspense fallback={<div>Loading...</div>}>
-			<main>The Default About Page</main>{" "}
-		</Suspense>
+		<main>
+			<div>The Default About Page</div>
+		</main>
 	);
-}
+};
+
+export default AboutPage;

@@ -4,6 +4,7 @@ import { getHomepageCategoriesQuery } from "@/lib/queries/query";
 import CategoryPosts from "@/components/CategoryPosts";
 import { Category } from "@/types";
 import AllPosts from "@/components/AllPosts";
+import { Suspense } from "react";
 
 const page = async () => {
 	const categoriesPosts = await client.fetch(getHomepageCategoriesQuery);
@@ -13,18 +14,26 @@ const page = async () => {
 	}
 
 	return (
-		<main>
-			<HeroMain />
-			<section className='py-8'>
-				{categoriesPosts.map((category: Category) => (
-					<CategoryPosts
-						key={category._id}
-						category={category}
-					/>
-				))}
-			</section>
-			<AllPosts />
-		</main>
+		<Suspense fallback={null}>
+			<main>
+				<HeroMain />
+				<section className='py-8'>
+					{categoriesPosts.map(
+						(category: Category) => (
+							<CategoryPosts
+								key={
+									category._id
+								}
+								category={
+									category
+								}
+							/>
+						),
+					)}
+				</section>
+				<AllPosts />
+			</main>
+		</Suspense>
 	);
 };
 

@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 
-export default function PrivacyPage() {
+const PrivacyPage = () => {
 	return (
-		<Suspense fallback={<div>Loading...</div>}>
+		<Suspense fallback={null}>
 			<main className='font-poppins w-full md:w-[70%]  text-sec privacy'>
 				<h1 className='text-lg font-bold md:text-xl'>
 					Privacy Policy for BlitsCorner
@@ -245,4 +245,6 @@ export default function PrivacyPage() {
 			</main>
 		</Suspense>
 	);
-}
+};
+
+export default PrivacyPage;

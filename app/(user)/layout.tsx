@@ -56,28 +56,22 @@ export default function RootLayout({
 		<html lang='en'>
 			<body
 				className={`${poppins.variable} ${gothic.variable} ${inconsolata.variable} ${josefin.variable} antialiased`}>
-				<ErrorBoundary fallback={<></>}>
-					<ProgressBar />
-				</ErrorBoundary>
-				<ScrollToTop />
-
-				<Suspense fallback={<div>Loading...</div>}>
-					<BaseLayout>
-						<Suspense
-							fallback={
-								<div>
-									Loading
-									content...
-								</div>
-							}>
-							<main>{children}</main>
-						</Suspense>
-						<Toaster
-							position='bottom-center'
-							reverseOrder={false}
-						/>
-					</BaseLayout>
+				<Suspense fallback={null}>
+					<ErrorBoundary fallback={<></>}>
+						<ProgressBar />
+					</ErrorBoundary>
+					<ScrollToTop />
 				</Suspense>
+
+				<BaseLayout>
+					<Suspense fallback={null}>
+						<main>{children}</main>
+					</Suspense>
+					<Toaster
+						position='bottom-center'
+						reverseOrder={false}
+					/>
+				</BaseLayout>
 			</body>
 		</html>
 	);

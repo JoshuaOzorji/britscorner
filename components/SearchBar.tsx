@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import Image from "next/legacy/image";
 import {
@@ -73,155 +73,196 @@ const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 	};
 
 	return (
-		<Sheet open={isOpen} onOpenChange={onClose}>
-			<SheetContent
-				side='top'
-				className='max-h-screen p-2 overflow-y-auto font-inconsolata md:p-4'>
-				<SheetHeader className='w-[94%] md:w-[90%] mx-auto'>
-					<SheetTitle className='flex flex-col items-center justify-center gap-4 w-[100%] md:w-[80%] mx-auto'>
-						<div className='relative flex items-center w-full gap-2 md:gap-4'>
-							<div className='relative w-full'>
-								<input
-									type='text'
-									value={
-										query
-									}
-									onChange={(
-										e,
-									) =>
-										setQuery(
-											e
-												.target
-												.value,
-										)
-									}
-									onKeyDown={(
-										e,
-									) => {
-										if (
-											e.key ===
-											"Enter"
-										) {
-											e.preventDefault();
-											handleSearch();
+		<Suspense fallback={null}>
+			<Sheet open={isOpen} onOpenChange={onClose}>
+				<SheetContent
+					side='top'
+					className='max-h-screen p-2 overflow-y-auto font-inconsolata md:p-4'>
+					<SheetHeader className='w-[94%] md:w-[90%] mx-auto'>
+						<SheetTitle className='flex flex-col items-center justify-center gap-4 w-[100%] md:w-[80%] mx-auto'>
+							<div className='relative flex items-center w-full gap-2 md:gap-4'>
+								<div className='relative w-full'>
+									<input
+										type='text'
+										value={
+											query
 										}
-									}}
-									placeholder='Search...'
-									className='w-full p-1.5 px-6 border-2 border-pry focus:outline-none'
-								/>
-								<button
-									onClick={
-										handleSearch
-									}
-									disabled={
-										loading
-									}
-									className='absolute text-gray-900 transform -translate-y-1/2 rounded-lg right-2 top-1/2 hover:bg-slate-300 bg-gray-900/10 animate'>
-									<CiSearch className='w-8 h-8 space-x-6' />
-								</button>
+										onChange={(
+											e,
+										) =>
+											setQuery(
+												e
+													.target
+													.value,
+											)
+										}
+										onKeyDown={(
+											e,
+										) => {
+											if (
+												e.key ===
+												"Enter"
+											) {
+												e.preventDefault();
+												handleSearch();
+											}
+										}}
+										placeholder='Search...'
+										className='w-full p-1.5 px-6 border-2 border-pry focus:outline-none'
+									/>
+									<button
+										onClick={
+											handleSearch
+										}
+										disabled={
+											loading
+										}
+										className='absolute text-gray-900 transform -translate-y-1/2 rounded-lg right-2 top-1/2 hover:bg-slate-300 bg-gray-900/10 animate'>
+										<CiSearch className='w-8 h-8 space-x-6' />
+									</button>
+								</div>
+
+								<SheetClose>
+									<TfiClose className='cursor-pointer h-7 w-7 animate' />
+								</SheetClose>
 							</div>
 
-							<SheetClose>
-								<TfiClose className='cursor-pointer h-7 w-7 animate' />
-							</SheetClose>
-						</div>
-
-						<div className='w-full px-2 mt-4 text-base md:text-lg'>
-							{loading && (
-								<p>
-									Loading...
-								</p>
-							)}
-							{error && (
-								<p className='text-red-500'>
-									{error}
-								</p>
-							)}
-
-							<div className='max-h-[400px] overflow-y-auto scrollBar'>
-								{/* Render Authors */}
-								{authors.length >
-									0 && (
-									<div className='mt-4'>
-										<h2 className='text-lg font-bold'>
-											Authors
-										</h2>
-										<div className='flex flex-wrap gap-4 mt-2'>
-											{authors.map(
-												(
-													author,
-												) => (
-													<div
-														key={
-															author._id
-														}
-														className='flex items-center gap-2'>
-														{author
-															.image
-															?.asset
-															.url && (
-															<Image
-																src={
-																	author
-																		.image
-																		.asset
-																		.url
-																}
-																alt={
-																	author.name
-																}
-																className='w-8 h-8 rounded-full'
-																width={
-																	48
-																}
-																height={
-																	48
-																}
-															/>
-														)}
-														<Link
-															href={`/author/${author.slug?.current}`}
-															onClick={
-																onClose
-															}>
-															<span className='underline text-sec hover:text-pry'>
-																{
-																	author.name
-																}
-															</span>
-														</Link>
-													</div>
-												),
-											)}
-										</div>
-									</div>
+							<div className='w-full px-2 mt-4 text-base md:text-lg'>
+								{loading && (
+									<p>
+										Loading...
+									</p>
+								)}
+								{error && (
+									<p className='text-red-500'>
+										{
+											error
+										}
+									</p>
 								)}
 
-								{/* Render Posts */}
-								{posts.length >
+								<div className='max-h-[400px] overflow-y-auto scrollBar'>
+									{/* Render Authors */}
+									{authors.length >
+										0 && (
+										<div className='mt-4'>
+											<h2 className='text-lg font-bold'>
+												Authors
+											</h2>
+											<div className='flex flex-wrap gap-4 mt-2'>
+												{authors.map(
+													(
+														author,
+													) => (
+														<div
+															key={
+																author._id
+															}
+															className='flex items-center gap-2'>
+															{author
+																.image
+																?.asset
+																.url && (
+																<Image
+																	src={
+																		author
+																			.image
+																			.asset
+																			.url
+																	}
+																	alt={
+																		author.name
+																	}
+																	className='w-8 h-8 rounded-full'
+																	width={
+																		48
+																	}
+																	height={
+																		48
+																	}
+																/>
+															)}
+															<Link
+																href={`/author/${author.slug?.current}`}
+																onClick={
+																	onClose
+																}>
+																<span className='underline text-sec hover:text-pry'>
+																	{
+																		author.name
+																	}
+																</span>
+															</Link>
+														</div>
+													),
+												)}
+											</div>
+										</div>
+									)}
+
+									{/* Render Posts */}
+									{posts.length >
+										0 && (
+										<div className='mt-4'>
+											<h2 className='text-lg font-bold'>
+												Posts
+											</h2>
+											<ul className='mt-2 list-none'>
+												{posts.map(
+													(
+														post,
+													) => (
+														<li
+															key={
+																post._id
+															}
+															className='mb-4'>
+															<Link
+																href={`/post/${post.slug.current}`}
+																onClick={
+																	onClose
+																}>
+																<p className='font-medium hover:underline'>
+																	{
+																		post.title
+																	}
+																</p>
+															</Link>
+														</li>
+													),
+												)}
+											</ul>
+										</div>
+									)}
+								</div>
+
+								{/* Render Related Results */}
+								{relatedResults.length >
 									0 && (
 									<div className='mt-4'>
 										<h2 className='text-lg font-bold'>
-											Posts
+											Related
+											Results
 										</h2>
 										<ul className='mt-2 list-none'>
-											{posts.map(
+											{relatedResults.map(
 												(
-													post,
+													result,
 												) => (
 													<li
 														key={
-															post._id
+															result._id
 														}
 														className='mb-4'>
 														<Link
-															href={`/post/${post.slug.current}`}
-															onClick={
-																onClose
-															}>
-															<p className='font-medium hover:underline'>
+															href={`/post/${result.slug.current}`}>
+															<p
+																className='font-medium hover:underline'
+																onClick={
+																	onClose
+																}>
 																{
-																	post.title
+																	result.title
 																}
 															</p>
 														</Link>
@@ -231,59 +272,22 @@ const SearchBar = ({ isOpen, onClose }: SearchBarProps) => {
 										</ul>
 									</div>
 								)}
+
+								{/* No Results Message */}
+								{message &&
+									!relatedResults.length && (
+										<p className='mt-4 text-gray-600'>
+											{
+												message
+											}
+										</p>
+									)}
 							</div>
-
-							{/* Render Related Results */}
-							{relatedResults.length >
-								0 && (
-								<div className='mt-4'>
-									<h2 className='text-lg font-bold'>
-										Related
-										Results
-									</h2>
-									<ul className='mt-2 list-none'>
-										{relatedResults.map(
-											(
-												result,
-											) => (
-												<li
-													key={
-														result._id
-													}
-													className='mb-4'>
-													<Link
-														href={`/post/${result.slug.current}`}>
-														<p
-															className='font-medium hover:underline'
-															onClick={
-																onClose
-															}>
-															{
-																result.title
-															}
-														</p>
-													</Link>
-												</li>
-											),
-										)}
-									</ul>
-								</div>
-							)}
-
-							{/* No Results Message */}
-							{message &&
-								!relatedResults.length && (
-									<p className='mt-4 text-gray-600'>
-										{
-											message
-										}
-									</p>
-								)}
-						</div>
-					</SheetTitle>
-				</SheetHeader>
-			</SheetContent>
-		</Sheet>
+						</SheetTitle>
+					</SheetHeader>
+				</SheetContent>
+			</Sheet>
+		</Suspense>
 	);
 };
 

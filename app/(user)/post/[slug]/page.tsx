@@ -7,6 +7,7 @@ import Link from "next/link";
 import RelatedPosts from "@/components/RelatedPosts";
 import ShareLink from "@/components/ShareLink";
 import BreadCrumb from "@/components/BreadCrumb";
+import { Suspense } from "react";
 
 type Props = {
 	params: Promise<{ slug: string }>;
@@ -58,82 +59,211 @@ const PostPage = async ({ params }: Props) => {
 
 	return (
 		<>
-			<main className='text-sec'>
-				<BreadCrumb
-					categories={post.categories.map(
-						(category) => ({
-							title: category.title,
-							slug: category.slug,
-						}),
-					)}
-					postTitle={post.title}
-				/>
-				<article className='prose'>
-					{/* <ClientViewUpdater
+			<Suspense fallback={null}>
+				<main className='text-sec'>
+					<BreadCrumb
+						categories={post.categories.map(
+							(category) => ({
+								title: category.title,
+								slug: category.slug,
+							}),
+						)}
+						postTitle={post.title}
+					/>
+					<article className='prose'>
+						{/* <ClientViewUpdater
 						postId={post._id}
 						initialViews={post.views ?? 0}
 					/> */}
 
-					<div className='my-5'>
-						{/* Post Categories */}
-						<div className='flex justify-center gap-2 my-4 font-bold font-inconsolata'>
-							{post.categories.map(
-								(category) => (
-									<Link
-										key={
-											category.title
-										}
-										href={`/category/${category.slug}`}>
-										<span className='px-3 py-1 text-xs border rounded-full md:text-sm bg-pry animate text-acc hover:bg-acc hover:text-sec hover:border-sec'>
-											{
+						<div className='my-5'>
+							{/* Post Categories */}
+							<div className='flex justify-center gap-2 my-4 font-bold font-inconsolata'>
+								{post.categories.map(
+									(
+										category,
+									) => (
+										<Link
+											key={
 												category.title
 											}
-										</span>
-									</Link>
-								),
-							)}
-						</div>
+											href={`/category/${category.slug}`}>
+											<span className='px-3 py-1 text-xs border rounded-full md:text-sm bg-pry animate text-acc hover:bg-acc hover:text-sec hover:border-sec'>
+												{
+													category.title
+												}
+											</span>
+										</Link>
+									),
+								)}
+							</div>
 
-						<h1 className='py-2 text-3xl font-extrabold text-left text-gray-800 capitalize md:text-center md:text-5xl font-poppins'>
-							{post.title}
-						</h1>
+							<h1 className='py-2 text-3xl font-extrabold text-left text-gray-800 capitalize md:text-center md:text-5xl font-poppins'>
+								{post.title}
+							</h1>
 
-						<div
-							className={`text-sm text-gray-700 font-josefin mx-auto md:w-[60%] p-2 my-3 ${
-								post.shortDescription &&
+							<div
+								className={`text-sm text-gray-700 font-josefin mx-auto md:w-[60%] p-2 my-3 ${
+									post.shortDescription &&
+									post
+										.shortDescription
+										.length >
+										0
+										? "border border-pry"
+										: ""
+								}`}>
+								{post.shortDescription &&
 								post
 									.shortDescription
 									.length >
-									0
-									? "border border-pry"
-									: ""
-							}`}>
-							{post.shortDescription &&
-							post.shortDescription
-								.length > 0 ? (
-								<ul className='pl-5 space-y-2 list-disc'>
-									{post.shortDescription.map(
-										(
-											item,
-											index,
-										) => (
-											<li
-												key={
-													index
-												}>
-												{
-													item
-												}
-											</li>
-										),
-									)}
-								</ul>
-							) : (
-								<p></p>
+									0 ? (
+									<ul className='pl-5 space-y-2 list-disc'>
+										{post.shortDescription.map(
+											(
+												item,
+												index,
+											) => (
+												<li
+													key={
+														index
+													}>
+													{
+														item
+													}
+												</li>
+											),
+										)}
+									</ul>
+								) : (
+									<p></p>
+								)}
+							</div>
+
+							<div className='justify-center hidden md:flex'>
+								<ShareLink
+									postUrl={`${baseUrl}/post/${post.slug.current}`}
+									postTitle={
+										post.title
+									}
+								/>
+							</div>
+
+							<div className='my-2 text-base font-josefin'>
+								<p>
+									By{" "}
+									{post
+										.author
+										?.name &&
+										post
+											.author
+											?.slug
+											?.current && (
+											<Link
+												href={`/author/${post.author.slug.current}`}>
+												<span className='text-pry hover:underline'>
+													{
+														post
+															.author
+															.name
+													}
+												</span>
+											</Link>
+										)}
+								</p>
+
+								{/* Post Published Date */}
+								<p>
+									Updated
+									On:{" "}
+									{new Date(
+										post.publishedAt,
+									).toDateString()}
+								</p>
+							</div>
+						</div>
+
+						<div className='relative h-[40vh] md:h-[65vh] w-full md:w-[86%] mx-auto'>
+							{post.mainImage?.asset
+								?.url && (
+								<Image
+									src={
+										post
+											.mainImage
+											.asset
+											.url
+									}
+									alt={
+										post
+											.mainImage
+											.alt ||
+										"Post image"
+									}
+									className='rounded-lg '
+									layout='fill'
+									objectFit='cover'
+									objectPosition='center'
+								/>
 							)}
 						</div>
 
-						<div className='justify-center hidden md:flex'>
+						<section className='w-full mx-auto md:w-[60%]'>
+							{/* Post Title */}
+
+							{/* Post Body */}
+							<div className='mt-6 font-poppins '>
+								{post.body && (
+									<PortableText
+										value={
+											post.body
+										}
+										components={
+											customSerializers
+										}
+									/>
+								)}
+							</div>
+
+							{/* Post Tags */}
+							{post.tags &&
+								post.tags
+									.length >
+									0 && (
+									<div className='flex flex-wrap items-center gap-2 mt-10 font-josefin'>
+										<span className='font-bold'>
+											TAGS:
+										</span>
+										{post.tags.map(
+											(
+												tag,
+											) => (
+												<span
+													key={
+														tag.name
+													}>
+													{tag.slug ? (
+														<Link
+															href={`/tag/${tag.slug}`}>
+															<span className='text-base underline capitalize text-pry hover:text-sec decoration-inherit'>
+																{
+																	tag.name
+																}
+															</span>
+														</Link>
+													) : (
+														<span className='text-base capitalize text-pry'>
+															{
+																tag.name
+															}
+														</span>
+													)}
+												</span>
+											),
+										)}
+									</div>
+								)}
+						</section>
+
+						<div className='flex justify-center my-8 border-y'>
 							<ShareLink
 								postUrl={`${baseUrl}/post/${post.slug.current}`}
 								postTitle={
@@ -141,143 +271,26 @@ const PostPage = async ({ params }: Props) => {
 								}
 							/>
 						</div>
+					</article>
 
-						<div className='my-2 text-base font-josefin'>
-							<p>
-								By{" "}
-								{post.author
-									?.name &&
-									post
-										.author
-										?.slug
-										?.current && (
-										<Link
-											href={`/author/${post.author.slug.current}`}>
-											<span className='text-pry hover:underline'>
-												{
-													post
-														.author
-														.name
-												}
-											</span>
-										</Link>
-									)}
-							</p>
-
-							{/* Post Published Date */}
-							<p>
-								Updated On:{" "}
-								{new Date(
-									post.publishedAt,
-								).toDateString()}
-							</p>
-						</div>
-					</div>
-
-					<div className='relative h-[40vh] md:h-[65vh] w-full md:w-[86%] mx-auto'>
-						{post.mainImage?.asset?.url && (
-							<Image
-								src={
-									post
-										.mainImage
-										.asset
-										.url
-								}
-								alt={
-									post
-										.mainImage
-										.alt ||
-									"Post image"
-								}
-								className='rounded-lg '
-								layout='fill'
-								objectFit='cover'
-								objectPosition='center'
-							/>
-						)}
-					</div>
-
-					<section className='w-full mx-auto md:w-[60%]'>
-						{/* Post Title */}
-
-						{/* Post Body */}
-						<div className='mt-6 font-poppins '>
-							{post.body && (
-								<PortableText
-									value={
-										post.body
-									}
-									components={
-										customSerializers
-									}
-								/>
-							)}
-						</div>
-
-						{/* Post Tags */}
-						{post.tags &&
-							post.tags.length >
-								0 && (
-								<div className='flex flex-wrap items-center gap-2 mt-10 font-josefin'>
-									<span className='font-bold'>
-										TAGS:
-									</span>
-									{post.tags.map(
-										(
-											tag,
-										) => (
-											<span
-												key={
-													tag.name
-												}>
-												{tag.slug ? (
-													<Link
-														href={`/tag/${tag.slug}`}>
-														<span className='text-base underline capitalize text-pry hover:text-sec decoration-inherit'>
-															{
-																tag.name
-															}
-														</span>
-													</Link>
-												) : (
-													<span className='text-base capitalize text-pry'>
-														{
-															tag.name
-														}
-													</span>
-												)}
-											</span>
-										),
-									)}
-								</div>
-							)}
-					</section>
-
-					<div className='flex justify-center my-8 border-y'>
-						<ShareLink
-							postUrl={`${baseUrl}/post/${post.slug.current}`}
-							postTitle={post.title}
+					<aside>
+						<RelatedPosts
+							tags={
+								post.tags
+									? post.tags.map(
+											(
+												tag,
+											) =>
+												tag.name,
+										)
+									: []
+							}
+							categories={categoryIds}
+							currentPostId={post._id}
 						/>
-					</div>
-				</article>
-
-				<aside>
-					<RelatedPosts
-						tags={
-							post.tags
-								? post.tags.map(
-										(
-											tag,
-										) =>
-											tag.name,
-									)
-								: []
-						}
-						categories={categoryIds}
-						currentPostId={post._id}
-					/>
-				</aside>
-			</main>
+					</aside>
+				</main>
+			</Suspense>
 		</>
 	);
 };

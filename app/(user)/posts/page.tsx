@@ -113,7 +113,7 @@ const PostsList = async ({ searchParams }: Props) => {
 const PostsPage = (props: Props) => {
 	return (
 		<main className='page-padding'>
-			<Suspense fallback={<div>Loading posts...</div>}>
+			<Suspense fallback={null}>
 				<PostsList searchParams={props.searchParams} />
 			</Suspense>
 		</main>
