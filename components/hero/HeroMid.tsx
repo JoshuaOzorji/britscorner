@@ -53,7 +53,7 @@ const HeroMid = async () => {
 							post.slug?.current ||
 							`fallback-${post._id}`
 						}>
-						<div className='flex flex-col items-center w-full gap-1 border-b group'>
+						<div className='flex flex-col items-center w-full gap-1 border-b pb-3 group'>
 							{post.mainImage?.asset
 								?.url && (
 								<div className='relative w-full h-[40vh] md:h-[50vh]'>
@@ -77,7 +77,7 @@ const HeroMid = async () => {
 									/>
 								</div>
 							)}
-							<section className='flex flex-col items-center gap-1 px-4 text-left md:text-center'>
+							<section className='flex flex-col items-center gap-1 px-1 text-left md:text-center'>
 								<div className='flex items-center gap-1 md:p-1'>
 									<MdPlayArrow className='w-3 h-3' />
 

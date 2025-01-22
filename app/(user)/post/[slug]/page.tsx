@@ -142,7 +142,7 @@ const PostPage = async ({ params }: Props) => {
 							/>
 						</div>
 
-						<div className='my-2 text-base font-josefin'>
+						<div className='my-2 text-[14px] md:text-base font-josefin space-y-1'>
 							<p>
 								By{" "}
 								{post.author
@@ -167,9 +167,11 @@ const PostPage = async ({ params }: Props) => {
 							{/* Post Published Date */}
 							<p>
 								Updated On:{" "}
-								{new Date(
-									post.publishedAt,
-								).toDateString()}
+								<span className='text-pry'>
+									{new Date(
+										post.publishedAt,
+									).toDateString()}
+								</span>
 							</p>
 						</div>
 					</div>

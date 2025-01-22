@@ -19,7 +19,7 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 		<div key={post._id}>
 			<div className='p-2'>
 				{post.mainImage?.asset?.url && (
-					<div className='relative w-full h-[30vh] md:h-[40vh] overflow-hidden rounded-lg'>
+					<div className='relative w-full h-[18vh] md:h-[40vh] overflow-hidden rounded-lg'>
 						<Image
 							src={
 								post.mainImage
