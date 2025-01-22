@@ -60,88 +60,81 @@ const CategoryPage = async (props: Props) => {
 	const totalPages = Math.ceil(category.totalPosts / POSTS_PER_PAGE);
 
 	return (
-		<Suspense fallback={null}>
-			<main className='page-padding'>
-				<BreadCrumb
-					categories={[
-						{
-							title: category.title,
-							slug,
-						},
-					]}
-				/>
+		<main className='page-padding'>
+			<BreadCrumb
+				categories={[
+					{
+						title: category.title,
+						slug,
+					},
+				]}
+			/>
 
-				<div className='py-4 border-b'>
-					<h1 className='text-2xl font-bold md:text-4xl font-poppins'>
-						{category.title} Category
-					</h1>
-					<span className='flex items-center gap-2 py-2 text-sec'>
-						<h4 className='text-xl font-josefin'>
-							{category.totalPosts}{" "}
-							posts
-						</h4>
-						<IoLocationOutline className='w-5 h-5' />
-					</span>
+			<div className='py-4 border-b'>
+				<h1 className='text-2xl font-bold md:text-4xl font-poppins'>
+					{category.title} Category
+				</h1>
+				<span className='flex items-center gap-2 py-2 text-sec'>
+					<h4 className='text-xl font-josefin'>
+						{category.totalPosts} posts
+					</h4>
+					<IoLocationOutline className='w-5 h-5' />
+				</span>
+			</div>
+
+			<div className='mt-4'>
+				<h2 className='mb-4 text-xl font-bold font-poppins'>
+					Posts in {category.title}
+				</h2>
+				<div className='postcard-container'>
+					{category.posts.map((post) => (
+						<PostCard
+							key={post._id}
+							post={post}
+						/>
+					))}
 				</div>
 
-				<div className='mt-4'>
-					<h2 className='mb-4 text-xl font-bold font-poppins'>
-						Posts in {category.title}
-					</h2>
-					<div className='postcard-container'>
-						{category.posts.map((post) => (
-							<PostCard
-								key={post._id}
-								post={post}
-							/>
+				{totalPages > 1 && (
+					<div className='flex justify-center gap-4 mt-8 text-xs md:text-sm font-poppins text-sec'>
+						{page > 1 && (
+							<Link
+								href={`/category/${slug}?page=${page - 1}`}
+								className='pagination-button'>
+								Prev
+							</Link>
+						)}
+
+						{Array.from(
+							{
+								length: totalPages,
+							},
+							(_, i) => i + 1,
+						).map((pageNum) => (
+							<Link
+								key={pageNum}
+								href={`/category/${slug}?page=${pageNum}`}
+								className={`pagination-button ${
+									pageNum ===
+									page
+										? "bg-pry text-white"
+										: "hover:bg-white hover:text-sec"
+								}`}>
+								{pageNum}
+							</Link>
 						))}
+
+						{page < totalPages && (
+							<Link
+								href={`/category/${slug}?page=${page + 1}`}
+								className='pagination-button'>
+								Next
+							</Link>
+						)}
 					</div>
-
-					{totalPages > 1 && (
-						<div className='flex justify-center gap-4 mt-8 text-xs md:text-sm font-poppins text-sec'>
-							{page > 1 && (
-								<Link
-									href={`/category/${slug}?page=${page - 1}`}
-									className='pagination-button'>
-									Prev
-								</Link>
-							)}
-
-							{Array.from(
-								{
-									length: totalPages,
-								},
-								(_, i) => i + 1,
-							).map((pageNum) => (
-								<Link
-									key={
-										pageNum
-									}
-									href={`/category/${slug}?page=${pageNum}`}
-									className={`pagination-button ${
-										pageNum ===
-										page
-											? "bg-pry text-white"
-											: "hover:bg-white hover:text-sec"
-									}`}>
-									{
-										pageNum
-									}
-								</Link>
-							))}
-
-							{page < totalPages && (
-								<Link
-									href={`/category/${slug}?page=${page + 1}`}
-									className='pagination-button'>
-									Next
-								</Link>
-							)}
-						</div>
-					)}
-				</div>
-			</main>
-		</Suspense>
+				)}
+			</div>
+		</main>
 	);
 };
 
