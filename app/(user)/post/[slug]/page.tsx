@@ -171,7 +171,7 @@ const PostPage = async ({ params }: Props) => {
 						</div>
 					</div>
 
-					<div className='relative h-[33vh] md:h-[63vh] w-full md:w-[86%] mx-auto'>
+					<div className='relative h-[30vh] md:h-[63vh] w-full md:w-[86%] mx-auto'>
 						{post.mainImage?.asset?.url && (
 							<Image
 								src={
@@ -195,10 +195,8 @@ const PostPage = async ({ params }: Props) => {
 					</div>
 
 					<section className='w-full mx-auto md:w-[60%]'>
-						{/* Post Title */}
-
 						{/* Post Body */}
-						<div className='mt-6 font-poppins '>
+						<div className='px-1 mt-6 md:px-0 font-poppins'>
 							{post.body && (
 								<PortableText
 									value={
