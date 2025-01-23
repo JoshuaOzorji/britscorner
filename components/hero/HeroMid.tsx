@@ -53,10 +53,10 @@ const HeroMid = async () => {
 							post.slug?.current ||
 							`fallback-${post._id}`
 						}>
-						<div className='flex flex-col items-center w-full gap-1 border-b pb-3 group'>
+						<div className='flex flex-col items-center w-full gap-1 pb-3 border-b group'>
 							{post.mainImage?.asset
 								?.url && (
-								<div className='relative w-full h-[40vh] md:h-[50vh]'>
+								<div className='relative w-full h-[33vh] md:h-[50vh]'>
 									<Image
 										src={
 											post

@@ -13,14 +13,19 @@ const Footer = () => {
 
 	return (
 		<Suspense fallback={null}>
-			<main className='pt-2 pb-1 border-t font-josefin text-sec'>
+			<main className='pt-2 pb-1 mt-8 border-t font-josefin text-sec'>
 				<div className='w-[94%] mx-auto text-center'>
-					<p className='text-sm font-semibold md:text-base'>
-						&copy;{currentYear}{" "}
+					<div className='flex items-center justify-center space-x-1'>
+						<p className='text-[10px]'>
+							&copy;{currentYear}{" "}
+						</p>
+
 						<Link href='/'>
-							BlitsCorner
+							<p className='text-sm font-semibold md:text-base'>
+								BlitsCorner
+							</p>
 						</Link>
-					</p>
+					</div>
 
 					<div className='flex items-center justify-center gap-4 text-xs md:text-sm'>
 						<Link href='/privacy-policy'>

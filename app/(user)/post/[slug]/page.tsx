@@ -69,11 +69,6 @@ const PostPage = async ({ params }: Props) => {
 					postTitle={post.title}
 				/>
 				<article className='prose'>
-					{/* <ClientViewUpdater
-						postId={post._id}
-						initialViews={post.views ?? 0}
-					/> */}
-
 					<div className='my-5'>
 						{/* Post Categories */}
 						<div className='flex justify-center gap-2 my-4 font-bold font-inconsolata'>
@@ -176,7 +171,7 @@ const PostPage = async ({ params }: Props) => {
 						</div>
 					</div>
 
-					<div className='relative h-[40vh] md:h-[65vh] w-full md:w-[86%] mx-auto'>
+					<div className='relative h-[33vh] md:h-[63vh] w-full md:w-[86%] mx-auto'>
 						{post.mainImage?.asset?.url && (
 							<Image
 								src={

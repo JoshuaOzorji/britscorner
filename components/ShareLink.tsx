@@ -15,11 +15,11 @@ const ShareLink = ({
 }) => {
 	// Social share URLs
 	const twitterShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(postTitle)}`;
-	// const facebookShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}&quote=${encodeURIComponent(postTitle)}`;
 
 	const facebookShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}&t=${encodeURIComponent(postTitle)}`;
 
-	const whatsappShare = `https://wa.me/?text=${encodeURIComponent(postTitle + " " + postUrl)}`; //TODO: add double linebreaks
+	const whatsappShare = `https://wa.me/?text=${encodeURIComponent(postTitle + "\n" + postUrl)}`;
+	//TODO: add double linebreaks
 
 	// Copy link handler
 	const copyLink = async () => {
