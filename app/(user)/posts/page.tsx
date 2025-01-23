@@ -49,7 +49,7 @@ const PostsList = async ({ searchParams }: Props) => {
 
 	return (
 		<>
-			<div className='py-4 border-b'>
+			<div className='py-2 border-b'>
 				<h1 className='text-3xl font-bold'>
 					All Posts
 				</h1>

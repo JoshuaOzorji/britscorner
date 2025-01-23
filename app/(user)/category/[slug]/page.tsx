@@ -69,7 +69,7 @@ const CategoryPage = async (props: Props) => {
 				]}
 			/>
 
-			<div className='py-4 border-b'>
+			<div className='py-2 border-b'>
 				<h1 className='text-2xl font-bold md:text-4xl font-poppins'>
 					{category.title} Category
 				</h1>

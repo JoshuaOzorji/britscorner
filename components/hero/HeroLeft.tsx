@@ -44,7 +44,7 @@ const HeroLeft = async () => {
 	}
 
 	return (
-		<div className='px-4 py-4 border-t md:border-t-0 md:border-r font-poppins'>
+		<div className='px-1 md:px-3 py-4 border-t md:border-t-0 md:border-r font-poppins'>
 			{featuredPosts.map((post, index) => (
 				<div
 					key={

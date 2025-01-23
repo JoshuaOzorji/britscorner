@@ -14,7 +14,7 @@ const BreadCrumb = ({
 	authorName,
 }: BreadCrumbProps) => {
 	return (
-		<nav className='my-3 text-[13px] font-medium text-sec font-inconsolata'>
+		<nav className='mb-3 text-[13px] font-medium text-sec font-inconsolata'>
 			<ul className='flex flex-wrap items-center gap-2'>
 				{/* Home */}
 				<li>

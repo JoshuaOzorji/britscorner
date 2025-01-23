@@ -43,7 +43,7 @@ const HeroRight = async () => {
 	}
 
 	return (
-		<div className='px-4 py-1 border-t md:border-t-0 md:border-l font-poppins'>
+		<div className='px-1 md:px-3 py-1 border-t md:border-t-0 md:border-l font-poppins'>
 			<h2 className='text-sm font-bold font-josefin'>
 				LATEST POSTS
 			</h2>

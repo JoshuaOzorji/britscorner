@@ -76,26 +76,34 @@ const AuthorPage = async (props: Props) => {
 		<main className='page-padding'>
 			<BreadCrumb authorName={author.name} />
 
-			<div className='pb-4 border-b'>
-				<div className='flex items-center gap-4 py-4'>
+			<div className='pb-2 border-b'>
+				<div className='flex items-center gap-4 py-2'>
 					{author.image?.asset?.url && (
-						<Image
-							src={
-								author.image
-									.asset
-									.url
-							}
-							alt={author.name}
-							className='object-cover w-16 h-16 rounded-full md:w-20 md:h-20'
-							width={96}
-							height={96}
-						/>
+						<div className='relative h-[10vh] w-[10vh] overflow-hidden md:h-[14vh] md:w-[14vh]'>
+							<Image
+								src={
+									author
+										.image
+										.asset
+										.url
+								}
+								alt={
+									author.name
+								}
+								className='rounded-full'
+								width={80}
+								height={80}
+								layout='fill'
+								objectFit='cover'
+								objectPosition='center'
+							/>
+						</div>
 					)}
 					<div>
-						<h1 className='text-2xl font-bold font-poppins'>
+						<h1 className='text-lg font-bold md:text-2xl font-poppins'>
 							{author.name}
 						</h1>
-						<p className='font-josefin text-sec'>
+						<p className='text-sm font-josefin text-sec md:text-base'>
 							{author.bio}
 						</p>
 					</div>

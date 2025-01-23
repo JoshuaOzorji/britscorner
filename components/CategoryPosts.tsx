@@ -17,7 +17,7 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 	// Function to render the first post layout
 	const renderFirstPost = (post: Post) => (
 		<div key={post._id}>
-			<div className='p-2'>
+			<div className='py-1'>
 				{post.mainImage?.asset?.url && (
 					<div className='relative w-full h-[18vh] md:h-[40vh] overflow-hidden rounded-lg'>
 						<Image
@@ -69,7 +69,7 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 	// Function to render layout for all other posts
 	const renderOtherPost = (post: Post) => (
 		<div key={post._id}>
-			<div className='p-2 bg-white border-b rounded-lg rounded-b group shadow-inherit'>
+			<div className='px-1 py-2 bg-white border-b rounded-lg rounded-b group shadow-inherit'>
 				<div className='relative w-full hidden md:block h-[17vh] overflow-hidden rounded-md'>
 					{post.mainImage?.asset?.url && (
 						<div className='w-full relative h-[22vh]'>
@@ -118,7 +118,7 @@ const CategoryPosts = ({ category }: CategoryPostsProps) => {
 	);
 
 	return (
-		<main className='p-2 mb-8 border rounded-lg category-section font-poppins'>
+		<main className='px-1 mb-8 border rounded-lg category-section font-poppins'>
 			<h2 className='text-xl font-bold'>
 				<ClientSideRoute href={`/category/${slug}`}>
 					<button className='px-4 mt-2 uppercase font-josefin text-pry'>
