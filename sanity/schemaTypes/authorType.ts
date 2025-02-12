@@ -16,6 +16,7 @@ export const authorType = defineType({
 			type: "slug",
 			options: {
 				source: "name",
+				maxLength: 96,
 			},
 		}),
 		defineField({
